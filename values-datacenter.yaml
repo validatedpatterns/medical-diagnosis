@@ -1,0 +1,94 @@
+global:
+  valuesDirectoryURL: https://github.com/dagger-refuse-cool/edge-gitops/raw/main/
+  options:
+    useCSV: False
+    syncPolicy: Automatic
+    installPlanApproval: Automatic
+
+site:
+  name: datacenter
+
+  namespaces:
+  - open-cluster-management
+  - application-ci
+
+  subscriptions:
+  - name: advanced-cluster-management
+    namespace: open-cluster-management
+    channel: release-2.3
+    csv: advanced-cluster-management.v2.3.2
+
+  - name: openshift-pipelines-operator-rh
+    csv: redhat-openshift-pipelines.v1.5.1
+
+  projects:
+  - datacenter
+ 
+  applications:
+  - name: acm
+    namespace: open-cluster-management
+    project: datacenter
+    path: common/acm
+    ignoreDifferences:
+    - group: internal.open-cluster-management.io
+      kind: ManagedClusterInfo
+      jsonPointers:
+      - /spec/loggingCA
+
+  - name: pipelines
+    namespace: application-ci
+    project: datacenter
+    path: charts/datacenter/pipelines
+
+
+#
+#  To have apps in multiple flavors, use namespaces and use helm overrides as appropriate
+#
+#  - name: pipelines
+#    namespace: testing
+#    project: datacenter
+#    path: applications/pipeline
+#    repoURL: https://github.com/you/applications.git
+#    targetRevision: main
+#    overrides:
+#    - name: test
+#      value: true 
+#  
+#  - name: pipelines
+#    namespace: staging
+#    project: datacenter
+#    path: applications/pipeline
+#    repoURL: https://github.com/you/applications.git
+#    targetRevision: main
+#  
+#   Additional applications
+#   Be sure to include additional resources your apps will require
+#   +X machines
+#   +Y RAM
+#   +Z CPU
+#  - name: vendor-app
+#    namespace: default
+#    project: vendor
+#    path: path/to/myapp
+#    repoURL: https://github.com/vendor/applications.git
+#    targetRevision: main
+
+  managedSites:
+  - name: edge
+    # Optional - Point to a different repo
+    # repoURL: https://github.com/dagger-refuse-cool/mySite.git
+    # Must contain values-{sitename}.yaml at the top level
+    targetRevision: main
+    helmOverrides:
+    # Values must be strings!
+    - name: site.isHubCluster
+      value: "false"
+    clusterSelector:
+#      matchLabels:
+#        site: factory
+      matchExpressions:
+      - key: vendor
+        operator: In
+        values:
+          - OpenShift
+
