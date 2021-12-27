@@ -1,0 +1,23 @@
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  name: "{{ .Values.bookbag.image_name }}"
+  namespace: "{{ .Values.bookbag.project.namespace }}"
+spec:
+  source:
+    git:
+      ref: "{{ .Values.bookbag.git.dev_revision }}"
+      uri: "{{ .Values.bookbag.git.repo }}"
+    type: Git
+  output:
+    to:
+      kind: ImageStreamTag
+      name: "{{ .Values.bookbag.image_name }}:latest"
+  strategy:
+    type: Docker
+    dockerStrategy:
+      from:
+        kind: DockerImage
+        name: "{{ .Values.bookbag.builder_image }}:{{ .Values.bookbag.builder_image_tag }}"
+  triggers:
+  - type: ConfigChange

@@ -1,0 +1,8 @@
+apiVersion: ceph.rook.io/v1
+kind: CephObjectStoreUser
+metadata:
+  name: xraylab-1
+  namespace: xraylab-1
+spec:
+  store: ocs-storagecluster-cephobjectstore
+  displayName: "XRaylab-1 RGW OCS User"

@@ -1,0 +1,4 @@
+
+xraylab:
+  imageServer: https://image-server-xraylab-1.apps.claudiol-xray.blueprints.rhecoeng.com
+  bucketBaseName: xraylab-1

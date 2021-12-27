@@ -1,0 +1,17 @@
+apiVersion: sources.knative.dev/v1beta1
+kind: KafkaSource
+metadata:
+  name: {{ .Values.global.xraylab.knative.kafkaSource.name }}
+  annotations:
+    argocd.argoproj.io/sync-options: Validate=false, SkipDryRunOnMissingResource=true
+spec:
+  consumerGroup: {{ .Values.global.xraylab.knative.kafkaSource.consumerGroup }}
+  bootstrapServers:
+    - {{ .Values.global.xraylab.knative.kafkaSource.bootstrapserver }}
+  topics:
+    - {{ .Values.global.xraylab.knative.kafkaSource.name }}
+  sink:
+    ref:
+      apiVersion: serving.knative.dev/v1
+      kind: Service
+      name: {{ .Values.global.xraylab.knative.kafkaSource.consumerGroup }}

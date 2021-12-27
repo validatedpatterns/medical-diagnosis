@@ -1,0 +1,103 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.deployment.name }}
+  namespace: {{ .Values.deployment.namespace }}
+spec:
+  replicas: {{ .Values.deployment.replicas }}
+  selector:
+    matchLabels:
+      deployment: {{ .Values.deployment.name }}
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        deployment: {{ .Values.deployment.name }}
+    spec:
+      restartPolicy: Always
+      serviceAccountName: {{ .Values.deployment.name }}
+      initContainers:
+      - name: setup-console
+        image: {{ .Values.deployment.image }}:{{ .Values.deployment.tag }}
+        command:
+        - /opt/workshop/bin/setup-console.sh
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+          limits:
+            cpu: 100m
+            memory: 128Mi
+        volumeMounts:
+        - name: shared
+          mountPath: /var/run/workshop
+      containers:
+      - name: terminal
+        image: {{ .Values.deployment.image }}:{{ .Values.deployment.tag }}
+        imagePullPolicy: Always
+        env:
+        - name: APPLICATION_NAME
+          value: {{ .Values.deployment.name }}
+        - name: AUTH_USERNAME
+          value: '*'
+        - name: CONSOLE_IMAGE
+          value: {{ .Values.deployment.consoleImage }}
+        - name: CONSOLE_BRANDING
+          value: {{ .Values.deployment.consoleBranding }}
+        - name: ROLE
+          value: admin
+        - name: CONSOLE_URL
+          value: http://0.0.0.0:10083
+        - name: OAUTH_SERVICE_ACCOUNT
+          value: {{ .Values.serviceAccount.name }}
+        - name: DOWNLOAD_URL
+        - name: WORKSHOP_FILE
+        - name: OC_VERSION
+        - name: ODO_VERSION
+        - name: KUBECTL_VERSION
+        #jrickard- name: WORKSHOP_VARS
+        #jrickard  value: {{ .Values.deployment.workshopVars  | toJson | quote }}
+        ports:
+        - containerPort: {{ .Values.service.port.ports }}
+          protocol: {{ .Values.service.port.protocol }}
+        resources:
+          requests:
+            cpu: 250m
+            memory: 512Mi
+          limits:
+            cpu: 250m
+            memory: 512Mi
+        volumeMounts:
+        - name: shared
+          mountPath: /var/run/workshop
+      - name: console
+        image: {{ .Values.deployment.consoleImage }}
+        command:
+        - /var/run/workshop/start-console.sh
+        env:
+        - name: BRIDGE_K8S_MODE
+          value: in-cluster
+        - name: BRIDGE_LISTEN
+          value: http://0.0.0.0:10083
+        - name: BRIDGE_BASE_PATH
+          value: /console/
+        - name: BRIDGE_PUBLIC_DIR
+          value: /opt/bridge/static
+        - name: BRIDGE_USER_AUTH
+          value: disabled
+        - name: BRIDGE_BRANDING
+          value: {{ .Values.deployment.consoleBranding }}
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+          limits:
+            cpu: 100m
+            memory: 128Mi
+        volumeMounts:
+        - name: shared
+          mountPath: /var/run/workshop
+      volumes:
+      - name: shared
+        emptyDir: {}

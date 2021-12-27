@@ -1,0 +1,8 @@
+apiVersion: project.openshift.io/v1
+kind: Project
+metadata:
+  name: "{{ .Values.bookbag.project.namespace }}"
+  annotations:
+    openshift.io/description: ""
+    openshift.io/display-name: "{{ .Values.bookbag.project.display }}"
+    openshift.io/requester: "{{ .Values.bookbag.project.ocp_username }}"

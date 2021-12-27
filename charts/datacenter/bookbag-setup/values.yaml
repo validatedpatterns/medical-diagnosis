@@ -1,0 +1,20 @@
+#
+# Bookbag Helm Char Values file
+#
+#ocp4_workload_bookbag_setup_git_repo
+#ocp4_workload_bookbag_setup_git_version: main
+#ocp4_workload_bookbag_setup_image_name: xraylab-bookbag
+#ocp4_workload_bookbag_setup_project: bookbag
+#ocp4_workload_bookbag_setup_project_display: Bookbag XRay Lab
+bookbag:
+  image_name: xraylab-bookbag
+  builder_image: quay.io/openshifthomeroom/workshop-dashboard
+  builder_image_tag: "5.0.0"
+  git:
+    repo: https://github.com/red-hat-data-services/xraylab-bookbag.git
+    dev_revision: main
+  project:
+    name: bookbag
+    namespace: bookbag
+    display: Bookbag XRay Lab
+    ocp_username: system:admin
