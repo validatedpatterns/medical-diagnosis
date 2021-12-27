@@ -1,6 +1,89 @@
 global:
-  valuesDirectoryURL: https://github.com/dagger-refuse-cool/edge-gitops/raw/main/
   options:
-    useCSV: True
+    useCSV: False
     syncPolicy: Manual
     installPlanApproval: Automatic
+
+  # XRay configuration for service-point config map
+  # Found in charts/datacenter/xraylab/templates
+  datacenter:
+    clustername: <CLUSTER-NAME> 
+    domain: <CLUSTER-DOMAIN> 
+
+  xraylab:
+    namespace: "xraylab-1"
+    xraydbhost: "xraylabdb"
+    xraydb: "xraylabdb"
+    ocsstorage:
+      serviceUrl: "http://rook-ceph-rgw-ocs-storagecluster-cephobjectstore.openshift-storage.svc.cluster.local"
+      externalUrl: "https://s3-rgw-openshift-storage.apps.<CLUSTER-NAME>.<CLUSTER-DOMAIN>"
+    ocs:
+      namespace: openshift-storage
+      mon:
+        requests:
+          cpu: 1
+          memory: 2Gi
+      mds:
+        requests:
+          cpu: 3
+          memory: 8Gi
+      mgr:
+        requests:
+          cpu: 1
+          memory: 3Gi
+      noobaacore:
+        requests:
+          cpu: 1
+          memory: 4Gi
+      noobaadb:
+        requests:
+          cpu: 1
+          memory: 4Gi
+      osd:
+        requests:
+          cpu: 2
+          memory: 5Gi
+          storage: 2Ti
+      storageClassName: gp2
+    knative:
+      operators:
+        - kind: "KnativeServing"
+          name: "knative-serving"
+          namespace: "knative-serving"
+        - kind: "KnativeEventing"
+          name: "knative-eventing"
+          namespace: "knative-eventing"
+        - kind: "KnativeKafka"
+          name: "knative-kafka"
+          namespace: "knative-eventing"
+      kafkaSource:
+        bootstrapserver: "xray-cluster-kafka-bootstrap.xraylab-1.svc:9092"
+        name: "xray-images"
+        consumerGroup: "risk-assessment"
+    kafka:
+      cluster:
+        name: "xray-cluster"
+        replicas: 3
+      app: "kafdrop"
+      service:
+        protocol: "TCP"
+        port: 9000
+        targetPort: 9000
+      route:
+        subdomain: "" 
+        weight: 100
+        wildcardPolicy: "None"
+      deployment:
+        image: "obsidiandynamics/kafdrop:latest"
+        replicas: 1
+        env:
+          - name: KAFKA_BROKERCONNECT
+            value: "xray-cluster-kafka-0.xray-cluster-kafka-brokers.xraylab-1.svc:9092"
+          - name: JVM_OPTS
+            value: "-Xms32M -Xmx64M"
+          - name: SERVER_SERVLET_CONTEXTPATH
+            value: "/"
+    s3:
+      bucketSource: "https://s3.<AWS-REGION>.amazonaws.com/<S3-BUCKET>"
+      bucketBaseName: "xraylab-1"
+

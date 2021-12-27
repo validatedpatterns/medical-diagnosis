@@ -1,5 +1,4 @@
 global:
-  valuesDirectoryURL: https://github.com/dagger-refuse-cool/edge-gitops/raw/main/
   options:
     useCSV: False
     syncPolicy: Automatic
@@ -8,9 +7,28 @@ global:
 site:
   name: datacenter
 
+  proposedOptions:
+    manageGitops: True
+    isHubCluster: True
+
   namespaces:
   - open-cluster-management
-  - application-ci
+  - openshift-serverless
+  - opendatahub
+  - openshift-storage
+  - xraylab-1
+  - bookbag
+  - bookbag-xraylab-1
+  - knative-serving
+#  - knative-eventing #jrickard - testing sync status
+  - staging
+  - vault
+
+  operatorgroupExcludes:
+    - operatorhub
+      #- knative-eventing
+      #- knative-serving
+    - knative-kafka
 
   subscriptions:
   - name: advanced-cluster-management
@@ -18,8 +36,30 @@ site:
     channel: release-2.3
     csv: advanced-cluster-management.v2.3.2
 
-  - name: openshift-pipelines-operator-rh
-    csv: redhat-openshift-pipelines.v1.5.1
+  - name: amq-streams
+    namespace: xraylab-1 
+    channel: amq-streams-1.7.x
+    csv: amqstreams.v1.7.1
+
+  - name: grafana-operator
+    namespace: xraylab-1 
+    channel: v4
+    source: community-operators
+    csv: grafana-operator.v3.10.3
+
+  - name: ocs-operator
+    namespace: openshift-storage
+    channel: stable-4.8
+    csv: ocs-operator.v4.8.3
+
+  - name: serverless-operator
+    channel: stable
+    csv: serverless-operator.v1.7.2
+
+  - name: opendatahub-operator
+    source: community-operators
+    csv: opendatahub-operator.v1.1.0
+
 
   projects:
   - datacenter
@@ -29,30 +69,103 @@ site:
     namespace: open-cluster-management
     project: datacenter
     path: common/acm
-    ignoreDifferences:
-    - group: internal.open-cluster-management.io
-      kind: ManagedClusterInfo
-      jsonPointers:
-      - /spec/loggingCA
 
-  - name: pipelines
-    namespace: application-ci
+  - name: odh
+    namespace: opendatahub
     project: datacenter
-    path: charts/datacenter/pipelines
+    path: charts/datacenter/opendatahub
 
+  - name: cephobjectstore
+    namespace: openshift-storage
+    project: datacenter
+    path: charts/datacenter/cephobjectstore
 
+  - name: knative
+    namespace: xraylab-1
+    project: datacenter
+    path: charts/datacenter/xraylab/knative
+
+  - name: demo
+    namespace: xraylab-1
+    project: datacenter
+    path: charts/datacenter/xraylab/demo
+
+  - name: bookbag-user
+    namespace: bookbag-xraylab-1
+    project: datacenter
+    path: charts/datacenter/bookbag-user
+    
+  - name: user
+    namespace: xraylab-1
+    project: datacenter
+    path: charts/datacenter/xraylab/user
+    
+  - name: kafka
+    namespace: xraylab-1
+    project: datacenter
+    path: charts/datacenter/xraylab/kafka
+
+  - name: kafkasource
+    namespace: xraylab-1
+    project: datacenter
+    path: charts/datacenter/xraylab/kafkasource
+
+  - name:  grafana
+    namespace: xraylab-1
+    project: datacenter
+    path: charts/datacenter/xraylab/grafana
+
+  - name:  imageserver
+    namespace: xraylab-1
+    project: datacenter
+    path: charts/datacenter/xraylab/image-server
+
+  - name:  imagegenerator
+    namespace: xraylab-1
+    project: datacenter
+    path: charts/datacenter/xraylab/image-generator
+    
+  - name: xraydb
+    namespace: xraylab-1
+    project: datacenter
+    path: charts/datacenter/xraylab/xraydb
+  
+  - name: hashivault
+    namespace: vault
+    project: datacenter
+    chart: vault
+    repoURL: https://helm.releases.hashicorp.com
+    targetRevision: 0.17.1
+    overrides:
+    - name: build.enabled
+      value: "false"
+      forceString: true
+    - name: deploy.route.tls.enabled
+      value: "true"
+      forceString: true
+    - name: global.openshift
+      value: "true"
+      forceString: true
+    - name: server.dev.enabled
+      value: "true"
+      forceString: true
+
+#  - name: kafka
+#    namespace: xraylab-1
+#    project: datacenter
+#    path: charts/datacenter/xraylab/kafka
 #
 #  To have apps in multiple flavors, use namespaces and use helm overrides as appropriate
 #
 #  - name: pipelines
-#    namespace: testing
+#    namespace: production
 #    project: datacenter
 #    path: applications/pipeline
 #    repoURL: https://github.com/you/applications.git
-#    targetRevision: main
+#    targetRevision: stable
 #    overrides:
-#    - name: test
-#      value: true 
+#    - name: myparam
+#      value: myparam 
 #  
 #  - name: pipelines
 #    namespace: staging
@@ -74,18 +187,14 @@ site:
 #    targetRevision: main
 
   managedSites:
-  - name: edge
-    # Optional - Point to a different repo
-    # repoURL: https://github.com/dagger-refuse-cool/mySite.git
-    # Must contain values-{sitename}.yaml at the top level
+  - name: factory
+    # repoURL: https://github.com/dagger-refuse-cool/manuela-factory.git
     targetRevision: main
+    path: applications/factory
     helmOverrides:
-    # Values must be strings!
     - name: site.isHubCluster
-      value: "false"
+      value: false
     clusterSelector:
-#      matchLabels:
-#        site: factory
       matchExpressions:
       - key: vendor
         operator: In
