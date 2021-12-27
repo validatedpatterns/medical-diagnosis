@@ -17,7 +17,8 @@ The Validated Pattern includes:
 
 This pipeline is showcased link: https://www.youtube.com/watch?v=zja83FVsm14[in this video].
 
-image::doc/dashboard.png[Pipeline dashboard]
+![Pipeline dashboard](image::doc/dashboard.png)
+
 
 This validated pattern is still being developed.  More to come in the next few weeks. Any questions or concerns
-please contact jrickard@redhat.com[Jonny Rickard] or claudiol@redhat.com[Lester Claudio].
+please contact [Jonny Rickard](jrickard@redhat.com)or [Lester Claudio](claudiol@redhat.com).
