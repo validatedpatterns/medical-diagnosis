@@ -1,4 +1,6 @@
-# Validated Pattern - XRay analysis automated pipeline
+# Medical Diagnosis Validated Pattern
+
+## XRay analysis automated pipeline
 
 This Validated Pattern is based on a demo implemetation of an automated data pipeline for chest Xray
 analysis previously developed by Red Hat.  The original demo can be found [here](https://github.com/red-hat-data-services/jumpstart-library]).
