@@ -1,4 +1,5 @@
 global:
+  pattern: xray
   options:
     useCSV: False
     syncPolicy: Manual
@@ -87,3 +88,5 @@ global:
       bucketSource: "https://s3.<AWS-REGION>.amazonaws.com/<S3-BUCKET>"
       bucketBaseName: "xraylab-1"
 
+main:
+  clusterGroupName: datacenter
