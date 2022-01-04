@@ -8,8 +8,8 @@ global:
   # XRay configuration for service-point config map
   # Found in charts/datacenter/xraylab/templates
   datacenter:
-    clustername: <CLUSTER-NAME> 
-    domain: <CLUSTER-DOMAIN> 
+    clustername: claudiol-xray
+    domain: blueprints.rhecoeng.com
 
   xraylab:
     namespace: "xraylab-1"
