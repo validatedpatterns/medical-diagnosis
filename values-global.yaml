@@ -85,7 +85,7 @@ global:
           - name: SERVER_SERVLET_CONTEXTPATH
             value: "/"
     s3:
-      bucketSource: "https://s3.<AWS-REGION>.amazonaws.com/<S3-BUCKET>"
+      bucketSource: "https://s3.us-west-1.amazonaws.com/com.redhat.claudiol.xray-source"
       bucketBaseName: "xraylab-1"
 
 main:
