@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 # Function log
 # Arguments:
 #   $1 are for the options for echo
@@ -57,21 +56,6 @@ if [ $? == 0 ]; then
     echo "done"
 fi
 
-#
-# bookbag Service Account in the bookbag-xraylab-1
-#
-log -n "Creating bookbag Service Account ... "
-oc create sa bookbag -n bookbag-xraylab-1
-if [ $? == 0 ]; then
-    echo "done"
-fi
-
-log -n "Adding cluster role for bookbag Service Account ... "
-oc adm policy add-cluster-role-to-user cluster-admin -z bookbag -n bookbag-xraylab-1 > /dev/null 2>&1 
-if [ $? == 0 ]; then
-    echo "done"
-fi
-
 log -n "Running Bookbag Helm Chart ... "
 
 helm template Bookbag charts/datacenter/bookbag-user > /dev/null 2>&1
@@ -108,15 +92,14 @@ helm template . -f ../../../../values-global.yaml > /tmp/grafana.yaml
 if [ $? == 0 ]; then
     echo "Done"
 fi
-cd -
+cd - > /dev/null 2>&1 
 
 log -n "Applying  grafana manifests ... "
-oc apply -f /tmp/grafana.yaml
+oc apply -f /tmp/grafana.yaml > /dev/null 2>&1
 if [ $? == 0 ]; then
     echo "Done"
     rm -r /tmp/grafana.yaml
 fi
-
 
 log -n "Retrieving grafana service account secret ... "
 # Make sure we are in xraylab-1
@@ -142,7 +125,7 @@ else
 fi
 
 log -n "Applying prometheus manifests ... "
-oc apply -f /tmp/prometheus.yaml
+oc apply -f /tmp/prometheus.yaml > /dev/null 2>&1
 if [ $? == 0 ]; then
     echo "Done"
     rm -r /tmp/prometheus.yaml
@@ -154,7 +137,7 @@ helm template OCSTemplate . | oc apply -f - > /dev/null 2>&1
 if [ $? == 0 ]; then
     echo "done"
 fi
-cd -
+cd - > /dev/null 2>&1
 
 POD=""
 COUNTER=0
@@ -215,8 +198,11 @@ helm template . --values ../../../../values-global.yaml  | oc apply -f - > /dev/
 if [ $? == 0 ]; then
     echo "done"
 fi
-cd -
+cd - > /dev/null 2>&1
 
+#
+# This section is to check that all the pods in openshift-storage are running
+#
 let PODS=0
 let COUNTER=0
 let WORKERS=$(oc get nodes | grep -i worker | wc -l)
@@ -247,98 +233,98 @@ do
 
     # First check cephfsplugin pods
     if [ $FSCHECK -eq 0 ]; then
-	FSPODS=$(oc get pods -n openshift-storage | grep csi-cephfsplugin | grep -v provisioner | wc -l)
+	FSPODS=$(oc get pods -n openshift-storage | grep csi-cephfsplugin | grep -v provisioner | grep Running | wc -l)
 	if [ $FSPODS -eq $NUMCEPHFSPLUGINS ]; then
-	    echo "cephfsplugin pods checked"
+	    echo "\ncephfsplugin pods checked [$FSPODS]"
 	    FSCHECK=1
 	fi
     fi
 
     # Check number of provisioners
     if [ $PROVCHECK -eq 0 ]; then
-	PROVPODS=$(oc get pods -n openshift-storage | grep csi-cephfsplugin | grep provisioner | wc -l)
+	PROVPODS=$(oc get pods -n openshift-storage | grep csi-cephfsplugin | grep provisioner | grep Running | wc -l)
 	if [ $PROVPODS -eq 2 ]; then
-	    echo "cephfsplugin provisioner pods checked"
+	    echo "cephfsplugin provisioner pods checked [$PROVPODS]"
 	    PROVCHECK=1
 	fi
     fi
 
     # Check number of RDB plugins
     if [ $RDBCHECK -eq 0 ]; then
-	RDBPODS=$(oc get pods -n openshift-storage | grep csi-cephfsplugin | grep -v provisioner | wc -l)
+	RDBPODS=$(oc get pods -n openshift-storage | grep csi-cephfsplugin | grep -v provisioner | grep Running | wc -l)
 	if [ $RDBPODS -eq $NUMRDBPLUGINS ]; then
-	    echo "rdbplugins pods checked"
+	    echo "rdbplugins pods checked [$RDBPODS]"
 	    RDBCHECK=1
 	fi
     fi
 
     # Check number of RDB plugins
     if [ $RDBPROVCHECK -eq 0 ]; then
-	RDBPROVPODS=$(oc get pods -n openshift-storage | grep csi-cephfsplugin | grep provisioner | wc -l)
+	RDBPROVPODS=$(oc get pods -n openshift-storage | grep csi-cephfsplugin | grep provisioner | grep Running | wc -l)
 	if [ $RDBPROVPODS -eq 2 ]; then
-	    echo "rdb provisioner plugins pods checked"
+	    echo "rdb provisioner plugins pods checked [$RDBPROVPODS]"
 	    RDBPROVCHECK=1
 	fi
     fi
     
     # Check number of NOOBA pods
     if [ $NOOBACHECK -eq 0 ]; then
-	NOOBAPODS=$(oc get pods -n openshift-storage | grep nooba | wc -l)
+	NOOBAPODS=$(oc get pods -n openshift-storage | grep nooba | grep Running | wc -l)
 	if [ $NOOBAPODS -eq 4 ]; then
-	    echo "nooba pods checked"
+	    echo "nooba pods checked [$NOOBAPODS]"
 	    NOOBACHECK=1
 	fi
     fi
 
     # Check number of OCS pods
     if [ $OCSCHECK -eq 0 ]; then
-	OCSPODS=$(oc get pods -n openshift-storage | grep ^ocs | wc -l)
+	OCSPODS=$(oc get pods -n openshift-storage | grep ^ocs | grep Running | wc -l)
 	if [ $OCSPODS -eq 2 ]; then
-	    echo "ocs pods checked"
+	    echo "ocs pods checked [$OCSPODS]"
 	    OCSCHECK=1
 	fi
     fi
 
     # Check number of MON pods
     if [ $MONCHECK -eq 0 ]; then
-	MONPODS=$(oc get pods -n openshift-storage | grep rook-ceph-mon | wc -l)
+	MONPODS=$(oc get pods -n openshift-storage | grep rook-ceph-mon | grep Running | wc -l)
 	if [ $MONPODS -eq 3 ]; then
-	    echo "rook-ceph-mon pods checked"
+	    echo "rook-ceph-mon pods checked [$MONPODS]"
 	    MONCHECK=1
 	fi
     fi
 
     # Check number of crashcollector pods
     if [ $CRSHCHECK -eq 0 ]; then
-	CRSHPODS=$(oc get pods -n openshift-storage | grep rook-ceph-crashcollector | wc -l)
+	CRSHPODS=$(oc get pods -n openshift-storage | grep rook-ceph-crashcollector | grep Running | wc -l)
 	if [ $CRSHPODS -eq $(($WORKERS-1)) ]; then
-	    echo "rook-ceph-crashcollector pods checked"
+	    echo "rook-ceph-crashcollector pods checked [$CRSHPODS]"
 	    CRSHCHECK=1
 	fi
     fi
     # Check number of OCS pods
     if [ $ROOKOCSCHECK -eq 0 ]; then
-	ROOKOCSPODS=$(oc get pods -n openshift-storage | grep ocs-storagecluster-cephfilesystem- | wc -l)
+	ROOKOCSPODS=$(oc get pods -n openshift-storage | grep ocs-storagecluster-cephfilesystem- | grep Running | wc -l)
 	if [ $ROOKOCSPODS -eq 2 ]; then
-	    echo "ocs-storagecluster-cephfilesystem- pods checked"
+	    echo "ocs-storagecluster-cephfilesystem- pods checked [$ROOKOCSPODS]"
 	    ROOKOCSCHECK=1
 	fi
     fi
     # Check number of OSD pods
     if [ $OSDCHECK -eq 0 ]; then
 	NUMOSDDEVS=$(oc get pods -n openshift-storage | grep rook-ceph-osd-prepare-ocs- | wc -l)
-	OSDPODS=$(oc get pods -n openshift-storage | grep rook-ceph-osd- | grep -v prepare | wc -l)
-	if [ $OSDPODS -eq $NUMOSDDEVS  ]; then
-	    echo "rook-ceph-osd pods checked"
+	OSDPODS=$(oc get pods -n openshift-storage | grep rook-ceph-osd- | grep -v prepare | grep Running | wc -l)
+	if [ $NUMOSDDEVS -ne 0 ] && [ $OSDPODS -eq $NUMOSDDEVS  ]; then
+	    echo "rook-ceph-osd pods checked [$OSDPODS]"
 	    OSDCHECK=1
 	fi
     fi
     
-    # Check number of OSD pods
+    # Check number of MGR pods
     if [ $MGRCHECK -eq 0 ]; then
 	MGRPODS=$(oc get pods -n openshift-storage | grep rook-ceph-mgr- | wc -l)
 	if [ $MGRPODS -eq 1  ]; then
-	    echo "rook-ceph-osd pods checked"
+	    echo "rook-ceph-mgr pods checked [$MGRPODS]"
 	    MGRCHECK=1
 	fi
     fi
