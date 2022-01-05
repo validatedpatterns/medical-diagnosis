@@ -21,7 +21,7 @@ This pipeline is showcased [in this video](https://www.youtube.com/watch?v=zja83
 
 ![Pipeline dashboard](doc/dashboard.png)
 
-[![asciicast](hhttps://github.com/claudiol/medical-diagnosis/blob/claudiol-xray-deployment/doc/xray-deployment.cast)](https://github.com/claudiol/medical-diagnosis/blob/claudiol-xray-deployment/doc/xray-deployment.cast)
+[![asciicast](https://github.com/claudiol/medical-diagnosis/blob/claudiol-xray-deployment/doc/xray-deployment.cast)](https://github.com/claudiol/medical-diagnosis/blob/claudiol-xray-deployment/doc/xray-deployment.cast)
 
 This validated pattern is still being developed.  More to come in the next few weeks. Any questions or concerns
 please contact [Jonny Rickard](jrickard@redhat.com) or [Lester Claudio](claudiol@redhat.com).
