@@ -1,4 +1,5 @@
 global:
+  pattern: xray
   options:
     useCSV: False
     syncPolicy: Manual
@@ -7,8 +8,8 @@ global:
   # XRay configuration for service-point config map
   # Found in charts/datacenter/xraylab/templates
   datacenter:
-    clustername: <CLUSTER-NAME> 
-    domain: <CLUSTER-DOMAIN> 
+    clustername: claudiol-xray
+    domain: blueprints.rhecoeng.com
 
   xraylab:
     namespace: "xraylab-1"
@@ -16,7 +17,7 @@ global:
     xraydb: "xraylabdb"
     ocsstorage:
       serviceUrl: "http://rook-ceph-rgw-ocs-storagecluster-cephobjectstore.openshift-storage.svc.cluster.local"
-      externalUrl: "https://s3-rgw-openshift-storage.apps.<CLUSTER-NAME>.<CLUSTER-DOMAIN>"
+      externalUrl: "https://s3-rgw-openshift-storage.apps.claudiol-xray.blueprints.rhecoeng.com"
     ocs:
       namespace: openshift-storage
       mon:
@@ -84,6 +85,8 @@ global:
           - name: SERVER_SERVLET_CONTEXTPATH
             value: "/"
     s3:
-      bucketSource: "https://s3.<AWS-REGION>.amazonaws.com/<S3-BUCKET>"
+      bucketSource: "https://s3.us-west-1.amazonaws.com/com.redhat.claudiol.xray-source"
       bucketBaseName: "xraylab-1"
 
+main:
+  clusterGroupName: datacenter

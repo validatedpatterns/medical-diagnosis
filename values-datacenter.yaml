@@ -4,7 +4,7 @@ global:
     syncPolicy: Automatic
     installPlanApproval: Automatic
 
-site:
+clusterGroup:
   name: datacenter
 
   proposedOptions:
@@ -23,6 +23,7 @@ site:
 #  - knative-eventing #jrickard - testing sync status
   - staging
   - vault
+  - medical-diagnosis-datacenter
 
   operatorgroupExcludes:
     - operatorhub
