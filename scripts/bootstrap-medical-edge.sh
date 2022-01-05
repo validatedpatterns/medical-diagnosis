@@ -217,6 +217,138 @@ if [ $? == 0 ]; then
 fi
 cd -
 
+let PODS=0
+let COUNTER=0
+let WORKERS=$(oc get nodes | grep -i worker | wc -l)
+let NUMCEPHFSPLUGINS=$((1*$WORKERS)) # 1 per worker
+let NUMRDBPLUGINS=$((1*$WORKERS)) # 1 per worker
+let FSCHECK=0
+let PROVCHECK=0
+let RDBCHECK=0
+let RDBPROVCHECK=0
+let OCSCHECK=0
+let ROOKOCSCHECK=0
+let NOOBACHECK=0
+let MONCHECK=0
+let MGRCHECK=0
+let MDSCHECK=0
+let CRSHCHECK=0
+let OSDCHECK=0
+
+while ( true )
+do
+    log -n "Make sure that all pods in openshift-storage are running ... "
+    let COUNTER++
+    sleep 3
+    if [ $COUNTER == 1000 ]; then
+	echo " request timed out"
+	break
+    fi
+
+    # First check cephfsplugin pods
+    if [ $FSCHECK -eq 0 ]; then
+	FSPODS=$(oc get pods -n openshift-storage | grep csi-cephfsplugin | grep -v provisioner | wc -l)
+	if [ $FSPODS -eq $NUMCEPHFSPLUGINS ]; then
+	    echo "cephfsplugin pods checked"
+	    FSCHECK=1
+	fi
+    fi
+
+    # Check number of provisioners
+    if [ $PROVCHECK -eq 0 ]; then
+	PROVPODS=$(oc get pods -n openshift-storage | grep csi-cephfsplugin | grep provisioner | wc -l)
+	if [ $PROVPODS -eq 2 ]; then
+	    echo "cephfsplugin provisioner pods checked"
+	    PROVCHECK=1
+	fi
+    fi
+
+    # Check number of RDB plugins
+    if [ $RDBCHECK -eq 0 ]; then
+	RDBPODS=$(oc get pods -n openshift-storage | grep csi-cephfsplugin | grep -v provisioner | wc -l)
+	if [ $RDBPODS -eq $NUMRDBPLUGINS ]; then
+	    echo "rdbplugins pods checked"
+	    RDBCHECK=1
+	fi
+    fi
+
+    # Check number of RDB plugins
+    if [ $RDBPROVCHECK -eq 0 ]; then
+	RDBPROVPODS=$(oc get pods -n openshift-storage | grep csi-cephfsplugin | grep provisioner | wc -l)
+	if [ $RDBPROVPODS -eq 2 ]; then
+	    echo "rdb provisioner plugins pods checked"
+	    RDBPROVCHECK=1
+	fi
+    fi
+    
+    # Check number of NOOBA pods
+    if [ $NOOBACHECK -eq 0 ]; then
+	NOOBAPODS=$(oc get pods -n openshift-storage | grep nooba | wc -l)
+	if [ $NOOBAPODS -eq 4 ]; then
+	    echo "nooba pods checked"
+	    NOOBACHECK=1
+	fi
+    fi
+
+    # Check number of OCS pods
+    if [ $OCSCHECK -eq 0 ]; then
+	OCSPODS=$(oc get pods -n openshift-storage | grep ^ocs | wc -l)
+	if [ $OCSPODS -eq 2 ]; then
+	    echo "ocs pods checked"
+	    OCSCHECK=1
+	fi
+    fi
+
+    # Check number of MON pods
+    if [ $MONCHECK -eq 0 ]; then
+	MONPODS=$(oc get pods -n openshift-storage | grep rook-ceph-mon | wc -l)
+	if [ $MONPODS -eq 3 ]; then
+	    echo "rook-ceph-mon pods checked"
+	    MONCHECK=1
+	fi
+    fi
+
+    # Check number of crashcollector pods
+    if [ $CRSHCHECK -eq 0 ]; then
+	CRSHPODS=$(oc get pods -n openshift-storage | grep rook-ceph-crashcollector | wc -l)
+	if [ $CRSHPODS -eq $(($WORKERS-1)) ]; then
+	    echo "rook-ceph-crashcollector pods checked"
+	    CRSHCHECK=1
+	fi
+    fi
+    # Check number of OCS pods
+    if [ $ROOKOCSCHECK -eq 0 ]; then
+	ROOKOCSPODS=$(oc get pods -n openshift-storage | grep ocs-storagecluster-cephfilesystem- | wc -l)
+	if [ $ROOKOCSPODS -eq 2 ]; then
+	    echo "ocs-storagecluster-cephfilesystem- pods checked"
+	    ROOKOCSCHECK=1
+	fi
+    fi
+    # Check number of OSD pods
+    if [ $OSDCHECK -eq 0 ]; then
+	NUMOSDDEVS=$(oc get pods -n openshift-storage | grep rook-ceph-osd-prepare-ocs- | wc -l)
+	OSDPODS=$(oc get pods -n openshift-storage | grep rook-ceph-osd- | grep -v prepare | wc -l)
+	if [ $OSDPODS -eq $NUMOSDDEVS  ]; then
+	    echo "rook-ceph-osd pods checked"
+	    OSDCHECK=1
+	fi
+    fi
+    
+    # Check number of OSD pods
+    if [ $MGRCHECK -eq 0 ]; then
+	MGRPODS=$(oc get pods -n openshift-storage | grep rook-ceph-mgr- | wc -l)
+	if [ $MGRPODS -eq 1  ]; then
+	    echo "rook-ceph-osd pods checked"
+	    MGRCHECK=1
+	fi
+    fi
+
+    if [ $FSCHECK -eq 1 ] && [ $PROVCHECK -eq 1 ] && [ $RDBCHECK -eq 1 ] && [ $RDBPROVCHECK -eq 1 ] && [ $OCSCHECK -eq 1 ] && [ $ROOKOCSCHECK -eq 1 ] && [ $NOOBACHECK -eq 1 ] && [ $MONCHECK -eq 1 ] && [ $MGRCHECK -eq 1 ] && [ $CRSHCHECK -eq 1 ] && [ $OSDCHECK -eq 1 ]; then
+	echo "OCS check done"
+	break
+    fi
+done
+
 while ( true )
 do
     log -n "Creating S3 user account ... "
