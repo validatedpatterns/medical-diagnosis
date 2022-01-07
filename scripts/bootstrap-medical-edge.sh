@@ -56,13 +56,6 @@ if [ $? == 0 ]; then
     echo "done"
 fi
 
-log -n "Running Bookbag Helm Chart ... "
-
-helm template Bookbag charts/datacenter/bookbag-user > /dev/null 2>&1
-
-if [ $? == 0 ]; then
-    echo "done"
-fi
 #
 # Check for the Grafana Service Account to be created
 #
@@ -101,11 +94,19 @@ if [ $? == 0 ]; then
     rm -r /tmp/grafana.yaml
 fi
 
-log -n "Retrieving grafana service account secret ... "
-# Make sure we are in xraylab-1
-oc project xraylab-1 > /dev/null 2>&1
-SATOKEN=$(oc serviceaccounts get-token grafana-serviceaccount)
-echo "done"
+while ( true )
+do
+    log -n "Retrieving grafana service account secret ... "
+    # Make sure we are in xraylab-1
+    oc project xraylab-1 > /dev/null 2>&1
+    SATOKEN=$(oc serviceaccounts get-token grafana-serviceaccount)
+    if [ $? == 0 ]; then
+	echo "done"
+	break
+    else
+	sleep 2
+    fi
+done
 #
 #  Still not sure how we will be able to apply this token to the grafana/prometheus-datasource.yaml manifest
 #  One idea is to add the token to the ~/values-secret.yaml, run helm template and then oc apply the manifest.
@@ -323,7 +324,7 @@ do
     # Check number of MGR pods
     if [ $MGRCHECK -eq 0 ]; then
 	MGRPODS=$(oc get pods -n openshift-storage | grep rook-ceph-mgr- | wc -l)
-	if [ $MGRPODS -eq 1  ]; then
+	if [ $MGRPODS -eq 1 ]; then
 	    echo "rook-ceph-mgr pods checked [$MGRPODS]"
 	    MGRCHECK=1
 	fi
