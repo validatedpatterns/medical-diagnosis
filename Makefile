@@ -19,7 +19,7 @@ ifeq ($(BOOTSTRAP),1)
 	make bootstrap
 endif
 
-upgrade: upgrade
+update: upgrade
 ifeq ($(BOOTSTRAP),1)
 	echo "Bootstrapping Medical Diagnosis Pattern"
 	make bootstrap

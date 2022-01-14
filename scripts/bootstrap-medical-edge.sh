@@ -236,7 +236,7 @@ do
     if [ $FSCHECK -eq 0 ]; then
 	FSPODS=$(oc get pods -n openshift-storage | grep csi-cephfsplugin | grep -v provisioner | grep Running | wc -l)
 	if [ $FSPODS -eq $NUMCEPHFSPLUGINS ]; then
-	    echo "\ncephfsplugin pods checked [$FSPODS]"
+	    echo "cephfsplugin pods checked [$FSPODS]"
 	    FSCHECK=1
 	fi
     fi
