@@ -2,11 +2,15 @@ global:
   pattern: xray
   options:
     useCSV: False
-    syncPolicy: Manual
+    syncPolicy: Automatic
     installPlanApproval: Automatic
 
   # XRay configuration for service-point config map
   # Found in charts/datacenter/xraylab/templates
+  #   datacenter:
+  #     clustername: <cluster-name>
+  #     domain: <domain>
+
   datacenter:
     clustername: claudiol-xray
     domain: blueprints.rhecoeng.com
@@ -16,8 +20,15 @@ global:
     xraydbhost: "xraylabdb"
     xraydb: "xraylabdb"
     ocsstorage:
+      # Internal OpenShift service name. Do not change.
       serviceUrl: "http://rook-ceph-rgw-ocs-storagecluster-cephobjectstore.openshift-storage.svc.cluster.local"
+      # External URL for Rados Gateway
+      # Replace the <cluster-name> and <domain> to your openshift cluster values
+      #       externalUrl: "https://s3-rgw-openshift-storage.apps.<cluster-name>.<domain>"
       externalUrl: "https://s3-rgw-openshift-storage.apps.claudiol-xray.blueprints.rhecoeng.com"
+      # Backing store for ODF
+      # This will be your S3 bucket name on AWS
+      targetBucket: com.redhat.claudiol.xray-source
     ocs:
       namespace: openshift-storage
       mon:
@@ -85,7 +96,12 @@ global:
           - name: SERVER_SERVLET_CONTEXTPATH
             value: "/"
     s3:
+      # Values for S3 bucket access
+      # Replace <region> with AWS region where S3 bucket was created
+      # Replace <cluster-name> and <domain> with your OpenShift clsuter values
+      # bucketSource: "https://s3.<region>.amazonaws.com/com.redhat.claudiol.xray-source"
       bucketSource: "https://s3.us-west-1.amazonaws.com/com.redhat.claudiol.xray-source"
+      # Bucket base name used for xray images
       bucketBaseName: "xraylab-1"
 
 main:
