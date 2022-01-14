@@ -134,7 +134,7 @@ fi
 
 log -n "Setting up OCS ... "
 cd charts/datacenter/cephobjectstore
-helm template OCSTemplate . | oc apply -f - > /dev/null 2>&1
+helm template OCSTemplate . --values ../../../values-global.yaml | oc apply -f - > /dev/null 2>&1
 if [ $? == 0 ]; then
     echo "done"
 fi
