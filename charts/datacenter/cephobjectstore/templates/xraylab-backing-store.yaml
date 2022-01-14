@@ -13,7 +13,7 @@ spec:
     secret:
       name: noobaa-aws-cloud-creds-secret
       namespace: openshift-storage
-    targetBucket: com.redhat.claudiol.xray-source
+    targetBucket: {{ .Values.global.xraylab.ocsstorage.targetBucket }}
   type: aws-s3
 status: {}
 
