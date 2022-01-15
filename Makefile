@@ -13,13 +13,16 @@ default: show
 	echo "Delegating $* target"
 	make -f common/Makefile $*
 
-install: deploy
+install: predeploy deploy
 ifeq ($(BOOTSTRAP),1)
 	echo "Bootstrapping Medical Diagnosis Pattern"
 	make bootstrap
 endif
 
-update: upgrade
+predeploy:
+	./scripts/precheck.sh
+
+update: predeploy upgrade
 ifeq ($(BOOTSTRAP),1)
 	echo "Bootstrapping Medical Diagnosis Pattern"
 	make bootstrap
