@@ -21,6 +21,25 @@ This pipeline is showcased [in this video](https://www.youtube.com/watch?v=zja83
 
 ![Pipeline dashboard](doc/dashboard.png)
 
+## Check the values files before deployment
+
+You can run a check before deployment to make sure that you have the required variables to deploy the 
+Medical Diagnosis Validated Pattern.  
+
+You can run `make predeploy` to check your values. This will allow you to review your values and changed them in
+the case there are typos or old values.  The values files that should be reviewed prior to deploying the
+Medical Diagnosis Validated Pattern are:
+
+* values-secret.yaml - This file
+| Values File | Description |
+| ----------- | ----------- |
+| values-secret.yaml | This is the values file that will include the xraylab section with all the database secrets |
+| values-global.yaml | File that is used to contain all the global values used by Helm |
+
+[![asciicast](https://github.com/claudiol/medical-diagnosis/blob/claudiol-xray-deployment/doc/predeploy.svg)](https://github.com/claudiol/medical-diagnosis/blob/claudiol-xray-deployment/doc/predeploy.svg)
+
+Then you can run `make install` to deploy the Medical Diagnosis Validated Pattern.
+
 [![asciicast](https://github.com/claudiol/medical-diagnosis/blob/claudiol-xray-deployment/doc/xray-deployment.svg)](https://github.com/claudiol/medical-diagnosis/blob/claudiol-xray-deployment/doc/xray-deployment.svg)
 
 This validated pattern is still being developed.  More to come in the next few weeks. Any questions or concerns
