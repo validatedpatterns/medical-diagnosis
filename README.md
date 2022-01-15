@@ -30,12 +30,13 @@ You can run `make predeploy` to check your values. This will allow you to review
 the case there are typos or old values.  The values files that should be reviewed prior to deploying the
 Medical Diagnosis Validated Pattern are:
 
-* values-secret.yaml - This file
 | Values File | Description |
 | ----------- | ----------- |
 | values-secret.yaml | This is the values file that will include the xraylab section with all the database secrets |
 | values-global.yaml | File that is used to contain all the global values used by Helm |
 
+Make sure you have the correct domain, clustername, externalUrl, targetBucket and bucketSource values.
+ 
 [![asciicast](https://github.com/claudiol/medical-diagnosis/blob/claudiol-xray-deployment/doc/predeploy.svg)](https://github.com/claudiol/medical-diagnosis/blob/claudiol-xray-deployment/doc/predeploy.svg)
 
 Then you can run `make install` to deploy the Medical Diagnosis Validated Pattern.
