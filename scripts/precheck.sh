@@ -40,8 +40,8 @@ function checkValuesGlobal {
     # First check datacenter: section in values-global.yaml
     #    
     log -n "Verifying clustername and domain values: "
-    CLUSTERVALUE=$(grep -E 'clustername:' ./values-global.yaml | cut -d : -f 2 | tr -d ' ' | tr -d '"')
-    DOMAINVALUE=$(grep -E '  domain:' ./values-global.yaml | cut -d : -f 2 | tr -d ' ' | tr -d '"')
+    CLUSTERVALUE=$(grep -E 'clustername:' ./values-global.yaml | grep -v "#" | cut -d : -f 2 | tr -d ' ' | tr -d '"')
+    DOMAINVALUE=$(grep -E '  domain:' ./values-global.yaml | grep -v "#" | cut -d : -f 2 | tr -d ' ' | tr -d '"')
 
     if [ "$CLUSTERNAME" == "$CLUSTERVALUE.$DOMAINVALUE" ]; then
 	echo "pass"
@@ -54,7 +54,7 @@ function checkValuesGlobal {
     # Verify externalUrl value
     #
     log -n "Verifying externalUrl value: "
-    EXTERNALURL=$(grep -E 'externalUrl' ./values-global.yaml | cut -d : -f 2- | tr -d ' ' | tr -d '"')
+    EXTERNALURL=$(grep -E 'externalUrl' ./values-global.yaml | grep -v "#" | cut -d : -f 2- | tr -d ' ' | tr -d '"')
     CLUSTERVALUE=$(echo $EXTERNALURL | cut -d . -f 3- | tr -d ' ' | tr -d '"')
     if [ "$CLUSTERVALUE" == "$CLUSTERNAME" ]; then
 	echo "pass"
