@@ -21,6 +21,17 @@ This pipeline is showcased [in this video](https://www.youtube.com/watch?v=zja83
 
 ![Pipeline dashboard](doc/dashboard.png)
 
+## Check the values files before deployment
+
+You can run a check before deployment to make sure that you have the required variables to deploy the 
+Medical Diagnosis Validated Pattern.  
+
+You can run `make predeploy` to check your values.
+
+[![asciicast](https://github.com/claudiol/medical-diagnosis/blob/claudiol-xray-deployment/doc/xray-deployment.svg)](https://github.com/claudiol/medical-diagnosis/blob/claudiol-xray-deployment/doc/xray-deployment.svg)
+
+Then you can run `make install` to deploy the Medical Diagnosis Validated Pattern.
+
 [![asciicast](https://github.com/claudiol/medical-diagnosis/blob/claudiol-xray-deployment/doc/xray-deployment.svg)](https://github.com/claudiol/medical-diagnosis/blob/claudiol-xray-deployment/doc/xray-deployment.svg)
 
 This validated pattern is still being developed.  More to come in the next few weeks. Any questions or concerns
