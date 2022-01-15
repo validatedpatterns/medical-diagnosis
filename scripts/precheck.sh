@@ -126,7 +126,7 @@ checkVariables
 checkRequiredFiles
 
 log "Proceeding with the following values specified in values-global.yaml: "
-cat ./values-global.yaml | grep -v "#" | grep -E "datacenter:|  clustername: | domain: | externalUrl: | bucketSource: " 
+cat ./values-global.yaml | grep -v "#" | grep -E "datacenter:|  clustername: | domain: | externalUrl: | bucketSource: | targetBucket:" 
 while ( true )
 do
     log -n "Proceed (Y/n)? "
