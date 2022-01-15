@@ -28,7 +28,7 @@ Medical Diagnosis Validated Pattern.
 
 You can run `make predeploy` to check your values.
 
-[![asciicast](https://github.com/claudiol/medical-diagnosis/blob/claudiol-xray-deployment/doc/xray-deployment.svg)](https://github.com/claudiol/medical-diagnosis/blob/claudiol-xray-deployment/doc/predeploy.svg)
+[![asciicast](https://github.com/claudiol/medical-diagnosis/blob/claudiol-xray-deployment/doc/predeploy.svg)](https://github.com/claudiol/medical-diagnosis/blob/claudiol-xray-deployment/doc/predeploy.svg)
 
 Then you can run `make install` to deploy the Medical Diagnosis Validated Pattern.
 
