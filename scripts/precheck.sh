@@ -24,14 +24,14 @@ function datacenterGlobalValues {
     clustername: $CLUSTERVALUE
     domain: $DOMAINVALUE
     '
-    exit
+    exit 10
 }
 
 function externalUrlVariableValue {
     echo "The externalUrl value should be: "
     echo '
       externalUrl: "https://s3-rgw-openshift-storage.apps.$CLUSTERNAME"'
-    exit
+    exit 10
 }
 
 function checkValuesGlobal {
@@ -76,7 +76,7 @@ function checkVariables {
 	echo "fail."
 	echo "Cannot determine the cluster name and domain"
 	echo "Make sure that the command 'oc get route -n openshift-console' returns valid routes"
-	exit
+	exit 10
     fi
     checkValuesGlobal
 }
@@ -94,7 +94,7 @@ secrets: \
       db_dbname: "xraylabdb"\
       db_master_password: "redhatredhat"\
       db_master_user: "root"'
-    exit
+    exit 10
 }
 
 function checkRequiredFiles {
@@ -104,7 +104,7 @@ function checkRequiredFiles {
     else
 	echo "fail"
 	echo "Make sure that the file values-secret.yaml exists in your home directory"
-	exit
+	exit 10
     fi
     log "Check that required secrets sections exist in values-secret.yaml"
     log  "Checking for xraylab sections: "
@@ -126,7 +126,7 @@ checkVariables
 checkRequiredFiles
 
 log "Proceeding with the following values specified in values-global.yaml: "
-grep -E "datacenter:|  clustername: | domain: | externalUrl: | bucketSource: " ./values-global.yaml
+cat ./values-global.yaml | grep -v "#" | grep -E "datacenter:|  clustername: | domain: | externalUrl: | bucketSource: " 
 while ( true )
 do
     log -n "Proceed (Y/n)? "

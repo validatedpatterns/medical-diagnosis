@@ -298,7 +298,7 @@ do
     # Check number of crashcollector pods
     if [ $CRSHCHECK -eq 0 ]; then
 	CRSHPODS=$(oc get pods -n openshift-storage | grep rook-ceph-crashcollector | grep Running | wc -l)
-	if [ $CRSHPODS -eq $(($WORKERS)) ]; then
+	if [ $CRSHPODS -le $(($WORKERS)) ]; then
 	    echo "rook-ceph-crashcollector pods checked [$CRSHPODS]"
 	    CRSHCHECK=1
 	fi
