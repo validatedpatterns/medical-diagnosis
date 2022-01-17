@@ -86,11 +86,6 @@ clusterGroup:
     project: datacenter
     path: charts/datacenter/xraylab/demo
 
-  - name: bookbag-user
-    namespace: bookbag-xraylab-1
-    project: datacenter
-    path: charts/datacenter/bookbag-user
-    
   - name: user
     namespace: xraylab-1
     project: datacenter
