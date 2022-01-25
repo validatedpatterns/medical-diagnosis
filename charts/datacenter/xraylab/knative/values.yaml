@@ -9,3 +9,5 @@ knative:
     - kind: "KnativeKafka"
       name: "knative-kafka"
       namespace: "knative-eventing"
+  kafkaSource:
+    bootstrapserver: "xray-cluster-kafka-bootstrap.xraylab-1.svc:9092"
