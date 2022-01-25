@@ -1,4 +1,5 @@
 
 xraylab:
-  imageServer: https://image-server-xraylab-1.apps.claudiol-xray.blueprints.rhecoeng.com
+  #Commented out by jrickard - changed variable inside of template to use global value for clustername and domain
+  #imageServer: https://image-server-xraylab-1.apps.jrickard-med-diag.blueprints.rhecoeng.com
   bucketBaseName: xraylab-1
