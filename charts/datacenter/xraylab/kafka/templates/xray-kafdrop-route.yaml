@@ -1,14 +1,14 @@
 kind: Route
 apiVersion: route.openshift.io/v1
 metadata:
-  name: {{ .Values.global.xraylab.kafka.app }}
+  name: {{ .Values.kafka.app }}
   namespace: {{ .Values.global.xraylab.namespace }}
 spec:
-  subdomain: {{ .Values.global.xraylab.kafka.route.subdomain }}
+  subdomain: {{ .Values.kafka.route.subdomain }}
   to:
     kind: Service
-    name: {{ .Values.global.xraylab.kafka.app }}
-    weight: {{ .Values.global.xraylab.kafka.route.weight }}
+    name: {{ .Values.kafka.app }}
+    weight: {{ .Values.kafka.route.weight }}
   port:
-    targetPort: {{ .Values.global.xraylab.kafka.service.targetPort }}
-  wildcardPolicy: {{ .Values.global.xraylab.kafka.route.wildcardPolicy }}
+    targetPort: {{ .Values.kafka.service.targetPort }}
+  wildcardPolicy: {{ .Values.kafka.route.wildcardPolicy }}
