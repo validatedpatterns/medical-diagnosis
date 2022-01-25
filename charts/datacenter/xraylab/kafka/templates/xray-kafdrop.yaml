@@ -1,24 +1,24 @@
 apiVersion: apps.openshift.io/v1
 kind: DeploymentConfig
 metadata:
-  name: {{ .Values.global.xraylab.kafka.app }}
+  name: {{ .Values.kafka.app }}
   namespace: {{ .Values.global.xraylab.namespace }}
 spec:
   selector:
-    app: {{ .Values.global.xraylab.kafka.app }}
-  replicas: {{ .Values.global.xraylab.kafka.deployment.replicas }}
+    app: {{ .Values.kafka.app }}
+  replicas: {{ .Values.kafka.deployment.replicas }}
   template:
     metadata:
       labels:
-        app: {{ .Values.global.xraylab.kafka.app }}
+        app: {{ .Values.kafka.app }}
     spec:
       containers:
-        - name: {{ .Values.global.xraylab.kafka.app }}
-          image: {{ .Values.global.xraylab.kafka.deployment.image }}
+        - name: {{ .Values.kafka.app }}
+          image: {{ .Values.kafka.deployment.image }}
           ports:
-            - containerPort: {{ .Values.global.xraylab.kafka.service.port }}
+            - containerPort: {{ .Values.kafka.service.port }}
           env:
-          {{- range .Values.global.xraylab.kafka.deployment.env }}
+          {{- range .Values.kafka.deployment.env }}
             - name: {{ .name }}
               value: {{ .value | quote }}
           {{- end }}
