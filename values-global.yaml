@@ -12,7 +12,8 @@ global:
   #     domain: <domain>
 
   datacenter:
-    clustername: claudiol-xray
+    clustername: jrickard-xray49
+    #clustername: jrickard-xray
     domain: blueprints.rhecoeng.com
 
   xraylab:
@@ -25,10 +26,11 @@ global:
       # External URL for Rados Gateway
       # Replace the <cluster-name> and <domain> to your openshift cluster values
       #       externalUrl: "https://s3-rgw-openshift-storage.apps.<cluster-name>.<domain>"
-      externalUrl: "https://s3-rgw-openshift-storage.apps.claudiol-xray.blueprints.rhecoeng.com"
+      externalUrl: "https://s3-rgw-openshift-storage.apps.jrickard-xray49.blueprints.rhecoeng.com"
+      #externalUrl: "https://s3-rgw-openshift-storage.apps.jrickard-xray.blueprints.rhecoeng.com"
       # Backing store for ODF
       # This will be your S3 bucket name on AWS
-      targetBucket: com.redhat.claudiol.xray-source
+      targetBucket: com.redhat.jrickard.xray-source
     ocs:
       namespace: openshift-storage
       mon:
@@ -100,7 +102,7 @@ global:
       # Replace <region> with AWS region where S3 bucket was created
       # Replace <cluster-name> and <domain> with your OpenShift clsuter values
       # bucketSource: "https://s3.<region>.amazonaws.com/com.redhat.claudiol.xray-source"
-      bucketSource: "https://s3.us-west-1.amazonaws.com/com.redhat.claudiol.xray-source"
+      bucketSource: "https://s3.us-east-1.amazonaws.com/com.redhat.jrickard.xray-source"
       # Bucket base name used for xray images
       bucketBaseName: "xraylab-1"
 
