@@ -62,7 +62,7 @@ spec:
           "timeShift": null,
           "title": "Last uploaded image",
           "type": "ryantxu-ajax-panel",
-          "url": "{{ .Values.xraylab.imageServer }}/last_image_big/{{ .Values.xraylab.bucketBaseName }}",
+          "url": "{{ .Values.global.datacenter.clustername }}.{{ .Values.global.datacenter.domain }}/last_image_big/{{ .Values.xraylab.bucketBaseName }}",
           "withCredentials": false
         },
         {
@@ -92,7 +92,7 @@ spec:
           "timeShift": null,
           "title": "Last processed image",
           "type": "ryantxu-ajax-panel",
-          "url": "{{ .Values.xraylab.imageServer }}/last_image_big/{{ .Values.xraylab.bucketBaseName }}-processed",
+          "url": "{{ .Values.global.datacenter.clustername }}.{{ .Values.global.datacenter.domain }}/last_image_big/{{ .Values.xraylab.bucketBaseName }}-processed",
           "withCredentials": false
         },
         {
@@ -122,7 +122,7 @@ spec:
           "timeShift": null,
           "title": "Last anonymized image",
           "type": "ryantxu-ajax-panel",
-          "url": "{{ .Values.xraylab.imageServer }}/last_image_big/{{ .Values.xraylab.bucketBaseName }}-anonymized",
+          "url": "{{ .Values.global.datacenter.clustername }}.{{ .Values.global.datacenter.domain }}/last_image_big/{{ .Values.xraylab.bucketBaseName }}-anonymized",
           "withCredentials": false
         }
       ],
