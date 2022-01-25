@@ -56,7 +56,7 @@ data:
         s3.put_bucket_policy(Bucket=bucket['Name'], Policy=bucket_policy)
 
     attributes = {}
-    attributes['push-endpoint'] = 'kafka://'+ '{{ .Values.global.xraylab.knative.kafkaSource.bootstrapserver }}'
+    attributes['push-endpoint'] = 'kafka://'+ '{{ .Values.kafkaSource.bootstrapserver }}'
     attributes['kafka-ack-level'] = 'broker'
 
     def create_topic(topic):
