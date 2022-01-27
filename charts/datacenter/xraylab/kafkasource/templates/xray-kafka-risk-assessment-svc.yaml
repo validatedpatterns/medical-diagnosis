@@ -13,7 +13,7 @@ spec:
       containers:
       - image: quay.io/rh-data-services/xraylab-risk-assessment:latest
         ports:
-              - containerPort: 5000
+        - containerPort: 5000
         env:
         - name: model_version
           value: 'v1'
