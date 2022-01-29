@@ -102,7 +102,7 @@ global:
       # Replace <region> with AWS region where S3 bucket was created
       # Replace <cluster-name> and <domain> with your OpenShift clsuter values
       # bucketSource: "https://s3.<region>.amazonaws.com/com.redhat.claudiol.xray-source"
-      bucketSource: "https://s3.us-east-1.amazonaws.com/com.redhat.jrickard.xray-source"
+      bucketSource: "https://s3.us-east-2.amazonaws.com/com.redhat.jrickard.xray-source"
       # Bucket base name used for xray images
       bucketBaseName: "xraylab-1"
 
