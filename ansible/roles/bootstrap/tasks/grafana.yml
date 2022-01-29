@@ -1,0 +1,59 @@
+- name: Generate the Grafana Templates
+  kubernetes.core.helm_template:
+    chart_ref: "{{ helm.charts_dir }}/xraylab/{{ grafana.template_dir }}"
+    output_dir: "{{ helm.output_dir }}"
+
+- name: Apply the rendered grafana templates
+  kubernetes.core.k8s:
+    state: present
+    src: "{{ item }}"
+  with_fileglob:
+    - "{{ helm.output_dir }}/grafana/templates/*.yaml"
+
+- name: "Wait for the grafana service account to be created"
+  kubernetes.core.k8s_info:
+    api_version: v1
+    kind: ServiceAccount
+    name: grafana-serviceaccount
+    namespace: "{{ xraylab.namespace }}"
+  register: grafana_serviceaccount
+  retries: 30
+  delay: 10
+  until: grafana_serviceaccount | to_json | from_json | json_query('resources[0].secrets[?starts_with(name, `grafana-serviceaccount-token`)]') | default('', true) != ''
+  ignore_errors: false
+
+- name: Service Account secret name
+  set_fact:
+    grafana_serviceaccount_secret_name: "{{ grafana_serviceaccount | to_json | from_json | json_query('resources[0].secrets[?starts_with(name, `grafana-serviceaccount-token`)].name') | first }}"
+
+- name: Add cluster monitoring role
+  shell: >-
+    oc adm policy add-cluster-role-to-user cluster-monitoring-view -z grafana-serviceaccount -n {{ xraylab.namespace }}
+
+- name: Get Grafana SA secret
+  kubernetes.core.k8s_info:
+    api_version: v1
+    kind: Secret
+    name: "{{ grafana_serviceaccount_secret_name }}"
+    namespace: "{{ xraylab.namespace }}"
+  register: grafana_serviceaccount_secret
+  retries: 30
+  delay: 10
+  until: grafana_serviceaccount_secret | to_json | from_json | json_query('resources[0].data.token') | default('', true) != ''
+  ignore_errors: false
+
+- name: Extract bearer token
+  set_fact:
+    grafana_bearer_token: "{{ grafana_serviceaccount_secret.resources[0].data.token | b64decode }}"
+
+- name: Debug bearer token
+  debug:
+    msg: "{{ grafana_bearer_token }}"
+
+- name: Create Grafana Prometheus DataSource
+  kubernetes.core.k8s:
+    state: present
+    definition: "{{ lookup('template', 'grafana_datasource.yaml.j2') }}"
+  vars:
+    namespace: "{{ xraylab.namespace }}"
+    grafana_bearer_token: "{{ grafana_bearer_token }}"

@@ -1,0 +1,6 @@
+---
+- name: medical-edge bootstrap playbook
+  hosts: localhost
+  connection: local
+  roles:
+    - bootstrap
