@@ -1,0 +1,29 @@
+#global
+helm:
+  charts_dir: /home/jrickard/workspace/RHC/medical-diagnosis/charts/datacenter
+  output_dir: /tmp
+
+odf:
+  template_dir: cephobjectstore
+  namespace: openshift-storage
+  expected_crds:
+    - backingstores.noobaa.io
+    - bucketclasses.noobaa.io
+    - noobaas.noobaa.io
+    - objectbucketclaims.objectbucket.io
+serverless:
+  template_dir: knative
+  eventing:
+    namespace: 'knative-eventing'
+kafka:
+  template_dir: kafka
+kafkasource:
+  template_dir: kafkasource
+grafana:
+  template_dir: grafana
+
+
+#xraylab variables
+xraylab:
+  namespace: xraylab-1
+  username: xraylab-1
