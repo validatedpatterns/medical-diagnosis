@@ -9,11 +9,10 @@ metadata:
     app: noobaa
 spec:
   awsS3:
-    region: us-west-1
+    region: {{ .Values.global.datacenter.region }}
     secret:
       name: noobaa-aws-cloud-creds-secret
       namespace: openshift-storage
     targetBucket: {{ .Values.global.xraylab.ocsstorage.targetBucket }}
   type: aws-s3
 status: {}
-
