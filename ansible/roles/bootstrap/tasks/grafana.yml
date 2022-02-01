@@ -2,6 +2,8 @@
   kubernetes.core.helm_template:
     chart_ref: "{{ helm.charts_dir }}/xraylab/{{ grafana.template_dir }}"
     output_dir: "{{ helm.output_dir }}"
+    values_files:
+      - "{{ pattern_repo_dir}}/values-global.yaml"
 
 - name: Apply the rendered grafana templates
   kubernetes.core.k8s:
