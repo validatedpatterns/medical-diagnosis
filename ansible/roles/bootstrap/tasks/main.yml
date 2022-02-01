@@ -1,4 +1,4 @@
-- name: "wait for {{ xraylab.namespace }} to be created"
+- name: "wait for {{ xraylab.namespace }} namespace to be created"
   kubernetes.core.k8s_info:
     kind: Namespace
     name: "{{ xraylab.namespace }}"
@@ -8,9 +8,6 @@
 
 - name: ODF bootstrap
   include_tasks: odf.yml
-
-- name: Serverless bootstrap
-  include_tasks: serverless.yml
 
 - name: "Wait for the ocs-operator to complete installation before moving on"
   kubernetes.core.k8s_info:
@@ -24,6 +21,9 @@
       type: Available
     wait_sleep: 30
     wait_timeout: 600
+
+- name: Serverless bootstrap
+  include_tasks: serverless.yml
 
 - name: Create database secret
   include_tasks: db-secret.yml
