@@ -58,7 +58,7 @@
     state: present
     src: "{{ helm.output_dir }}/{{ odf.template_dir }}/templates/{{ item }}"
   loop:
-    - rgw-storageclass.yaml
+#    - rgw-storageclass.yaml
     - cephtoolbox.yaml
     - xraylab-backing-store.yaml
     - xray-user.yaml
