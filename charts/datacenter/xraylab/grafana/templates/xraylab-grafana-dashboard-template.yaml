@@ -4,6 +4,7 @@ metadata:
   labels:
     app: grafana
   name: xraylab-dashboard
+  namespace: {{ .Values.global.xraylab.namespace }}
 spec:
   json: |
     {

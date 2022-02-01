@@ -5,6 +5,7 @@ metadata:
     app: grafana
     grafana: dashboard
   name: xraylab-images-dashboard
+  namespace: {{ .Values.global.xraylab.namespace }}
 spec:
   json: |
     {
