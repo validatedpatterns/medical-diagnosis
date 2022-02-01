@@ -33,7 +33,6 @@
     wait_timeout: 120
   loop: "{{ odf.expected_crds }}"
 
-
 - name: Render ODF Helm Chart templates
   kubernetes.core.helm_template:
     chart_ref: "{{ helm.charts_dir }}/{{ odf.template_dir }}"
@@ -53,6 +52,19 @@
   loop:
     - cephobjectstore.yaml
 
+- name: "Wait for noobaa deployment to complete"
+  kubernetes.core.k8s_info:
+    api_version: "apps/v1"
+    kind: Deployment
+    name: "noobaa-operator"
+    wait: true
+    wait_condition:
+      reason: MinimumReplicasAvailable
+      status: 'True'
+      type: Available
+    wait_sleep: 10
+    wait_timeout: 600
+
 - name: "Create the remaining ceph resources"
   kubernetes.core.k8s:
     state: present
@@ -60,6 +72,18 @@
   loop:
 #    - rgw-storageclass.yaml
     - cephtoolbox.yaml
-    - xraylab-backing-store.yaml
-    - xray-user.yaml
-  ignore_errors: true
+    #- xraylab-backing-store.yaml
+    #- xray-user.yaml
+
+- name: "Wait for the ocs-operator to complete installation before moving on"
+  kubernetes.core.k8s_info:
+    api_version: "v1"
+    kind: Deployment
+    name: "ocs-operator"
+    wait: true
+    wait_condition:
+      reason: MinimumReplicasAvailable
+      status: 'True'
+      type: Available
+    wait_sleep: 30
+    wait_timeout: 600

@@ -9,18 +9,18 @@
 - name: ODF bootstrap
   include_tasks: odf.yml
 
-- name: "Wait for the ocs-operator to complete installation before moving on"
-  kubernetes.core.k8s_info:
-    api_version: "v1"
-    kind: Deployment
-    name: "ocs-operator"
-    wait: true
-    wait_condition:
-      reason: MinimumReplicasAvailable
-      status: 'True'
-      type: Available
-    wait_sleep: 30
-    wait_timeout: 600
+#- name: "Wait for the ocs-operator to complete installation before moving on"
+#  kubernetes.core.k8s_info:
+#    api_version: "v1"
+#    kind: Deployment
+#    name: "ocs-operator"
+#    wait: true
+#    wait_condition:
+#      reason: MinimumReplicasAvailable
+#      status: 'True'
+#      type: Available
+#    wait_sleep: 30
+#    wait_timeout: 600
 
 - name: Serverless bootstrap
   include_tasks: serverless.yml
