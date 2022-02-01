@@ -12,6 +12,7 @@ global:
   #     domain: <domain>
 
   datacenter:
+    region: us-east-2
     clustername: jrickard-xray49
     #clustername: jrickard-xray
     domain: blueprints.rhecoeng.com
