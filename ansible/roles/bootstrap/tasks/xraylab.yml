@@ -4,6 +4,8 @@
     $(oc get pods -n openshift-storage | grep rook-ceph-tools | grep Running | awk '{print $1}')
     -- radosgw-admin user create --uid="{{ xraylab.username }}" --display-name="{{ xraylab.username }} user"
   register: user_create_output
+  until: user_create_output.rc == 0 
+  retries: 3
 
 - name: Register AWS_KEY
   set_fact:
