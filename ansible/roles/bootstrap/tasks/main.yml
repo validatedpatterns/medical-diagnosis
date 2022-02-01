@@ -22,11 +22,11 @@
 #    wait_sleep: 30
 #    wait_timeout: 600
 
-- name: Serverless bootstrap
-  include_tasks: serverless.yml
-
 - name: Create database secret
   include_tasks: db-secret.yml
+
+- name: Serverless bootstrap
+  include_tasks: serverless.yml
 
 - name: grafana bootstrap
   include_tasks: grafana.yml
