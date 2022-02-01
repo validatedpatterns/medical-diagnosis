@@ -30,6 +30,8 @@
   kubernetes.core.helm_template:
     chart_ref: "{{ helm.charts_dir }}/xraylab/{{ serverless.template_dir }}"
     output_dir: "{{ helm.output_dir }}"
+    values_files:
+      - "{{ pattern_repo_dir}}/values-global.yaml"
 
 - name: Create the knative-servering and knative-eventing operators
   kubernetes.core.k8s:
@@ -42,11 +44,15 @@
   kubernetes.core.helm_template:
     chart_ref: "{{ helm.charts_dir }}/xraylab/{{ kafka.template_dir }}"
     output_dir: "{{ helm.output_dir }}"
+    values_files:
+      - "{{ pattern_repo_dir}}/values-global.yaml"
 
 - name: Render the kafkasource templates 
   kubernetes.core.helm_template:
     chart_ref: "{{ helm.charts_dir }}/xraylab/{{ kafkasource.template_dir }}"
     output_dir: "{{ helm.output_dir }}"
+    values_files:
+      - "{{ pattern_repo_dir}}/values-global.yaml"
 
 - name: Apply the kafka and kafkasource manifests
   kubernetes.core.k8s:

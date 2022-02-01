@@ -38,6 +38,8 @@
   kubernetes.core.helm_template:
     chart_ref: "{{ helm.charts_dir }}/{{ odf.template_dir }}"
     output_dir: "{{ helm.output_dir }}"
+    values_files:
+      - "{{ pattern_repo_dir }}/values-global.yaml"
 
 - name: Create the ODF storage cluster
   kubernetes.core.k8s:
@@ -60,3 +62,4 @@
     - cephtoolbox.yaml
     - xraylab-backing-store.yaml
     - xray-user.yaml
+  ignore_errors: true
