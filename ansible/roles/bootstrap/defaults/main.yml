@@ -1,6 +1,7 @@
 #global
+pattern_repo_dir: /home/jrickard/workspace/RHC/patterns/medical-diagnosis/
 helm:
-  charts_dir: /home/jrickard/workspace/RHC/medical-diagnosis/charts/datacenter
+  charts_dir: /home/jrickard/workspace/RHC/patterns/medical-diagnosis/charts/datacenter
   output_dir: /tmp
 
 odf:
