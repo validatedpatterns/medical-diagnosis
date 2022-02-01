@@ -12,12 +12,6 @@
 - name: Serverless bootstrap
   include_tasks: serverless.yml
 
-- name: Create database secret
-  include_tasks: db-secret.yml
-
-- name: grafana bootstrap
-  include_tasks: grafana.yml
-
 - name: "Wait for the ocs-operator to complete installation before moving on"
   kubernetes.core.k8s_info:
     api_version: "v1"
@@ -30,6 +24,12 @@
       type: Available
     wait_sleep: 30
     wait_timeout: 600
+
+- name: Create database secret
+  include_tasks: db-secret.yml
+
+- name: grafana bootstrap
+  include_tasks: grafana.yml
 
 - name: xraylab demo bootstrap
   include_tasks: xraylab.yml
