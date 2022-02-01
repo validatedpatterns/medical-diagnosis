@@ -54,10 +54,18 @@
     values_files:
       - "{{ pattern_repo_dir}}/values-global.yaml"
 
-- name: Apply the kafka and kafkasource manifests
+- name: Apply the kafka manifests
   kubernetes.core.k8s:
     state: present
     src: "{{ item }}"
   with_fileglob:
     - "{{ helm.output_dir }}/{{ kafka.template_dir }}/templates/*.yaml"
-    - "{{ helm.output_dir }}/{{ kafkasource.template_dir }}/templates/*.yaml"
+
+- name: Apply the kafkasource manifests
+  kubernetes.core.k8s:
+    state: present
+    src: "{{ item }}"
+  loop:
+    - "{{ helm.output_dir }}/{{ kafkasource.template_dir }}/templates/xray-kafka-risk-assessment-is.yaml"
+    - "{{ helm.output_dir }}/{{ kafkasource.template_dir }}/templates/xray-kafka-risk-assessment-svc.yaml"
+    - "{{ helm.output_dir }}/{{ kafkasource.template_dir }}/templates/xray-kafka-risk-assessment-source.yaml"
