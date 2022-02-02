@@ -7,7 +7,7 @@
     wait_timeout: 360
 
 - name: Wait until KNative Serving installation is complete
-  k8s_info:
+  kubernetes.core.k8s_info:
     api_version: operator.knative.dev/v1alpha1
     kind: KnativeServing
     name: knative-serving
@@ -25,6 +25,19 @@
   - r_kn_serving.resources[0].status.conditions[3].status is defined
   - r_kn_serving.resources[0].status.conditions[3].status == "True"
 
+- name: remove kafkasource
+  kubernetes.core.k8s:
+    state: absent
+    api_version: sources.knative.dev/v1beta1
+    kind: KafkaSource
+    name: xray-images
+
+- name: remove  kafkaservice
+  kubernetes.core.k8s:
+    state: absent
+    api_version: serving.knative.dev/v1
+    kind: Service
+    name: risk-assessment
 
 #- name: Render serverless Helm Chart templates
 #  kubernetes.core.helm_template:
@@ -47,13 +60,13 @@
 #    values_files:
 #      - "{{ pattern_repo_dir}}/values-global.yaml"
 #
-#- name: Render the kafkasource templates 
-#  kubernetes.core.helm_template:
-#    chart_ref: "{{ helm.charts_dir }}/xraylab/{{ kafkasource.template_dir }}"
-#    output_dir: "{{ helm.output_dir }}"
-#    values_files:
-#      - "{{ pattern_repo_dir}}/values-global.yaml"
-#
+- name: Render the kafkasource templates 
+  kubernetes.core.helm_template:
+    chart_ref: "{{ helm.charts_dir }}/xraylab/{{ kafkasource.template_dir }}"
+    output_dir: "{{ helm.output_dir }}"
+    values_files:
+      - "{{ pattern_repo_dir}}/values-global.yaml"
+
 #- name: Apply the kafka manifests
 #  kubernetes.core.k8s:
 #    state: present
@@ -61,11 +74,11 @@
 #  with_fileglob:
 #    - "{{ helm.output_dir }}/{{ kafka.template_dir }}/templates/*.yaml"
 #
-#- name: Apply the kafkasource manifests
-#  kubernetes.core.k8s:
-#    state: present
-#    src: "{{ item }}"
-#  loop:
+- name: Apply the kafkasource manifests
+  kubernetes.core.k8s:
+    state: present
+    src: "{{ item }}"
+  loop:
 #    - "{{ helm.output_dir }}/{{ kafkasource.template_dir }}/templates/xray-kafka-risk-assessment-is.yaml"
-#    - "{{ helm.output_dir }}/{{ kafkasource.template_dir }}/templates/xray-kafka-risk-assessment-svc.yaml"
-#    - "{{ helm.output_dir }}/{{ kafkasource.template_dir }}/templates/xray-kafka-risk-assessment-source.yaml"
+    - "{{ helm.output_dir }}/{{ kafkasource.template_dir }}/templates/xray-kafka-risk-assessment-svc.yaml"
+    - "{{ helm.output_dir }}/{{ kafkasource.template_dir }}/templates/xray-kafka-risk-assessment-source.yaml"
