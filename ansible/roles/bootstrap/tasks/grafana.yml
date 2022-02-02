@@ -1,17 +1,3 @@
-#- name: Generate the Grafana Templates
-#  kubernetes.core.helm_template:
-#    chart_ref: "{{ helm.charts_dir }}/xraylab/{{ grafana.template_dir }}"
-#    output_dir: "{{ helm.output_dir }}"
-#    values_files:
-#      - "{{ pattern_repo_dir}}/values-global.yaml"
-#
-#- name: Apply the rendered grafana templates
-#  kubernetes.core.k8s:
-#    state: present
-#    src: "{{ item }}"
-#  with_fileglob:
-#    - "{{ helm.output_dir }}/grafana/templates/*.yaml"
-#
 - name: "Wait for the grafana service account to be created"
   kubernetes.core.k8s_info:
     api_version: v1
