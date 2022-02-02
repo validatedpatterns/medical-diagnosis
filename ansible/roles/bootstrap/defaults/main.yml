@@ -1,10 +1,9 @@
 #global
 #path to root of git repo - passed as an extra-var in Makefile
 pattern_repo_dir: ""
-helm:
 #path to where the helm charts are hosted - this is passed as an extra-var in the Makefile
-  charts_dir: ""
-  output_dir: /tmp
+helm_charts_dir: ""
+output_dir: /tmp
 
 odf:
   template_dir: cephobjectstore
