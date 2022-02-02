@@ -5,6 +5,7 @@ metadata:
   namespace: {{ .Values.global.xraylab.namespace }}
   annotations:
     argocd.argoproj.io/sync-options: Validate=false, SkipDryRunOnMissingResource=true
+    argocd.argoproj.io/sync-wave: "3"
 spec:
   consumerGroup: {{ .Values.kafkaSource.consumerGroup }}
   bootstrapServers:
