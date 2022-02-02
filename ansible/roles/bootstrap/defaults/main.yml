@@ -3,7 +3,7 @@
 pattern_repo_dir: ""
 #path to where the helm charts are hosted - this is passed as an extra-var in the Makefile
 helm_charts_dir: ""
-output_dir: /tmp
+helm_output_dir: /tmp
 
 odf:
   template_dir: cephobjectstore
