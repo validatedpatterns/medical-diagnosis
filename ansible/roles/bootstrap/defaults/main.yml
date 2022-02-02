@@ -1,7 +1,9 @@
 #global
-pattern_repo_dir: /home/jrickard/workspace/RHC/patterns/medical-diagnosis/
+#path to root of git repo - passed as an extra-var in Makefile
+pattern_repo_dir: ""
 helm:
-  charts_dir: /home/jrickard/workspace/RHC/patterns/medical-diagnosis/charts/datacenter
+#path to where the helm charts are hosted - this is passed as an extra-var in the Makefile
+  charts_dir: ""
   output_dir: /tmp
 
 odf:
