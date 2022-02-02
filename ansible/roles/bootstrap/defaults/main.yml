@@ -1,6 +1,7 @@
 #global
 #path to root of git repo - passed as an extra-var in Makefile
-pattern_repo_dir: ""
+pattern_repo_dir: "{{ lookup('env', 'PWD') }}"
+#
 #path to where the helm charts are hosted - this is passed as an extra-var in the Makefile
 helm_charts_dir: ""
 helm_output_dir: /tmp
