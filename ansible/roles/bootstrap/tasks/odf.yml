@@ -33,25 +33,25 @@
     wait_timeout: 120
   loop: "{{ odf.expected_crds }}"
 
-- name: Render ODF Helm Chart templates
-  kubernetes.core.helm_template:
-    chart_ref: "{{ helm.charts_dir }}/{{ odf.template_dir }}"
-    output_dir: "{{ helm.output_dir }}"
-    values_files:
-      - "{{ pattern_repo_dir }}/values-global.yaml"
-
-- name: Create the ODF storage cluster
-  kubernetes.core.k8s:
-    state: present
-    src: "{{ helm.output_dir }}/{{ odf.template_dir }}/templates/storagecluster.yaml"
-  
-- name: "Create ObjectStore"
-  kubernetes.core.k8s:
-    state: present
-    src: "{{ helm.output_dir }}/{{ odf.template_dir }}/templates/{{ item }}"
-  loop:
-    - cephobjectstore.yaml
-
+#- name: Render ODF Helm Chart templates
+#  kubernetes.core.helm_template:
+#    chart_ref: "{{ helm.charts_dir }}/{{ odf.template_dir }}"
+#    output_dir: "{{ helm.output_dir }}"
+#    values_files:
+#      - "{{ pattern_repo_dir }}/values-global.yaml"
+#
+#- name: Create the ODF storage cluster
+#  kubernetes.core.k8s:
+#    state: present
+#    src: "{{ helm.output_dir }}/{{ odf.template_dir }}/templates/storagecluster.yaml"
+#  
+#- name: "Create ObjectStore"
+#  kubernetes.core.k8s:
+#    state: present
+#    src: "{{ helm.output_dir }}/{{ odf.template_dir }}/templates/{{ item }}"
+#  loop:
+#    - cephobjectstore.yaml
+#
 - name: "Wait for noobaa deployment to complete"
   kubernetes.core.k8s_info:
     api_version: "apps/v1"
@@ -63,15 +63,15 @@
       status: 'True'
       type: Available
     wait_sleep: 10
-    wait_timeout: 600
+    wait_timeout: 300
 
-- name: "Create the remaining ceph resources"
-  kubernetes.core.k8s:
-    state: present
-    src: "{{ helm.output_dir }}/{{ odf.template_dir }}/templates/{{ item }}"
-  loop:
+#- name: "Create the remaining ceph resources"
+#  kubernetes.core.k8s:
+#    state: present
+#    src: "{{ helm.output_dir }}/{{ odf.template_dir }}/templates/{{ item }}"
+#  loop:
 #    - rgw-storageclass.yaml
-    - cephtoolbox.yaml
+#    - cephtoolbox.yaml
     #- xraylab-backing-store.yaml
     #- xray-user.yaml
 
@@ -86,4 +86,4 @@
       status: 'True'
       type: Available
     wait_sleep: 30
-    wait_timeout: 600
+    wait_timeout: 300
