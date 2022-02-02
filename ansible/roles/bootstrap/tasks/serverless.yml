@@ -26,46 +26,46 @@
   - r_kn_serving.resources[0].status.conditions[3].status == "True"
 
 
-- name: Render serverless Helm Chart templates
-  kubernetes.core.helm_template:
-    chart_ref: "{{ helm.charts_dir }}/xraylab/{{ serverless.template_dir }}"
-    output_dir: "{{ helm.output_dir }}"
-    values_files:
-      - "{{ pattern_repo_dir}}/values-global.yaml"
-
-- name: Create the knative-servering and knative-eventing operators
-  kubernetes.core.k8s:
-    state: present
-    src: "{{ item }}"
-  with_fileglob:
-    - "{{ helm.output_dir }}/{{ serverless.template_dir }}/templates/*.yaml"
-
-- name: Render the kafka templates 
-  kubernetes.core.helm_template:
-    chart_ref: "{{ helm.charts_dir }}/xraylab/{{ kafka.template_dir }}"
-    output_dir: "{{ helm.output_dir }}"
-    values_files:
-      - "{{ pattern_repo_dir}}/values-global.yaml"
-
-- name: Render the kafkasource templates 
-  kubernetes.core.helm_template:
-    chart_ref: "{{ helm.charts_dir }}/xraylab/{{ kafkasource.template_dir }}"
-    output_dir: "{{ helm.output_dir }}"
-    values_files:
-      - "{{ pattern_repo_dir}}/values-global.yaml"
-
-- name: Apply the kafka manifests
-  kubernetes.core.k8s:
-    state: present
-    src: "{{ item }}"
-  with_fileglob:
-    - "{{ helm.output_dir }}/{{ kafka.template_dir }}/templates/*.yaml"
-
-- name: Apply the kafkasource manifests
-  kubernetes.core.k8s:
-    state: present
-    src: "{{ item }}"
-  loop:
-    - "{{ helm.output_dir }}/{{ kafkasource.template_dir }}/templates/xray-kafka-risk-assessment-is.yaml"
-    - "{{ helm.output_dir }}/{{ kafkasource.template_dir }}/templates/xray-kafka-risk-assessment-svc.yaml"
-    - "{{ helm.output_dir }}/{{ kafkasource.template_dir }}/templates/xray-kafka-risk-assessment-source.yaml"
+#- name: Render serverless Helm Chart templates
+#  kubernetes.core.helm_template:
+#    chart_ref: "{{ helm.charts_dir }}/xraylab/{{ serverless.template_dir }}"
+#    output_dir: "{{ helm.output_dir }}"
+#    values_files:
+#      - "{{ pattern_repo_dir}}/values-global.yaml"
+#
+#- name: Create the knative-servering and knative-eventing operators
+#  kubernetes.core.k8s:
+#    state: present
+#    src: "{{ item }}"
+#  with_fileglob:
+#    - "{{ helm.output_dir }}/{{ serverless.template_dir }}/templates/*.yaml"
+#
+#- name: Render the kafka templates 
+#  kubernetes.core.helm_template:
+#    chart_ref: "{{ helm.charts_dir }}/xraylab/{{ kafka.template_dir }}"
+#    output_dir: "{{ helm.output_dir }}"
+#    values_files:
+#      - "{{ pattern_repo_dir}}/values-global.yaml"
+#
+#- name: Render the kafkasource templates 
+#  kubernetes.core.helm_template:
+#    chart_ref: "{{ helm.charts_dir }}/xraylab/{{ kafkasource.template_dir }}"
+#    output_dir: "{{ helm.output_dir }}"
+#    values_files:
+#      - "{{ pattern_repo_dir}}/values-global.yaml"
+#
+#- name: Apply the kafka manifests
+#  kubernetes.core.k8s:
+#    state: present
+#    src: "{{ item }}"
+#  with_fileglob:
+#    - "{{ helm.output_dir }}/{{ kafka.template_dir }}/templates/*.yaml"
+#
+#- name: Apply the kafkasource manifests
+#  kubernetes.core.k8s:
+#    state: present
+#    src: "{{ item }}"
+#  loop:
+#    - "{{ helm.output_dir }}/{{ kafkasource.template_dir }}/templates/xray-kafka-risk-assessment-is.yaml"
+#    - "{{ helm.output_dir }}/{{ kafkasource.template_dir }}/templates/xray-kafka-risk-assessment-svc.yaml"
+#    - "{{ helm.output_dir }}/{{ kafkasource.template_dir }}/templates/xray-kafka-risk-assessment-source.yaml"
