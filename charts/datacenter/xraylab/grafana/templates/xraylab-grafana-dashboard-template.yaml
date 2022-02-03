@@ -4,6 +4,7 @@ metadata:
   labels:
     app: grafana
   name: xraylab-dashboard
+  namespace: {{ .Values.global.xraylab.namespace }}
 spec:
   json: |
     {
@@ -360,7 +361,7 @@ spec:
           "timeShift": null,
           "title": "Last uploaded image",
           "type": "ryantxu-ajax-panel",
-          "url": "{{ .Values.xraylab.imageServer }}/last_image_small/{{ .Values.xraylab.bucketBaseName }}",
+          "url": "https://image-server-xraylab-1.apps.{{ .Values.global.datacenter.clustername }}.{{ .Values.global.datacenter.domain }}/last_image_small/{{ .Values.xraylab.bucketBaseName }}",
           "withCredentials": false
         },
         {
@@ -484,7 +485,7 @@ spec:
           "timeShift": null,
           "title": "Last processed image",
           "type": "ryantxu-ajax-panel",
-          "url": "{{ .Values.xraylab.imageServer }}/last_image_small/{{ .Values.xraylab.bucketBaseName }}-processed",
+          "url": "https://image-server-xraylab-1.apps.{{ .Values.global.datacenter.clustername }}.{{ .Values.global.datacenter.domain }}/last_image_small/{{ .Values.xraylab.bucketBaseName }}-processed",
           "withCredentials": false
         },
         {
@@ -930,7 +931,7 @@ spec:
           "timeShift": null,
           "title": "Last anonymized image",
           "type": "ryantxu-ajax-panel",
-          "url": "{{ .Values.xraylab.imageServer }}/last_image_small/{{ .Values.xraylab.bucketBaseName }}-anonymized",
+          "url": "https://image-server-xraylab-1.apps.{{ .Values.global.datacenter.clustername }}.{{ .Values.global.datacenter.domain }}/last_image_small/{{ .Values.xraylab.bucketBaseName }}-anonymized",
           "withCredentials": false
         },
         {

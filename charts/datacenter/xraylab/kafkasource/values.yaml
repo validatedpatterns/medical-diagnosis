@@ -1,0 +1,4 @@
+kafkaSource:
+  bootstrapserver: "xray-cluster-kafka-bootstrap.xraylab-1.svc:9092"
+  name: "xray-images"
+  consumerGroup: "risk-assessment"

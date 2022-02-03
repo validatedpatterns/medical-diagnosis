@@ -12,95 +12,19 @@ global:
   #     domain: <domain>
 
   datacenter:
-    clustername: claudiol-xray
-    domain: blueprints.rhecoeng.com
+    region: PROVIDE_CLOUD_REGION #us-east-1
+    clustername: PROVIDE_CLUSTER_NAME #OpenShift clusterName
+    domain: PROVIDE_DNS_DOMAIN #blueprints.rhecoeng.com
 
   xraylab:
     namespace: "xraylab-1"
-    xraydbhost: "xraylabdb"
-    xraydb: "xraylabdb"
-    ocsstorage:
-      # Internal OpenShift service name. Do not change.
-      serviceUrl: "http://rook-ceph-rgw-ocs-storagecluster-cephobjectstore.openshift-storage.svc.cluster.local"
-      # External URL for Rados Gateway
-      # Replace the <cluster-name> and <domain> to your openshift cluster values
-      #       externalUrl: "https://s3-rgw-openshift-storage.apps.<cluster-name>.<domain>"
-      externalUrl: "https://s3-rgw-openshift-storage.apps.claudiol-xray.blueprints.rhecoeng.com"
-      # Backing store for ODF
-      # This will be your S3 bucket name on AWS
-      targetBucket: com.redhat.claudiol.xray-source
-    ocs:
-      namespace: openshift-storage
-      mon:
-        requests:
-          cpu: 1
-          memory: 2Gi
-      mds:
-        requests:
-          cpu: 3
-          memory: 8Gi
-      mgr:
-        requests:
-          cpu: 1
-          memory: 3Gi
-      noobaacore:
-        requests:
-          cpu: 1
-          memory: 4Gi
-      noobaadb:
-        requests:
-          cpu: 1
-          memory: 4Gi
-      osd:
-        requests:
-          cpu: 2
-          memory: 5Gi
-          storage: 2Ti
-      storageClassName: gp2
-    knative:
-      operators:
-        - kind: "KnativeServing"
-          name: "knative-serving"
-          namespace: "knative-serving"
-        - kind: "KnativeEventing"
-          name: "knative-eventing"
-          namespace: "knative-eventing"
-        - kind: "KnativeKafka"
-          name: "knative-kafka"
-          namespace: "knative-eventing"
-      kafkaSource:
-        bootstrapserver: "xray-cluster-kafka-bootstrap.xraylab-1.svc:9092"
-        name: "xray-images"
-        consumerGroup: "risk-assessment"
-    kafka:
-      cluster:
-        name: "xray-cluster"
-        replicas: 3
-      app: "kafdrop"
-      service:
-        protocol: "TCP"
-        port: 9000
-        targetPort: 9000
-      route:
-        subdomain: "" 
-        weight: 100
-        wildcardPolicy: "None"
-      deployment:
-        image: "obsidiandynamics/kafdrop:latest"
-        replicas: 1
-        env:
-          - name: KAFKA_BROKERCONNECT
-            value: "xray-cluster-kafka-0.xray-cluster-kafka-brokers.xraylab-1.svc:9092"
-          - name: JVM_OPTS
-            value: "-Xms32M -Xmx64M"
-          - name: SERVER_SERVLET_CONTEXTPATH
-            value: "/"
+
     s3:
       # Values for S3 bucket access
       # Replace <region> with AWS region where S3 bucket was created
-      # Replace <cluster-name> and <domain> with your OpenShift clsuter values
+      # Replace <cluster-name> and <domain> with your OpenShift cluster values
       # bucketSource: "https://s3.<region>.amazonaws.com/com.redhat.claudiol.xray-source"
-      bucketSource: "https://s3.us-west-1.amazonaws.com/com.redhat.claudiol.xray-source"
+      bucketSource: "PROVIDE_S3_BUCKETSOURCE" #"https://s3.<region>.amazonaws.com/com.redhat.claudiol.xray-source"
       # Bucket base name used for xray images
       bucketBaseName: "xraylab-1"
 

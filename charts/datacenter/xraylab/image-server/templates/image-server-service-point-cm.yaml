@@ -4,5 +4,5 @@ metadata:
   name: service-point
   namespace: "{{ .Values.global.xraylab.namespace }}"
 data:
-  url: "{{ .Values.global.xraylab.ocsstorage.serviceUrl }}"
-  url-external: "{{ .Values.global.xraylab.ocsstorage.externalUrl }}"
+  url: "{{ .Values.odf.serviceUrl }}"
+  url-external: "{{ .Values.odf.externalUrl }}.apps.{{ .Values.global.datacenter.clustername }}.{{ .Values.global.datacenter.domain }}"

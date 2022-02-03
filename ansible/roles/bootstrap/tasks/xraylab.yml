@@ -1,0 +1,22 @@
+- name: Create S3 user
+  shell: >-
+    oc exec -n openshift-storage
+    $(oc get pods -n openshift-storage | grep rook-ceph-tools | grep Running | awk '{print $1}')
+    -- radosgw-admin user create --uid="{{ xraylab.username }}" --display-name="{{ xraylab.username }} user"
+  register: user_create_output
+  until: user_create_output.rc == 0 
+  retries: 3
+
+- name: Register AWS_KEY
+  set_fact:
+    S3_access_key: "{{ user_create_output.stdout | from_json | json_query('keys[0].access_key')}}"
+    S3_secret_key: "{{ user_create_output.stdout | from_json | json_query('keys[0].secret_key')}}"
+
+- name: Create Secret with S3 credentials in user namespace
+  kubernetes.core.k8s:
+    state: present
+    definition: "{{ lookup('template', 's3_secret.yaml.j2') }}"
+  vars:
+    namespace: "{{ xraylab.namespace }}"
+    AWS_ACCESS_KEY_ID: "{{ S3_access_key }}"
+    AWS_SECRET_ACCESS_KEY: "{{ S3_secret_key }}"
