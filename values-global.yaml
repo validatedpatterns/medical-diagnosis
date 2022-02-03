@@ -12,9 +12,9 @@ global:
   #     domain: <domain>
 
   datacenter:
-    region: us-east-2
-    clustername: jrickard-xray
-    domain: blueprints.rhecoeng.com
+    region: PROVIDE_CLOUD_REGION #us-east-1
+    clustername: PROVIDE_CLUSTER_NAME #OpenShift clusterName
+    domain: PROVIDE_DNS_DOMAIN #blueprints.rhecoeng.com
 
   xraylab:
     namespace: "xraylab-1"
@@ -22,9 +22,9 @@ global:
     s3:
       # Values for S3 bucket access
       # Replace <region> with AWS region where S3 bucket was created
-      # Replace <cluster-name> and <domain> with your OpenShift clsuter values
+      # Replace <cluster-name> and <domain> with your OpenShift cluster values
       # bucketSource: "https://s3.<region>.amazonaws.com/com.redhat.claudiol.xray-source"
-      bucketSource: "https://s3.us-east-2.amazonaws.com/com.redhat.jrickard.xray-source"
+      bucketSource: "PROVIDE_S3_BUCKETSOURCE" #"https://s3.<region>.amazonaws.com/com.redhat.claudiol.xray-source"
       # Bucket base name used for xray images
       bucketBaseName: "xraylab-1"
 
