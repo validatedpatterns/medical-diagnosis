@@ -58,3 +58,14 @@
       type: Available
     wait_sleep: 30
     wait_timeout: 300
+
+# Commented out by jrickard - 
+#- name: Render the ceph-backingstore template
+#  template:
+#    src: cephbackingstore.yaml.j2
+#    dest: /tmp/cephbackingstore.yaml
+#
+#- name: Deploy the ceph backingstore template
+#  kubernetes.core.k8s:
+#    state: present
+#    src: "{{ helm_output_dir }}/{{ odf.template_dir }}/templates/cephbackingstore.yaml"
