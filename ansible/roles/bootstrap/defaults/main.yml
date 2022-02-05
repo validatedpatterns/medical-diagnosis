@@ -6,6 +6,10 @@ pattern_repo_dir: "{{ lookup('env', 'PWD') }}"
 helm_charts_dir: ""
 helm_output_dir: /tmp
 
+# ceph-backingstore jinja template variables
+region: "" #Define cloud region
+targetBucket: "" #Define s3 bucket name
+
 odf:
   template_dir: cephobjectstore
   namespace: openshift-storage
@@ -24,7 +28,6 @@ kafkasource:
   template_dir: kafkasource
 grafana:
   template_dir: grafana
-
 
 #xraylab variables
 xraylab:
