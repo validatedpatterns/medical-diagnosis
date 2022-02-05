@@ -27,7 +27,7 @@ global:
       bucketSource: "PROVIDE_S3_BUCKETSOURCE" #"https://s3.<region>.amazonaws.com/com.redhat.claudiol.xray-source"
       # Bucket base name used for xray images
       bucketBaseName: "xraylab-1"
-      targetBucket: #com.redhat.jrickard.source-images
+      targetBucket: PROVIDE_TARGET_BUCKET #com.redhat.jrickard.source-images
 
 main:
   clusterGroupName: datacenter
