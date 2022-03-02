@@ -37,9 +37,13 @@ spec:
           value: {{ $.Values.global.pattern }}
         - name: global.valuesDirectoryURL
           value: {{ coalesce .valuesDirectoryURL $.Values.global.valuesDirectoryURL }}
+        - name: global.hubClusterDomain
+          value: {{ $.Values.global.hubClusterDomain }}
+        - name: global.localClusterDomain
+          value: {{ coalesce $.Values.global.localClusterDomain $.Values.global.hubClusterDomain }}
         {{- range .overrides }}
         - name: {{ .name }}
-          value: {{ .value }}
+          value: {{ .value | quote }}
         {{- if .forceString }}
           forceString: true
         {{- end }}
