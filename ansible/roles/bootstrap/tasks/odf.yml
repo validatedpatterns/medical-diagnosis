@@ -33,7 +33,7 @@
     wait_timeout: 120
   loop: "{{ odf.expected_crds }}"
 
-- name: "Wait for noobaa deployment to complete"
+- name: "Wait for noobaa deployment to complete | timeout is set to 5 minutes"
   kubernetes.core.k8s_info:
     api_version: "apps/v1"
     kind: Deployment
@@ -47,7 +47,7 @@
     wait_sleep: 30
     wait_timeout: 300
 
-- name: "Wait for the ocs-operator to complete installation before moving on"
+- name: "Wait for the ocs-operator to complete installation before moving on | timeout is set to 15 minutes"
   kubernetes.core.k8s_info:
     api_version: "apps/v1"
     kind: Deployment
@@ -59,4 +59,4 @@
       status: 'True'
       type: Available
     wait_sleep: 30
-    wait_timeout: 300
+    wait_timeout: 900
