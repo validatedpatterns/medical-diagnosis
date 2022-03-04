@@ -33,6 +33,7 @@
     wait_timeout: 120
   loop: "{{ odf.expected_crds }}"
 
+
 - name: "Wait for noobaa deployment to complete | timeout is set to 5 minutes"
   kubernetes.core.k8s_info:
     api_version: "apps/v1"
