@@ -1,0 +1,109 @@
+---
+# Source: kafka/templates/xray-kafdrop-svc.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: kafdrop
+  namespace: xraylab-1
+spec:
+  selector:
+    app: kafdrop
+  ports:
+    - protocol: TCP
+      port: 9000
+      targetPort: 9000
+---
+# Source: kafka/templates/xray-kafdrop.yaml
+apiVersion: apps.openshift.io/v1
+kind: DeploymentConfig
+metadata:
+  name: kafdrop
+  namespace: xraylab-1
+spec:
+  selector:
+    app: kafdrop
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: kafdrop
+    spec:
+      containers:
+        - name: kafdrop
+          image: obsidiandynamics/kafdrop:latest
+          ports:
+            - containerPort: 9000
+          env:
+            - name: KAFKA_BROKERCONNECT
+              value: "xray-cluster-kafka-0.xray-cluster-kafka-brokers.xraylab-1.svc:9092"
+            - name: JVM_OPTS
+              value: "-Xms32M -Xmx64M"
+            - name: SERVER_SERVLET_CONTEXTPATH
+              value: "/"
+---
+# Source: kafka/templates/xray-kafka-cluster.yaml
+apiVersion: kafka.strimzi.io/v1beta2
+kind: Kafka
+metadata:
+  name: xray-cluster
+  namespace: "xraylab-1"
+spec:
+  entityOperator:
+    topicOperator:
+      reconciliationIntervalSeconds: 90
+    userOperator:
+      reconciliationIntervalSeconds: 120
+  kafka:
+    config:
+      log.message.format.version: 2.8
+      offsets.topic.replication.factor: 1
+      transaction.state.log.min.isr: 1
+      transaction.state.log.replication.factor: 1
+    listeners:
+      - name: plain
+        port: 9092
+        type: internal
+        tls: false
+      - name: tls
+        port: 9093
+        type: internal
+        tls: true
+    replicas: 3
+    storage:
+      type: ephemeral
+    version: 2.8.0
+  zookeeper:
+    replicas: 3
+    storage:
+      type: ephemeral
+---
+# Source: kafka/templates/xray-kafka-topic.yaml
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaTopic
+metadata:
+  name: xray-images
+  namespace: xraylab-1
+  labels:
+    strimzi.io/cluster: xray-cluster
+spec:
+  partitions: 1
+  replicas: 1
+  config:
+    retention.ms: 604800000
+    segment.bytes: 1073741824
+---
+# Source: kafka/templates/xray-kafdrop-route.yaml
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: kafdrop
+  namespace: xraylab-1
+spec:
+  subdomain: 
+  to:
+    kind: Service
+    name: kafdrop
+    weight: 100
+  port:
+    targetPort: 9000
+  wildcardPolicy:
