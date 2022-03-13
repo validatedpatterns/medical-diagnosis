@@ -1,3 +1,9 @@
+global:
+  xraylab:
+    namespace: xraylab-demo
+  datacenter:
+    clustername: xraylab-demo
+    domain: example.com
 
 xraylab:
   #Commented out by jrickard - changed variable inside of template to use global value for clustername and domain
