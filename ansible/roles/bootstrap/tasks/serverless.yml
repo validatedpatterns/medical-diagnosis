@@ -37,10 +37,10 @@
     kind: Secret
     name: s3-secret-bck
     namespace: xraylab-1
+    api_version: v1
     wait: yes
     wait_sleep: 10
     wait_timeout: 360 
-  register: s3_secret
 
 - name: Apply the kafkasource manifests
   kubernetes.core.k8s:
@@ -48,5 +48,3 @@
     src: "{{ item }}"
   loop:
     - "{{ helm_output_dir }}/{{ kafkasource.template_dir }}/templates/xray-kafka-risk-assessment-svc.yaml"
-    - "{{ helm_output_dir }}/{{ kafkasource.template_dir }}/templates/xray-kafka-risk-assessment-source.yaml"
-  when: s3_secret.changed
