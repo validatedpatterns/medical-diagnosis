@@ -13,7 +13,7 @@ global:
 
   datacenter:
     region: us-east-2
-    clustername: jrickard-xray49
+    clustername: jrickard-gitops
     domain: blueprints.rhecoeng.com
 
   xraylab:
