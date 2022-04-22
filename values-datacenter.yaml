@@ -25,7 +25,6 @@ clusterGroup:
 
   - name: amq-streams
     namespace: xraylab-1 
-    #channel: amq-streams-1.7.x
     channel: stable
     csv: amqstreams.v1.7.1
 
@@ -39,6 +38,8 @@ clusterGroup:
     namespace: openshift-storage
     channel: stable-4.8
     csv: ocs-operator.v4.8.7
+#    channel: stable-4.9
+#    csv: ocs-operator.v4.9.4
 
   - name: serverless-operator
     channel: stable

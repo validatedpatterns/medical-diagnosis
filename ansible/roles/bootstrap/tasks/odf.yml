@@ -34,25 +34,11 @@
   loop: "{{ odf.expected_crds }}"
 
 
-- name: "Wait for noobaa deployment to complete | timeout is set to 5 minutes"
+- name: "Wait for noobaa-endpoint deployment to complete | timeout is set to 15 minutes"
   kubernetes.core.k8s_info:
     api_version: "apps/v1"
     kind: Deployment
-    name: "noobaa-operator"
-    namespace: openshift-storage
-    wait: true
-    wait_condition:
-      reason: MinimumReplicasAvailable
-      status: 'True'
-      type: Available
-    wait_sleep: 30
-    wait_timeout: 300
-
-- name: "Wait for the ocs-operator to complete installation before moving on | timeout is set to 15 minutes"
-  kubernetes.core.k8s_info:
-    api_version: "apps/v1"
-    kind: Deployment
-    name: "ocs-operator"
+    name: "noobaa-endpoint"
     namespace: openshift-storage
     wait: true
     wait_condition:
@@ -61,3 +47,17 @@
       type: Available
     wait_sleep: 30
     wait_timeout: 900
+
+#- name: "Wait for the ocs-operator to complete installation before moving on | timeout is set to 15 minutes"
+#  kubernetes.core.k8s_info:
+#    api_version: "apps/v1"
+#    kind: Deployment
+#    name: "ocs-operator"
+#    namespace: openshift-storage
+#    wait: true
+#    wait_condition:
+#      reason: MinimumReplicasAvailable
+#      status: 'True'
+#      type: Available
+#    wait_sleep: 30
+#    wait_timeout: 900
