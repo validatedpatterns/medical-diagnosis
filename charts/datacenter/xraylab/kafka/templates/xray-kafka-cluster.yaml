@@ -11,7 +11,6 @@ spec:
       reconciliationIntervalSeconds: 120
   kafka:
     config:
-      log.message.format.version: {{ .Values.kafka.config.logFormatVersion }}
       offsets.topic.replication.factor: 1
       transaction.state.log.min.isr: 1
       transaction.state.log.replication.factor: 1
@@ -27,7 +26,6 @@ spec:
     replicas: {{ .Values.kafka.replicas }}
     storage:
       type: {{ .Values.kafka.storage.type }}
-    version: {{ .Values.kafka.version }}
   zookeeper:
     replicas: {{ .Values.zookeeper.replicas }}
     storage:
