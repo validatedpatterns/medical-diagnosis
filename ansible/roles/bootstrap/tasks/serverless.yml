@@ -25,26 +25,29 @@
   - r_kn_serving.resources[0].status.conditions[3].status is defined
   - r_kn_serving.resources[0].status.conditions[3].status == "True"
 
-- name: remove kafkasource
-  kubernetes.core.k8s:
-    state: absent
-    api_version: sources.knative.dev/v1beta1
-    kind: KafkaSource
-    name: xray-images
-
-- name: remove  kafkaservice
-  kubernetes.core.k8s:
-    state: absent
-    api_version: serving.knative.dev/v1
-    kind: Service
-    name: risk-assessment
-
-- name: Render the kafkasource templates 
+- name: Render the kafkasource templates
   kubernetes.core.helm_template:
     chart_ref: "{{ helm_charts_dir }}/xraylab/{{ kafkasource.template_dir }}"
     output_dir: "{{ helm_output_dir }}"
     values_files:
       - "{{ pattern_repo_dir}}/values-global.yaml"
+
+- name: Remove the existing kafka service
+  kubernetes.core.k8s:
+    state: absent
+    src: "{{ item }}"
+  loop:
+    - "{{ helm_output_dir }}/{{ kafkasource.template_dir }}/templates/xray-kafka-risk-assessment-svc.yaml"
+
+- name: Make sure the aws-s3-secret exists
+  kubernetes.core.k8s_info:
+    kind: Secret
+    name: s3-secret-bck
+    namespace: xraylab-1
+    api_version: v1
+    wait: yes
+    wait_sleep: 10
+    wait_timeout: 360 
 
 - name: Apply the kafkasource manifests
   kubernetes.core.k8s:
@@ -52,4 +55,3 @@
     src: "{{ item }}"
   loop:
     - "{{ helm_output_dir }}/{{ kafkasource.template_dir }}/templates/xray-kafka-risk-assessment-svc.yaml"
-    - "{{ helm_output_dir }}/{{ kafkasource.template_dir }}/templates/xray-kafka-risk-assessment-source.yaml"

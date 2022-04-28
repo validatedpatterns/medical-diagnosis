@@ -25,7 +25,7 @@ update: upgrade
 
 bootstrap:
 	#./scripts/bootstrap-medical-edge.sh
-	ansible-playbook -e pattern_repo_dir="{{lookup('env','PWD')}}" -e helm_charts_dir="{{lookup('env','PWD')}}/charts/datacenter" ./ansible/site.yml 
+	ansible-playbook -e pattern_repo_dir="{{lookup('env','PWD')}}" -e helm_charts_dir="{{lookup('env','PWD')}}/charts/datacenter" ./ansible/site.yaml
 
 common-test:
 	make -C common -f common/Makefile test

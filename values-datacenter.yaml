@@ -25,7 +25,6 @@ clusterGroup:
 
   - name: amq-streams
     namespace: xraylab-1 
-    #channel: amq-streams-1.7.x
     channel: stable
     csv: amqstreams.v1.7.1
 
