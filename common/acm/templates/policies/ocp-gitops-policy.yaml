@@ -21,12 +21,10 @@ spec:
           remediationAction: enforce
           severity: med
           namespaceSelector:
-            exclude:
-              - kube-*
             include:
               - default
           object-templates:
-            - complianceType: musthave
+            - complianceType: mustonlyhave
               objectDefinition:
                 # This is an auto-generated file. DO NOT EDIT
                 apiVersion: operators.coreos.com/v1alpha1

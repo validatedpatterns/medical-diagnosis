@@ -1,4 +1,3 @@
-BOOTSTRAP=1
 ARGO_TARGET_NAMESPACE=manuela-ci
 PATTERN=industrial-edge
 COMPONENT=datacenter
@@ -14,25 +13,26 @@ default: show
 	make -f common/Makefile $*
 
 install: deploy
-ifeq ($(BOOTSTRAP),1)
 	echo "Bootstrapping Medical Diagnosis Pattern"
 	make bootstrap
-endif
 
 predeploy:
 	./scripts/precheck.sh
 
 update: upgrade
-ifeq ($(BOOTSTRAP),1)
 	echo "Bootstrapping Medical Diagnosis Pattern"
 	make bootstrap
-endif
 
 bootstrap:
 	#./scripts/bootstrap-medical-edge.sh
 	ansible-playbook -e pattern_repo_dir="{{lookup('env','PWD')}}" -e helm_charts_dir="{{lookup('env','PWD')}}/charts/datacenter" ./ansible/site.yaml
 
+common-test:
+	make -C common -f common/Makefile test
+
 test:
-	make -f common/Makefile CHARTS="$(wildcard charts/datacenter/*)" PATTERN_OPTS="-f values-datacenter.yaml" test
+	make -f common/Makefile CHARTS="secrets $(shell find charts/datacenter -type f -iname 'Chart.yaml' -not -path "./common/*" -exec dirname "{}" \;)" PATTERN_OPTS="-f values-datacenter.yaml" test
 	make -f common/Makefile CHARTS="$(wildcard charts/factory/*)" PATTERN_OPTS="-f values-factory.yaml" test
 
+helmlint:
+	@for t in "secrets $(shell find charts/datacenter -type f -iname 'Chart.yaml' -not -path "./common/*" -exec dirname "{}" \;)"; do helm lint $$t; if [ $$? != 0 ]; then exit 1; fi; done

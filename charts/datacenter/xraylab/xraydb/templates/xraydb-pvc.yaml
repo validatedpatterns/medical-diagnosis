@@ -9,5 +9,5 @@ spec:
   resources:
     requests:
       storage: 1Gi
-  storageClassName: gp2 #ocs-storagecluster-ceph-rbd
+  storageClassName: {{ .Values.global.datacenter.storageClassName }}
   volumeMode: Filesystem

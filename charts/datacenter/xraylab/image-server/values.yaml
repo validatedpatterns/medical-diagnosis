@@ -1,6 +1,13 @@
-s3:
-  bucketSource: 
-  bucketBaseName: "xraylab-1"
+global:
+  xraylab:
+    namespace: xraylab-demo
+    s3:
+      bucketSource: 
+      bucketBaseName: "xraylab-1"
+  datacenter:
+    clustername: xraylab-demo
+    domain: example.com
+
 
 #Changing to ODF vs OCS
 odf:

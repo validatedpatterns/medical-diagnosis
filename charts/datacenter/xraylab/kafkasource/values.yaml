@@ -1,3 +1,6 @@
+global:
+  xraylab:
+    namespace: xraylab-demo
 kafkaSource:
   bootstrapserver: "xray-cluster-kafka-bootstrap.xraylab-1.svc:9092"
   name: "xray-images"
