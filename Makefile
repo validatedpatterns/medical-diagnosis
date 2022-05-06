@@ -1,4 +1,3 @@
-BOOTSTRAP=1
 ARGO_TARGET_NAMESPACE=manuela-ci
 PATTERN=industrial-edge
 COMPONENT=datacenter
@@ -14,19 +13,15 @@ default: show
 	make -f common/Makefile $*
 
 install: deploy
-ifeq ($(BOOTSTRAP),1)
 	echo "Bootstrapping Medical Diagnosis Pattern"
 	make bootstrap
-endif
 
 predeploy:
 	./scripts/precheck.sh
 
 update: upgrade
-ifeq ($(BOOTSTRAP),1)
 	echo "Bootstrapping Medical Diagnosis Pattern"
 	make bootstrap
-endif
 
 bootstrap:
 	#./scripts/bootstrap-medical-edge.sh

@@ -37,7 +37,7 @@ spec:
     placement: {}
     dataPVCTemplate:
       spec:
-        storageClassName: {{ .Values.ocs.osd.pvc.storageClassName }}
+        storageClassName: {{ .Values.global.datacenter.storageClassName }}
         accessModes:
         - ReadWriteOnce
         volumeMode: Block
