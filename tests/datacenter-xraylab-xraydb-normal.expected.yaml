@@ -66,7 +66,7 @@ spec:
   resources:
     requests:
       storage: 1Gi
-  storageClassName: gp2 #ocs-storagecluster-ceph-rbd
+  storageClassName: PROVIDE_DEFAULT_STORAGE_CLASS
   volumeMode: Filesystem
 ---
 # Source: xraydb/templates/xraydb-svc.yaml

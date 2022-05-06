@@ -30,6 +30,10 @@ ocs:
     name: ocs-storagecluster-ceph-rgw
     objectStoreName: ocs-storagecluster-cephobjectstore
 
+global:
+  datacenter:
+    storageClassName: gp2
+    region: us-east-1
 toolbox:
   name: ocsinit
   enableCephTools: true

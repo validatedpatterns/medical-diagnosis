@@ -6,7 +6,7 @@ metadata:
   name: risk-assessment
   namespace: xraylab-1
   annotations:
-    argocd.argoproj.io/sync-wave: "2"
+    argocd.argoproj.io/sync-wave: "1"
 spec:
   template:
     metadata:
@@ -97,7 +97,7 @@ metadata:
   namespace: xraylab-1
   annotations:
     argocd.argoproj.io/sync-options: Validate=false, SkipDryRunOnMissingResource=true
-    argocd.argoproj.io/sync-wave: "3"
+    argocd.argoproj.io/sync-wave: "10"
 spec:
   consumerGroup: risk-assessment
   bootstrapServers:
