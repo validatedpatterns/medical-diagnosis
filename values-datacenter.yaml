@@ -52,129 +52,160 @@ clusterGroup:
   - datacenter
  
   applications:
-  - name: acm
-    namespace: open-cluster-management
-    project: datacenter
-    path: common/acm
+    acm:
+      name: acm
+      namespace: open-cluster-management
+      project: datacenter
+      path: common/acm
 
-  - name: odh
-    namespace: opendatahub
-    project: datacenter
-    path: charts/datacenter/opendatahub
+    odh:
+      name: odh
+      namespace: opendatahub
+      project: datacenter
+      path: charts/datacenter/opendatahub
 
-  - name: cephobjectstore
-    namespace: openshift-storage
-    project: datacenter
-    path: charts/datacenter/cephobjectstore
+    cephobjectstore:
+      name: cephobjectstore
+      namespace: openshift-storage
+      project: datacenter
+      path: charts/datacenter/cephobjectstore
 
-  - name: knative
-    namespace: xraylab-1
-    project: datacenter
-    path: charts/datacenter/xraylab/knative
+    knative:
+      name: knative
+      namespace: xraylab-1
+      project: datacenter
+      path: charts/datacenter/xraylab/knative
 
-  - name: demo
-    namespace: xraylab-1
-    project: datacenter
-    path: charts/datacenter/xraylab/demo
+    demo:
+      name: demo
+      namespace: xraylab-1
+      project: datacenter
+      path: charts/datacenter/xraylab/demo
 
-  - name: user
-    namespace: xraylab-1
-    project: datacenter
-    path: charts/datacenter/xraylab/user
-    
-  - name: kafka
-    namespace: xraylab-1
-    project: datacenter
-    path: charts/datacenter/xraylab/kafka
+    user:
+      name: user
+      namespace: xraylab-1
+      project: datacenter
+      path: charts/datacenter/xraylab/user
 
-  - name: kafkasource
-    namespace: xraylab-1
-    project: datacenter
-    path: charts/datacenter/xraylab/kafkasource
+    kafka:
+      name: kafka
+      namespace: xraylab-1
+      project: datacenter
+      path: charts/datacenter/xraylab/kafka
 
-  - name:  grafana
-    namespace: xraylab-1
-    project: datacenter
-    path: charts/datacenter/xraylab/grafana
+    kafkasource:
+      name: kafkasource
+      namespace: xraylab-1
+      project: datacenter
+      path: charts/datacenter/xraylab/kafkasource
 
-  - name:  imageserver
-    namespace: xraylab-1
-    project: datacenter
-    path: charts/datacenter/xraylab/image-server
+    grafana:
+      name:  grafana
+      namespace: xraylab-1
+      project: datacenter
+      path: charts/datacenter/xraylab/grafana
 
-  - name:  imagegenerator
-    namespace: xraylab-1
-    project: datacenter
-    path: charts/datacenter/xraylab/image-generator
-    
-  - name: xraydb
-    namespace: xraylab-1
-    project: datacenter
-    path: charts/datacenter/xraylab/xraydb
-  
-  - name: hashivault
-    namespace: vault
-    project: datacenter
-    chart: vault
-    repoURL: https://helm.releases.hashicorp.com
-    targetRevision: 0.17.1
-    overrides:
-    - name: build.enabled
-      value: "false"
-      forceString: true
-    - name: deploy.route.tls.enabled
-      value: "true"
-      forceString: true
-    - name: global.openshift
-      value: "true"
-      forceString: true
-    - name: server.dev.enabled
-      value: "true"
-      forceString: true
+    imageserver:
+      name: imageserver
+      namespace: xraylab-1
+      project: datacenter
+      path: charts/datacenter/xraylab/image-server
 
-#
+    imagegenerator:
+      name: imagegenerator
+      namespace: xraylab-1
+      project: datacenter
+      path: charts/datacenter/xraylab/image-generator
+
+    xraydb:
+      name: xraydb
+      namespace: xraylab-1
+      project: datacenter
+      path: charts/datacenter/xraylab/xraydb
+
+    hashivault:
+      name: hashivault
+      namespace: vault
+      project: datacenter
+      chart: vault
+      repoURL: https://helm.releases.hashicorp.com
+      targetRevision: 0.17.1
+      overrides:
+      - name: build.enabled
+        value: "false"
+        forceString: true
+      - name: deploy.route.tls.enabled
+        value: "true"
+        forceString: true
+      - name: global.openshift
+        value: "true"
+        forceString: true
+      - name: server.dev.enabled
+        value: "true"
+        forceString: true
+
 #  To have apps in multiple flavors, use namespaces and use helm overrides as appropriate
 #
-#  - name: pipelines
-#    namespace: production
-#    project: datacenter
-#    path: applications/pipeline
-#    repoURL: https://github.com/you/applications.git
-#    targetRevision: stable
-#    overrides:
-#    - name: myparam
-#      value: myparam 
-#  
-#  - name: pipelines
-#    namespace: staging
-#    project: datacenter
-#    path: applications/pipeline
-#    repoURL: https://github.com/you/applications.git
-#    targetRevision: main
-#  
+#    pipelines:
+#      name: pipelines
+#      namespace: production
+#      project: datacenter
+#      path: applications/pipeline
+#      repoURL: https://github.com/you/applications.git
+#      targetRevision: stable
+#      overrides:
+#      - name: myparam
+#        value: myparam
+#
+#    pipelines_staging:
+#    - name: pipelines
+#      namespace: staging
+#      project: datacenter
+#      path: applications/pipeline
+#      repoURL: https://github.com/you/applications.git
+#      targetRevision: main
+#
 #   Additional applications
 #   Be sure to include additional resources your apps will require
 #   +X machines
 #   +Y RAM
 #   +Z CPU
-#  - name: vendor-app
-#    namespace: default
-#    project: vendor
-#    path: path/to/myapp
-#    repoURL: https://github.com/vendor/applications.git
-#    targetRevision: main
+#    vendor-app:
+#      name: vendor-app
+#      namespace: default
+#      project: vendor
+#      path: path/to/myapp
+#      repoURL: https://github.com/vendor/applications.git
+#      targetRevision: main
+
+#  managedSites:
+#    factory:
+#      name: factory
+#      # repoURL: https://github.com/dagger-refuse-cool/manuela-factory.git
+#      targetRevision: main
+#      path: applications/factory
+#      helmOverrides:
+#      - name: site.isHubCluster
+#        value: false
+#      clusterSelector:
+#        matchExpressions:
+#        - key: vendor
+#          operator: In
+#          values:
+#            - OpenShift
 
   managedSites:
-  - name: edge
-    # repoURL: https://github.com/dagger-refuse-cool/manuela-factory.git
-    targetRevision: main
-    helmOverrides:
-    - name: site.isHubCluster
-      value: "false"
-    clusterSelector:
-      matchExpressions:
-      - key: vendor
-        operator: In
-        values:
-          - OpenShift
-
+    edge:
+      name: edge
+      # repoURL: https://github.com/dagger-refuse-cool/manuela-factory.git
+      targetRevision: main
+      helmOverrides:
+      - name: site.isHubCluster
+        value: "false"
+      clusterSelector:
+        matchExpressions:
+        - key: vendor
+          operator: In
+          values:
+            - OpenShift
