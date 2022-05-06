@@ -11,31 +11,33 @@ site:
 #  - open-cluster-management
 
 #  subscriptions:
-#  - name: advanced-cluster-management
-#    namespace: open-cluster-management
-#    source: redhat-operators
-#    channel: release-2.3
-#    csv: v2.3.2
+#    acm:
+#      name: advanced-cluster-management
+#      namespace: open-cluster-management
+#      source: redhat-operators
+#      channel: release-2.3
+#      csv: v2.3.2
 
   projects:
   - factory
 
-#
 #  To have apps in multiple flavors, use namespaces and use helm overrides as appropriate
 #
-#  - name: pipelines
-#    namespace: production
-#    project: datacenter
-#    path: applications/pipeline
-#    repoURL: https://github.com/you/applications.git
-#    targetRevision: stable
-#    overrides:
-#    - name: myparam
-#      value: myparam 
-#  
-#  - name: pipelines
-#    namespace: staging
-#    project: datacenter
-#    path: applications/pipeline
-#    repoURL: https://github.com/your/applications.git
-#    targetRevision: main
+#    pipelines:
+#      name: pipelines
+#      namespace: production
+#      project: datacenter
+#      path: applications/pipeline
+#      repoURL: https://github.com/you/applications.git
+#      targetRevision: stable
+#      overrides:
+#      - name: myparam
+#        value: myparam
+#
+#    pipelines_staging:
+#    - name: pipelines
+#      namespace: staging
+#      project: datacenter
+#      path: applications/pipeline
+#      repoURL: https://github.com/you/applications.git
+#      targetRevision: main

@@ -10,7 +10,7 @@ provisioner: openshift-storage.ceph.rook.io/bucket
 parameters:
   objectStoreName: ocs-storagecluster-cephobjectstore
   objectStoreNamespace: openshift-storage
-  region: us-east-1
+  region: PROVIDE_CLOUD_REGION
 reclaimPolicy: Delete
 volumeBindingMode: Immediate
 ---
@@ -155,7 +155,7 @@ spec:
     placement: {}
     dataPVCTemplate:
       spec:
-        storageClassName: gp2
+        storageClassName: PROVIDE_DEFAULT_STORAGE_CLASS
         accessModes:
         - ReadWriteOnce
         volumeMode: Block

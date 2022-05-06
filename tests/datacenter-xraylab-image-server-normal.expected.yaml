@@ -6,7 +6,7 @@ metadata:
   name: buckets-config
   namespace: "xraylab-1"
 data:
-  bucket-source: "PROVIDE_BUCKET_SOURCE"
+  bucket-source: "PROVIDE_S3_BUCKETSOURCE"
   bucket-base-name: "xraylab-1"
 ---
 # Source: image-server/templates/image-server-service-point-cm.yaml
