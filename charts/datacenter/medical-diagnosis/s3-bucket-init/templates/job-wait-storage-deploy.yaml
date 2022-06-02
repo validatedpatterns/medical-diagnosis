@@ -1,0 +1,25 @@
+kind: Job
+apiVersion: batch/v1
+metadata:
+  name: wait-for-noobaa-deployment
+  namespace: '{{ .Values.global.xraylab.namespace }}'
+  annotations:
+    argocd.argoproj.io/hook: PostSync
+    argocd.argoproj.io/sync-wave: "-5"
+spec:
+  template:
+    spec:
+      containers: 
+      - image: {{ .Values.job.image }}
+        command:
+        - /bin/bash
+        - -c
+        - |
+          oc wait --for=condition=available deployment/noobaa-endpoint --timeout 900s -n openshift-storage
+        name: wait-for-noobaa-deployment
+      dnsPolicy: ClusterFirst
+      activeDeadlineSeconds: 900
+      restartPolicy: Never
+      serviceAccount: {{ .Values.global.xraylab.namespace }}-sa
+      serviceAccountName: {{ .Values.global.xraylab.namespace }}-sa
+      terminationGracePeriodSeconds: 60

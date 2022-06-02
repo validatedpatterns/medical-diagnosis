@@ -1,0 +1,9 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: {{ .Values.rbac.role.name }}
+  namespace: {{ .Values.global.xraylab.namespace }}
+rules:
+- apiGroups: [{{ .Values.rbac.role.apiGroups | quote }}]
+  resources: [{{ .Values.rbac.role.resources | quote }}]
+  verbs: [{{ join ", " .Values.rbac.role.verbs }}]
