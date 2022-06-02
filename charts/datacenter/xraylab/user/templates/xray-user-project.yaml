@@ -1,8 +1,0 @@
-apiVersion: project.openshift.io/v1
-kind: Project
-metadata:
-  name: "{{ .Values.xraylab.user }}"
-#  namespace: xraylab-1
-  annotations:
-    openshift.io/description: ""
-    openshift.io/display-name: "{{ .Values.xraylab.user }}"
