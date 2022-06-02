@@ -5,6 +5,8 @@ metadata:
   namespace: "{{ .Values.global.xraylab.namespace }}"  
   labels:
     app: {{ .Values.database.name }}
+  annotations:
+    argocd.argoproj.io/sync-wave: "5"
 spec:
   strategy:
     type: Recreate
