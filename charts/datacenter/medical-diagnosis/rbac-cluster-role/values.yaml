@@ -1,6 +1,6 @@
 rbac:
   clusterRole:
-    - name: wait-for-deployment
+    - name: clusterrole-get-deployments
       apiGroups: '""'
       resources: deployments
       verbs:
