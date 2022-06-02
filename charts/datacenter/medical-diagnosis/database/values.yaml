@@ -5,14 +5,11 @@ global:
     storageClassName: gp2
     region: us-east-1
 
-kafkaSource:
-  bootstrapserver: "xray-cluster-kafka-bootstrap.xraylab-1.svc:9092"
-
 database:
   name: xraylabdb
+  image: registry.redhat.io/rhel8/mariadb-103:latest
 
 rbac:
-  serviceAccount: get-deployment-sa
   clusterRole:
     name: wait-for-deployment
   clusterRoleBinding:
