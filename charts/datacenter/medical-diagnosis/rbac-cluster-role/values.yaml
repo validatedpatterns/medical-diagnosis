@@ -1,0 +1,10 @@
+rbac:
+  clusterRole:
+    name: resource-wait
+    apiGroups: '""'
+    resources: deployments
+    verbs:
+     - '"get"'
+     - '"list"'
+     - '"patch"'
+     - '"update"'
