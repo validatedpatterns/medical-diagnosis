@@ -1,0 +1,23 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+  name: {{ .Values.job.name }}
+  namespace: {{ .Values.odf.namespace }}
+spec:
+  template:
+    spec:
+      containers: 
+      - image: {{ .Values.job.image }}
+        command:
+        - /bin/bash
+        - -c
+        - |
+          oc label nodes -l node-role.kubernetes.io/worker= cluster.ocs.openshift.io/openshift-storage='' --overwrite
+        name: {{ .Values.job.name }}
+      dnsPolicy: ClusterFirst
+      restartPolicy: Never
+      serviceAccount: {{ .Values.rbac.serviceAccount }}
+      serviceAccountName: {{ .Values.rbac.serviceAccount }}
+      terminationGracePeriodSeconds: 400

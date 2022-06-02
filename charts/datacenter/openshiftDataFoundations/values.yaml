@@ -1,0 +1,70 @@
+global:
+  datacenter:
+    storageClassName: gp2
+    region: us-east-1
+
+odf:
+  namespace: openshift-storage
+  mon:
+    requests:
+       cpu: 1
+       memory: 2Gi
+  mds:
+    requests:
+      cpu: 3
+      memory: 8Gi
+  mgr:
+    requests:
+      cpu: 1
+      memory: 3Gi
+  noobaacore:
+    requests:
+      cpu: 1
+      memory: 4Gi
+  noobaadb:
+    requests:
+      cpu: 1
+      memory: 4Gi
+  osd:
+    requests:
+      cpu: 2
+      memory: 5Gi
+    pvc:
+      storage: 2Ti
+  storageClass:
+    name: ocs-storagecluster-ceph-rgw
+    objectStoreName: ocs-storagecluster-cephobjectstore
+
+route:
+  name: s3-rgw
+  service: 
+    name: rook-ceph-rgw-ocs-storagecluster-cephobjectstore
+    weight: 100
+  port:
+    targetPort: http
+
+toolbox:
+  name: ocsinit
+  enableCephTools: true
+
+#Define the odf storageSystem parameters
+storageSystem:
+  deploy: false
+  name: ocs-storagecluster-storagesystem
+  namespace: openshift-storage
+  spec:
+    kind: storagecluster.ocs.openshift.io/v1
+    name: ocs-storagecluster
+    namespace: ""
+
+#RoleBasedAccessControl
+rbac:
+  serviceAccount: label-storage-nodes-sa
+  clusterRole:
+    name: label-storage-nodes-role
+  clusterRoleBinding:
+    name: label-storage-nodes-rolebinding
+
+job:
+  name: label-storage-nodes
+  image: image-registry.openshift-image-registry.svc:5000/openshift/cli:latest
