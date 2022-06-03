@@ -1,0 +1,22 @@
+---
+{{- range $key, $value := .Values.rbac.clusterRole }}
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: {{ .name }}
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+rules:
+  - apiGroups:
+{{- range $value.apiGroups }}
+      - {{ . }}
+{{- end }}
+    resources:
+{{- range $value.resources }}
+      - {{ . }}
+{{- end }}
+    verbs: 
+{{- range $value.verbs }}
+      - {{ . }}
+{{- end }}
+{{- end }}
