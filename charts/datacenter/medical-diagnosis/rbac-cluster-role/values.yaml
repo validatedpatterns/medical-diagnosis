@@ -1,9 +1,0 @@
-rbac:
-  clusterRole:
-    - name: clusterrole-get-deployments
-      apiGroups: '""'
-      resources: deployments
-      verbs:
-        - '"get"'
-        - '"list"'
-        - '"watch"'
