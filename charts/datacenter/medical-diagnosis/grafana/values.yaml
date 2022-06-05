@@ -11,9 +11,8 @@ xraylab:
 
 rbac:
   clusterRoles:
-    - name: grafana-resource-mgmt
+    - name: grafana-mgmt
       apiGroups:
-        - '""' 
         - "integreatly.org"
       resources: 
         - grafanadatasources
@@ -23,40 +22,19 @@ rbac:
         - "patch"
         - "create"
         - "update"
-    - name: secrets-reader
-      apiGroups:
-        - '""'
-      resources:
-        - secrets
-      verbs:
-        - '"get"'
-        - '"list"'
-        - '"watch"'
   roleBindings:
     - name: secrets-reader
       scope:
-        cluster: false
-        namespace: openshift-storage
+        cluster: true
+        namespace: ""
       subjects:
         kind: ServiceAccount
-        name: ""
-        namepace: ""
+        name: grafana-serviceaccount
+        namespace: xraylab-1
         apiGroup: ""
       roleRef:
         kind: ClusterRole
         name: secrets-reader
-    - name: secrets-manager
-      scope:
-        cluster: false
-        namespace: xraylab-1
-      subjects:
-        kind: ServiceAccount
-        name: ""
-        namespace: ""
-        apiGroup: ""
-      roleRef:
-        kind: ClusterRole
-        name: secrets-manager
     - name: cluster-monitoring-view
       scope:
         cluster: true
@@ -69,4 +47,3 @@ rbac:
       roleRef:
         kind: ClusterRole
         name: cluster-monitoring-view
-
