@@ -56,7 +56,7 @@ rbac:
       subjects:
         kind: ServiceAccount
         name: ""
-        namepace: ""
+        namespace: ""
         apiGroup: ""
       roleRef:
         kind: ClusterRole
