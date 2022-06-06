@@ -70,7 +70,7 @@ clusterGroup:
   - name: serverless
     namespace: xraylab-1
     project: datacenter
-    path: charts/datacenter/OpenshiftServerless
+    path: charts/datacenter/openshiftServerless
   
   - name: kafka
     namespace: xraylab-1
