@@ -24,6 +24,7 @@ rbac:
         - deployments
         - cephobjectstore
         - storagcluster
+        - cephobjectstoreuser
       verbs:
         - "get"
         - "list"
