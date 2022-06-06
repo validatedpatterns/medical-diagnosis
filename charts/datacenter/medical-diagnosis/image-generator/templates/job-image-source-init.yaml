@@ -23,12 +23,12 @@ spec:
             - name: AWS_ACCESS_KEY_ID
               valueFrom:
                 secretKeyRef:
-                  name: s3-secret
+                  name: s3-secret-bck
                   key: AWS_ACCESS_KEY_ID
             - name: AWS_SECRET_ACCESS_KEY
               valueFrom:
                 secretKeyRef:
-                  name: s3-secret
+                  name: s3-secret-bck
                   key: AWS_SECRET_ACCESS_KEY
             - name: SERVICE_POINT
               valueFrom:
