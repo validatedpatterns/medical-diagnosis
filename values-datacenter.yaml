@@ -34,10 +34,10 @@ clusterGroup:
     source: community-operators
     csv: grafana-operator.v3.10.3
 
-  - name: ocs-operator
+  - name: odf-operator
     namespace: openshift-storage
-    channel: stable-4.8
-    csv: ocs-operator.v4.8.7
+    channel: stable-4.10
+    csv: ocs-operator.v4.10.2
 
   - name: serverless-operator
     channel: stable
@@ -60,77 +60,57 @@ clusterGroup:
   - name: odh
     namespace: opendatahub
     project: datacenter
-    path: charts/datacenter/opendatahub
+    path: charts/datacenter/openDataHub
 
-  - name: cephobjectstore
+  - name: odf
     namespace: openshift-storage
     project: datacenter
-    path: charts/datacenter/cephobjectstore
+    path: charts/datacenter/openshiftDataFoundations
 
-  - name: knative
+  - name: serverless
     namespace: xraylab-1
     project: datacenter
-    path: charts/datacenter/xraylab/knative
-
-  - name: demo
-    namespace: xraylab-1
-    project: datacenter
-    path: charts/datacenter/xraylab/demo
-
-  - name: user
-    namespace: xraylab-1
-    project: datacenter
-    path: charts/datacenter/xraylab/user
-    
+    path: charts/datacenter/OpenshiftServerless
+  
   - name: kafka
     namespace: xraylab-1
     project: datacenter
-    path: charts/datacenter/xraylab/kafka
-
-  - name: kafkasource
-    namespace: xraylab-1
-    project: datacenter
-    path: charts/datacenter/xraylab/kafkasource
-
-  - name:  grafana
-    namespace: xraylab-1
-    project: datacenter
-    path: charts/datacenter/xraylab/grafana
-
-  - name:  imageserver
-    namespace: xraylab-1
-    project: datacenter
-    path: charts/datacenter/xraylab/image-server
-
-  - name:  imagegenerator
-    namespace: xraylab-1
-    project: datacenter
-    path: charts/datacenter/xraylab/image-generator
-    
-  - name: xraydb
-    namespace: xraylab-1
-    project: datacenter
-    path: charts/datacenter/xraylab/xraydb
+    path: charts/datacenter/kafka
   
-  - name: hashivault
-    namespace: vault
+  - name: kafdrop
+    namespace: xraylab-1
     project: datacenter
-    chart: vault
-    repoURL: https://helm.releases.hashicorp.com
-    targetRevision: 0.17.1
-    overrides:
-    - name: build.enabled
-      value: "false"
-      forceString: true
-    - name: deploy.route.tls.enabled
-      value: "true"
-      forceString: true
-    - name: global.openshift
-      value: "true"
-      forceString: true
-    - name: server.dev.enabled
-      value: "true"
-      forceString: true
+    path: charts/datacenter/kafdrop
+  
+  - name: xraylab-serviceAccount
+    namespace: xraylab-1
+    project: datacenter
+    path: charts/datacenter/medical-diagnosis/serviceAccount
+
+  - name: xraylab-database
+    namespace: xraylab-1
+    project: datacenter
+    path: charts/datacenter/medical-diagnosis/database
+
+  - name: xraylab-objectstoreUser
+    namespace: xraylab-1
+    project: datacenter
+    path: charts/datacenter/medical-diagnosis/objectStoreUser
+
+  - name: xraylab-image-server
+    namespace: xraylab-1
+    project: datacenter
+    path: charts/datacenter/medical-diagnosis/image-server
+
+  - name: xraylab-risk-assessment
+    namespace: xraylab-1
+    project: datacenter
+    path: charts/datacenter/medical-diagnosis/risk-assessment
+
+  - name: xraylab-image-generator
+    namespace: xraylab-1
+    project: datacenter
+    path: charts/datacenter/medical-diagnosis/image-generator
 
 #
 #  To have apps in multiple flavors, use namespaces and use helm overrides as appropriate
