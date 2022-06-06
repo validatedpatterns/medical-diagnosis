@@ -82,7 +82,7 @@ clusterGroup:
     project: datacenter
     path: charts/datacenter/kafdrop
   
-  - name: xraylab-serviceAccount
+  - name: serviceAccount
     namespace: xraylab-1
     project: datacenter
     path: charts/datacenter/medical-diagnosis/serviceAccount
