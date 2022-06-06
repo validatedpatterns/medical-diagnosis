@@ -2,6 +2,7 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   name: xray-source
+  namespace: {{ .Values.global.xraylab.namespace }}
 spec:
   selector: {}
   template:
