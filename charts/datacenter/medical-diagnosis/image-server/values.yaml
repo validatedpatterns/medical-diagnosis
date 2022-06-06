@@ -7,3 +7,28 @@ odf:
   serviceUrl: "http://rook-ceph-rgw-ocs-storagecluster-cephobjectstore.openshift-storage.svc.cluster.local"
   externalUrl: "https://s3-rgw-openshift-storage"
   targetBucket: com.redhat.jrickard.xray-source
+
+rbac:
+  clusterRoles:
+    - name: cephobjecstoreuser-reader
+      apiGroups:
+        - "ceph.rook.io"
+      resources: 
+        - cephobjectstoreuser
+      verbs:
+        - "get"
+        - "list"
+        - "watch"
+  roleBindings:
+    - name: cephobjecstoreuser-reader
+      scope:
+        cluster: true
+        namespace: openshift-storage
+      subjects:
+        kind: ServiceAccount
+        name: ""
+        namespace: ""
+        apiGroup: ""
+      roleRef:
+        kind: ClusterRole
+        name: cephobjecstoreuser-reader
