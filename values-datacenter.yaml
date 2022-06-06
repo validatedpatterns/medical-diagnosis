@@ -87,15 +87,15 @@ clusterGroup:
     project: datacenter
     path: charts/datacenter/medical-diagnosis/serviceAccount
 
+  - name: objectstoreUser
+    namespace: xraylab-1
+    project: datacenter
+    path: charts/datacenter/medical-diagnosis/objectStoreUser
+
   - name: xraylab-database
     namespace: xraylab-1
     project: datacenter
     path: charts/datacenter/medical-diagnosis/database
-
-  - name: xraylab-objectstoreUser
-    namespace: xraylab-1
-    project: datacenter
-    path: charts/datacenter/medical-diagnosis/objectStoreUser
   
   - name: xraylab-grafana-dashboards
     namespace: xraylab-1
