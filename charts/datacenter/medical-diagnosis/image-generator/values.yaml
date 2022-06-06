@@ -1,0 +1,22 @@
+global:
+  xraylab:
+    namespace: xraylab-1
+  datacenter:
+    clustername: ""
+
+create-rbacRole: false
+
+rbac:
+  roleBindings:
+    - name: secrets-reader
+      scope:
+        cluster: false
+        namespace: xraylab-1
+      subjects:
+        kind: ServiceAccount
+        name: xraylab-1-sa
+        namespace: xraylab-1
+        apiGroup: ""
+      roleRef:
+        kind: ClusterRole
+        name: secrets-reader
