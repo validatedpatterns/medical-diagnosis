@@ -111,7 +111,6 @@ spec:
       - name: xraylabdb-data
         persistentVolumeClaim:
           claimName: {{ .Values.database.name }}
-          storageClassName: {{ .Values.global.datacenter.storageClassName }}
       restartPolicy: Always
       terminationGracePeriodSeconds: 30
       dnsPolicy: ClusterFirst
