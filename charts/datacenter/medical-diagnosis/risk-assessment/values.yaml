@@ -6,6 +6,9 @@ kafkaSource:
   name: "xray-images"
   consumerGroup: "risk-assessment"
 
+job:
+  image: image-registry.openshift-image-registry.svc:5000/openshift/cli:latest
+
 rbac:
   clusterRoles:
     - name: deployconfig-reader-role
