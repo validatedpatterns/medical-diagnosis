@@ -8,6 +8,9 @@ odf:
   externalUrl: "https://s3-rgw-openshift-storage"
   targetBucket: com.redhat.jrickard.xray-source
 
+job:
+  image: image-registry.openshift-image-registry.svc:5000/openshift/cli:latest
+
 rbac:
   clusterRoles:
     - name: cephobjecstoreuser-reader
