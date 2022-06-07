@@ -34,7 +34,7 @@ rbac:
         namespace: xraylab-1
       subjects:
         kind: ServiceAccount
-        name: ""
+        name: xraylab-1
         namespace: xraylab-1
         apiGroup: ""
       roleRef:
