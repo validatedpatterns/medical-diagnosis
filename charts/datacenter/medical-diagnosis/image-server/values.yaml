@@ -19,7 +19,7 @@ job:
 
 objectStore:
   user:
-    name: ocs-storagecluster-cephobjectstore
+    name: xraylab-1
 
 #The following rbac section is only required if you are going to run this chart independent of the pattern.
 #Set createRole: to true if you want helm/argocd to create the role and rolebinding.
