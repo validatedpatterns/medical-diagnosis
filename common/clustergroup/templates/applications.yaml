@@ -61,5 +61,5 @@ spec:
     #  selfHeal: true
 {{- end }}
 ---
-{{ $c = add10 $c }}
+{{ $c = add1 $c }}
 {{- end }}
