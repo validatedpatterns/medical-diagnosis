@@ -16,7 +16,7 @@ spec:
         - /bin/bash
         - -c
         - |
-          oc wait --for=jsonpath='{.status.phase}'=Ready cephobjectstoreuser/{{ .Values.objectStore.user.name }} -n openshift-storage --timeout=300s
+          oc wait --for=jsonpath='{.status.phase}'=Ready cephobjectstoreuser/xraylab-1 -n openshift-storage --timeout=300s
         name: wait-for-object-user-creation
       dnsPolicy: ClusterFirst
       restartPolicy: Never
