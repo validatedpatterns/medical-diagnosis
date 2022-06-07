@@ -1,3 +1,7 @@
+global:
+  xraylab:
+    namespace: xraylab-1
+
 s3:
   bucketSource: 
   bucketBaseName: "xraylab-1"
