@@ -82,12 +82,12 @@ clusterGroup:
     project: datacenter
     path: charts/datacenter/kafdrop
   
-  - name: service-account
+  - name: xraylab-service-account
     namespace: xraylab-1
     project: datacenter
     path: charts/datacenter/medical-diagnosis/service-account
 
-  - name: object-store-user
+  - name: xraylab-object-store-user
     namespace: xraylab-1
     project: datacenter
     path: charts/datacenter/medical-diagnosis/object-store-user
