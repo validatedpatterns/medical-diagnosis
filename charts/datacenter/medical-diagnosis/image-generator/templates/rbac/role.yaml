@@ -1,13 +1,19 @@
-{{- if .Values.createRole }}
+{{- range $key, $value := .Values.rbac.roles }}
 ---
-{{- range $key, $value := .Values.rbac.clusterRoles }}
 apiVersion: rbac.authorization.k8s.io/v1
+{{- if $value.scope.cluster }}
 kind: ClusterRole
 metadata:
   name: {{ .name }}
+{{- else }}
+kind: Role
+metadata:
+  name: {{ $value.name }}
+  namespace: {{ $value.scope.namespace}}
+{{- end }}
   annotations:
     argocd.argoproj.io/hook: PreSync
-    argocd.argoproj.io/sync-wave: "1"
+    argocd.argoproj.io/sync-wave: "-15"
 rules:
   - apiGroups:
 {{- range $value.apiGroups }}
@@ -20,6 +26,5 @@ rules:
     verbs: 
 {{- range $value.verbs }}
       - {{ . }}
-{{- end }}
 {{- end }}
 {{- end }}
