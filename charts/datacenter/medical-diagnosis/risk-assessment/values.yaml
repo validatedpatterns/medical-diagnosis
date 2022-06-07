@@ -27,7 +27,7 @@ rbac:
         - "list"
         - "watch"
   roleBindings:
-    - name: deployconfig-reader
+    - name: view-deploymentConfigs
       createBinding: true
       scope:
         cluster: false
