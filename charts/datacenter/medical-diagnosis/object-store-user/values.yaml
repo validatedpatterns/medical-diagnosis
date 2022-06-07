@@ -89,7 +89,7 @@ rbac:
     - name: view-odf-storageclusters
       scope:
         cluster: true
-        namespace: openshift-storage
+        namespace: xraylab-1
       subjects:
         kind: ServiceAccount
         name: ""
@@ -101,7 +101,7 @@ rbac:
     - name: view-odf-cephobjectstores
       scope:
         cluster: true
-        namespace: openshift-storage
+        namespace: xraylab.1
       subjects:
         kind: ServiceAccount
         name: ""
@@ -113,7 +113,7 @@ rbac:
     - name: view-odf-objectstoreusers
       scope:
         cluster: true
-        namespace: openshift-storage
+        namespace: xraylab-1
       subjects:
         kind: ServiceAccount
         name: ""
