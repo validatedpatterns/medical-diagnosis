@@ -10,10 +10,13 @@ xraylab:
   bucketBaseName: xraylab-1
 
 rbac:
-  clusterRoles:
+  roles:
     - name: grafana-mgmt
       apiGroups:
         - "integreatly.org"
+      scope:
+        cluster: false
+        namespace: xraylab-1
       resources: 
         - grafanadatasources
       verbs:
@@ -22,19 +25,31 @@ rbac:
         - "patch"
         - "create"
         - "update"
-  roleBindings:
-    - name: secrets-reader
+    - name: read-namespace-secrets
+      apiGroups:
+        - '""'
       scope:
-        cluster: true
-        namespace: ""
+        cluster: false
+        namespace: xraylab-1
+      resources:
+        - secrets
+      verbs:
+        - "get"
+        - "list"
+        - "watch"
+  roleBindings:
+    - name: read-namespace-secrets
+      scope:
+        cluster: false
+        namespace: xraylab-1
       subjects:
         kind: ServiceAccount
         name: grafana-serviceaccount
         namespace: xraylab-1
         apiGroup: ""
       roleRef:
-        kind: ClusterRole
-        name: secrets-reader
+        kind: Role
+        name: read-namespace-secrets
     - name: cluster-monitoring-view
       scope:
         cluster: true
