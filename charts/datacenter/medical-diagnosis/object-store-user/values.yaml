@@ -14,22 +14,34 @@ job:
 
 rbac:
   clusterRoles:
-    - name: view-cluster-resources
+    - name: view-odf-storageclusters
       apiGroups:
-        - '""' 
-        - "apps"
-        - "ceph.rook.io"
         - "ocs.openshift.io"
       resources: 
-        - deployments
-        - cephobjectstores
         - storagclusters
+      verbs:
+        - "get"
+        - "list"
+        - "watch"
+    - name: view-odf-cephobjectstores
+      apiGroups:
+        - "ceph.rook.io"
+      resources:
+        - cephobjectstores
+      verbs:
+        - "get"
+        - "list"
+        - "watch"
+    - name: view-odf-objectstoreusers
+      apiGroups:
+        - "ceph.rook.io"
+      resources:
         - cephobjectstoreusers
       verbs:
         - "get"
         - "list"
         - "watch"
-    - name: secrets-reader
+    - name: read-objectstore-secret
       apiGroups:
         - '""'
       resources:
@@ -38,7 +50,7 @@ rbac:
         - '"get"'
         - '"list"'
         - '"watch"'
-    - name: secrets-manager
+    - name: create-pattern-secret
       apiGroups:
         - '""'
       resources:
@@ -50,7 +62,7 @@ rbac:
         - '"patch"'
         - '"delete"'
   roleBindings:
-    - name: secrets-reader
+    - name: read-objecstore-secret
       scope:
         cluster: false
         namespace: openshift-storage
@@ -62,7 +74,7 @@ rbac:
       roleRef:
         kind: ClusterRole
         name: secrets-reader
-    - name: secrets-manager
+    - name: create-pattern-secret
       scope:
         cluster: false
         namespace: xraylab-1
@@ -74,7 +86,7 @@ rbac:
       roleRef:
         kind: ClusterRole
         name: secrets-manager
-    - name: view-cluster-resources
+    - name: view-odf-storageclusters
       scope:
         cluster: true
         namespace: openshift-storage
@@ -85,5 +97,28 @@ rbac:
         apiGroup: ""
       roleRef:
         kind: ClusterRole
-        name: view-cluster-resources
-
+        name: view-odf-storageclusters
+    - name: view-odf-cephobjectstores
+      scope:
+        cluster: true
+        namespace: openshift-storage
+      subjects:
+        kind: ServiceAccount
+        name: ""
+        namespace: ""
+        apiGroup: ""
+      roleRef:
+        kind: ClusterRole
+        name: view-odf-cephobjectstores
+    - name: view-odf-objectstoreusers
+      scope:
+        cluster: true
+        namespace: openshift-storage
+      subjects:
+        kind: ServiceAccount
+        name: ""
+        namespace: ""
+        apiGroup: ""
+      roleRef:
+        kind: ClusterRole
+        name: view-odf-objectstoreusers
