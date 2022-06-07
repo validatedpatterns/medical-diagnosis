@@ -1,3 +1,4 @@
+{{- $c := 10 | int64 }}
 {{- $namespace := cat $.Values.global.pattern $.Values.clusterGroup.name | replace " " "-" }}
 {{- range .Values.clusterGroup.applications }}
 apiVersion: argoproj.io/v1alpha1
@@ -5,6 +6,8 @@ kind: Application
 metadata:
   name: {{ .name }}
   namespace: {{ $namespace }}
+  annotations:
+    argocd.argoproj.io/sync-wave: {{ quote $c | }}
 spec:
   destination:
     name: in-cluster
@@ -58,4 +61,5 @@ spec:
     #  selfHeal: true
 {{- end }}
 ---
+{{ $c = add10 $c }}
 {{- end }}
