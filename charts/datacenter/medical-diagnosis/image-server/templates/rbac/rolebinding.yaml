@@ -16,11 +16,7 @@ metadata:
 subjects:
 - kind: {{ $value.subjects.kind }}
   name: {{ $.Values.global.xraylab.namespace }}-sa
-{{- if eq $value.scope.cluster false }}
-  namespace: {{ $.Values.global.xraylab.namespace }}
-{{- else }}
-  namespace: {{ $value.scope.namespace }}
-{{- end }}
+  namespace: {{ $value.scope.namespace | default $.Values.global.xraylab.namespace }}
   apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: {{ $value.roleRef.kind }}
