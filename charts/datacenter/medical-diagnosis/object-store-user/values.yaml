@@ -13,10 +13,12 @@ job:
   image: image-registry.openshift-image-registry.svc:5000/openshift/cli:latest
 
 rbac:
-  clusterRoles:
+  roles:
     - name: view-odf-storageclusters
       apiGroups:
         - "ocs.openshift.io"
+      scope:
+        cluster: true
       resources: 
         - storageclusters
       verbs:
@@ -26,6 +28,8 @@ rbac:
     - name: view-odf-cephobjectstores
       apiGroups:
         - "ceph.rook.io"
+      scope:
+        cluster: true
       resources:
         - cephobjectstores
       verbs:
@@ -35,6 +39,8 @@ rbac:
     - name: view-odf-objectstoreusers
       apiGroups:
         - "ceph.rook.io"
+      scope:
+        cluster: true
       resources:
         - cephobjectstoreusers
       verbs:
@@ -44,6 +50,8 @@ rbac:
     - name: read-objectstore-secret
       apiGroups:
         - '""'
+      scope:
+        cluster: true
       resources:
         - secrets
       verbs:
@@ -53,6 +61,9 @@ rbac:
     - name: create-pattern-secret
       apiGroups:
         - '""'
+      scope:
+        cluster: false
+        namespace: xraylab-1
       resources:
         - '"secrets"'
       verbs:
@@ -62,18 +73,18 @@ rbac:
         - '"patch"'
         - '"delete"'
   roleBindings:
-    - name: read-objecstore-secret
+    - name: read-objectstore-secret
       scope:
-        cluster: false
-        namespace: openshift-storage
+        cluster: true
+        namespace: ""
       subjects:
         kind: ServiceAccount
         name: ""
-        namespace: ""
+        namespace: xraylab-1
         apiGroup: ""
       roleRef:
         kind: ClusterRole
-        name: secrets-reader
+        name: read-objectstore-secret
     - name: create-pattern-secret
       scope:
         cluster: false
@@ -81,19 +92,19 @@ rbac:
       subjects:
         kind: ServiceAccount
         name: ""
-        namespace: ""
+        namespace: xraylab-1
         apiGroup: ""
       roleRef:
-        kind: ClusterRole
-        name: secrets-manager
+        kind: Role
+        name: create-pattern-secret
     - name: view-odf-storageclusters
       scope:
         cluster: true
-        namespace: xraylab-1
+        namespace: ""
       subjects:
         kind: ServiceAccount
         name: ""
-        namespace: ""
+        namespace: xraylab-1
         apiGroup: ""
       roleRef:
         kind: ClusterRole
@@ -101,11 +112,11 @@ rbac:
     - name: view-odf-cephobjectstores
       scope:
         cluster: true
-        namespace: xraylab-1
+        namespace: ""
       subjects:
         kind: ServiceAccount
         name: ""
-        namespace: ""
+        namespace: xraylab-1
         apiGroup: ""
       roleRef:
         kind: ClusterRole
@@ -113,11 +124,11 @@ rbac:
     - name: view-odf-objectstoreusers
       scope:
         cluster: true
-        namespace: xraylab-1
+        namespace: ""
       subjects:
         kind: ServiceAccount
         name: ""
-        namespace: ""
+        namespace: xraylab-1
         apiGroup: ""
       roleRef:
         kind: ClusterRole
