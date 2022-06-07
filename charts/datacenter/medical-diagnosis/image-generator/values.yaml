@@ -4,7 +4,7 @@ global:
   datacenter:
     clustername: ""
 
-create-rbacRole: false
+createRole: false
 
 rbac:
   roleBindings:

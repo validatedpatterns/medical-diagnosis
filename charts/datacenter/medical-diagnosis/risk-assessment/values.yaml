@@ -6,6 +6,8 @@ kafkaSource:
   name: "xray-images"
   consumerGroup: "risk-assessment"
 
+createRole: false
+
 job:
   image: image-registry.openshift-image-registry.svc:5000/openshift/cli:latest
 
