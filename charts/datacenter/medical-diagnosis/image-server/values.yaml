@@ -1,6 +1,8 @@
 global:
   xraylab:
     namespace: xraylab-1
+  datacenter:
+    clustername: 
 
 s3:
   bucketSource: 
