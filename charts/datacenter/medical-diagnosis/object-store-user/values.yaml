@@ -15,6 +15,7 @@ job:
 rbac:
   roles:
     - name: view-odf-storageclusters
+      createRole: true
       apiGroups:
         - "ocs.openshift.io"
       scope:
@@ -26,6 +27,7 @@ rbac:
         - "list"
         - "watch"
     - name: view-odf-cephobjectstores
+      createRole: true
       apiGroups:
         - "ceph.rook.io"
       scope:
@@ -37,6 +39,7 @@ rbac:
         - "list"
         - "watch"
     - name: view-odf-objectstoreusers
+      createRole: true
       apiGroups:
         - "ceph.rook.io"
       scope:
@@ -48,6 +51,7 @@ rbac:
         - "list"
         - "watch"
     - name: read-objectstore-secret
+      createRole: true
       apiGroups:
         - '""'
       scope:
@@ -59,6 +63,7 @@ rbac:
         - '"list"'
         - '"watch"'
     - name: create-pattern-secret
+      createRole: true
       apiGroups:
         - '""'
       scope:
@@ -74,6 +79,7 @@ rbac:
         - '"delete"'
   roleBindings:
     - name: read-objectstore-secret
+      createBinding: true
       scope:
         cluster: true
         namespace: ""
@@ -86,6 +92,7 @@ rbac:
         kind: ClusterRole
         name: read-objectstore-secret
     - name: create-pattern-secret
+      createBinding: true
       scope:
         cluster: false
         namespace: xraylab-1
@@ -98,6 +105,7 @@ rbac:
         kind: Role
         name: create-pattern-secret
     - name: view-odf-storageclusters
+      createBinding: true
       scope:
         cluster: true
         namespace: ""
@@ -110,6 +118,7 @@ rbac:
         kind: ClusterRole
         name: view-odf-storageclusters
     - name: view-odf-cephobjectstores
+      createBinding: true
       scope:
         cluster: true
         namespace: ""
@@ -122,6 +131,7 @@ rbac:
         kind: ClusterRole
         name: view-odf-cephobjectstores
     - name: view-odf-objectstoreusers
+      createBinding: true
       scope:
         cluster: true
         namespace: ""

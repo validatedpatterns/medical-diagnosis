@@ -1,4 +1,5 @@
 {{- range $key, $value := .Values.rbac.roles }}
+{{- if $value.createRole }}
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 {{- if $value.scope.cluster }}
@@ -26,5 +27,6 @@ rules:
     verbs: 
 {{- range $value.verbs }}
       - {{ . }}
+{{- end }}
 {{- end }}
 {{- end }}

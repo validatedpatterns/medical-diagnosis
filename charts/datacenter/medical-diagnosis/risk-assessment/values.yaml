@@ -12,10 +12,14 @@ job:
   image: image-registry.openshift-image-registry.svc:5000/openshift/cli:latest
 
 rbac:
-  clusterRoles:
-    - name: deployconfig-reader-role
+  roles:
+    - name: view-deploymentConfigs
+      createRole: true
       apiGroups:
         - 'apps.openshift.io' 
+      scope:
+        cluster: false
+        namespace: xraylab-1
       resources: 
         - deploymentConfigs
       verbs:
@@ -24,14 +28,15 @@ rbac:
         - "watch"
   roleBindings:
     - name: deployconfig-reader
+      createBinding: true
       scope:
         cluster: false
         namespace: xraylab-1
       subjects:
         kind: ServiceAccount
         name: ""
-        namespace: ""
+        namespace: xraylab-1
         apiGroup: ""
       roleRef:
-        kind: ClusterRole
-        name: deployconfig-reader-role
+        kind: Role
+        name: view-deploymentConfigs
