@@ -38,7 +38,7 @@ rbac:
         - "list"
         - "watch"
   roleBindings:
-    - name: read-namespace-secrets
+    - name: grafana-read-secrets
       scope:
         cluster: false
         namespace: xraylab-1
