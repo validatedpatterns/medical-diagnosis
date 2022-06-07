@@ -50,6 +50,18 @@ rbac:
       roleRef:
         kind: Role
         name: read-namespace-secrets
+    - name: grafana-mgmt
+      scope:
+        cluster: false
+        namespace: xraylab-1
+      subjects:
+        kind: ServiceAccount
+        name: grafana-serviceaccount
+        namespace: xraylab-1
+        apiGroup: ""
+      roleRef:
+        kind: Role
+        name: grafana-mgmt      
     - name: cluster-monitoring-view
       scope:
         cluster: true
