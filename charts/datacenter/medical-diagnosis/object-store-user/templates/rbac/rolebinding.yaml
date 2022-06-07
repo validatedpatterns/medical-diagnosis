@@ -14,7 +14,7 @@ metadata:
   namespace: {{ $value.scope.namespace }}
 {{- end }}
 subjects:
-- kind: {{ $value.subjects.kind }}
+- kind: {{ $value.subjects.kind | default "ServiceAccount" }}
   name: {{ $.Values.global.xraylab.namespace }}-sa
   namespace: {{ $value.scope.namespace | default $.Values.global.xraylab.namespace }}
   apiGroup: ""
