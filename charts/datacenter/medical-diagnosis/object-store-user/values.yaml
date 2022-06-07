@@ -101,7 +101,7 @@ rbac:
     - name: view-odf-cephobjectstores
       scope:
         cluster: true
-        namespace: xraylab.1
+        namespace: xraylab-1
       subjects:
         kind: ServiceAccount
         name: ""
