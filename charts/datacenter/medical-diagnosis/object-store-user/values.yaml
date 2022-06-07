@@ -22,9 +22,9 @@ rbac:
         - "ocs.openshift.io"
       resources: 
         - deployments
-        - cephobjectstore
-        - storagcluster
-        - cephobjectstoreuser
+        - cephobjectstores
+        - storagclusters
+        - cephobjectstoreusers
       verbs:
         - "get"
         - "list"
