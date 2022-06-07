@@ -21,7 +21,7 @@ rbac:
         cluster: false
         namespace: xraylab-1
       resources: 
-        - deploymentConfigs
+        - deploymentconfigs
       verbs:
         - "get"
         - "list"
