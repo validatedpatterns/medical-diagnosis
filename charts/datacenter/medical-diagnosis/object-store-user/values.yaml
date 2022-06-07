@@ -18,7 +18,7 @@ rbac:
       apiGroups:
         - "ocs.openshift.io"
       resources: 
-        - storagclusters
+        - storageclusters
       verbs:
         - "get"
         - "list"
