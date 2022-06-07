@@ -21,27 +21,34 @@ objectStore:
   user:
     name: ocs-storagecluster-cephobjectstore
 
+#The following rbac section is only required if you are going to run this chart independent of the pattern.
+#Set createRole: to true if you want helm/argocd to create the role and rolebinding.
+
 rbac:
-  clusterRoles:
-    - name: cephobjecstoreuser-reader
+  roles:
+    - name: view-odf-objectstoreusers
+      createRole: false #This role is created in the object-store-user application
       apiGroups:
         - "ceph.rook.io"
+      scope:
+        cluster: true
       resources: 
-        - cephobjectstoreuser
+        - cephobjectstoreusers
       verbs:
         - "get"
         - "list"
         - "watch"
   roleBindings:
-    - name: cephobjecstoreuser-reader
+    - name: view-odf-objectstoreusers
+      createBinding: false #This rolebinding is created in the object-store-user application
       scope:
         cluster: true
-        namespace: openshift-storage
+        namespace: ""
       subjects:
         kind: ServiceAccount
         name: ""
-        namespace: ""
+        namespace: xraylab-1
         apiGroup: ""
       roleRef:
         kind: ClusterRole
-        name: cephobjecstoreuser-reader
+        name: view-odf-objectstoreusers
