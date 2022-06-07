@@ -18,10 +18,10 @@ clusterGroup:
     - knative-kafka
 
   subscriptions:
-  - name: advanced-cluster-management
-    namespace: open-cluster-management
-    channel: release-2.3
-    csv: advanced-cluster-management.v2.3.2
+#  - name: advanced-cluster-management
+#    namespace: open-cluster-management
+#    channel: release-2.3
+#    csv: advanced-cluster-management.v2.3.2
 
   - name: amq-streams
     namespace: xraylab-1 
