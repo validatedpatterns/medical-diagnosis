@@ -1,0 +1,89 @@
+global:
+  xraylab:
+    namespace: xraylab-1
+
+objectStore:
+  user: 
+    name: xraylab-1
+    displayName: "XRaylab-1 RGW User"
+  name: ocs-storagecluster-cephobjectstore
+  namespace: openshift-storage
+
+job:
+  image: image-registry.openshift-image-registry.svc:5000/openshift/cli:latest
+
+rbac:
+  clusterRoles:
+    - name: view-cluster-resources
+      apiGroups:
+        - '""' 
+        - "apps"
+        - "ceph.rook.io"
+        - "ocs.openshift.io"
+      resources: 
+        - deployments
+        - cephobjectstore
+        - storagcluster
+        - cephobjectstoreuser
+      verbs:
+        - "get"
+        - "list"
+        - "watch"
+    - name: secrets-reader
+      apiGroups:
+        - '""'
+      resources:
+        - secrets
+      verbs:
+        - '"get"'
+        - '"list"'
+        - '"watch"'
+    - name: secrets-manager
+      apiGroups:
+        - '""'
+      resources:
+        - '"secrets"'
+      verbs:
+        - '"create"'
+        - '"watch"'
+        - '"update"'
+        - '"patch"'
+        - '"delete"'
+  roleBindings:
+    - name: secrets-reader
+      scope:
+        cluster: false
+        namespace: openshift-storage
+      subjects:
+        kind: ServiceAccount
+        name: ""
+        namespace: ""
+        apiGroup: ""
+      roleRef:
+        kind: ClusterRole
+        name: secrets-reader
+    - name: secrets-manager
+      scope:
+        cluster: false
+        namespace: xraylab-1
+      subjects:
+        kind: ServiceAccount
+        name: ""
+        namespace: ""
+        apiGroup: ""
+      roleRef:
+        kind: ClusterRole
+        name: secrets-manager
+    - name: view-cluster-resources
+      scope:
+        cluster: true
+        namespace: openshift-storage
+      subjects:
+        kind: ServiceAccount
+        name: ""
+        namespace: ""
+        apiGroup: ""
+      roleRef:
+        kind: ClusterRole
+        name: view-cluster-resources
+

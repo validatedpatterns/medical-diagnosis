@@ -1,0 +1,11 @@
+apiVersion: ceph.rook.io/v1
+kind: CephObjectStoreUser
+metadata:
+  name: {{ .Values.objectStore.user.name }}
+  namespace: {{ .Values.objectStore.namespace }}
+  annotations:
+    argocd.argoproj.io/hook: Sync
+    argocd.argoproj.io/sync-wave: "10"
+spec:
+  store: {{ .Values.objectStore.name }}
+  displayName: {{ .Values.objectStore.user.displayName }}
