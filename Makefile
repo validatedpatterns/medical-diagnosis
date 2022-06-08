@@ -14,7 +14,7 @@ default: show
 
 install: deploy
 	echo "Bootstrapping Medical Diagnosis Pattern"
-	make bootstrap
+#	make bootstrap
 
 predeploy:
 	./scripts/precheck.sh
