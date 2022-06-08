@@ -8,6 +8,12 @@ s3:
   bucketSource: 
   bucketBaseName: "xraylab-1"
 
+#https://github.com/red-hat-data-services/jumpstart-library/blob/main/demo1-xray-pipeline/manual_deployment/deployment/02_config-maps.yaml
+#From jumpstart-library
+images:
+  bucketSource: xray_source
+  bucketBaseName: xraylab-1
+
 #Changing to ODF vs OCS
 odf:
   serviceUrl: "http://rook-ceph-rgw-ocs-storagecluster-cephobjectstore.openshift-storage.svc.cluster.local"
