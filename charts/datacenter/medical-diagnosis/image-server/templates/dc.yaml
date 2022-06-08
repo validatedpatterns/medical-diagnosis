@@ -3,6 +3,9 @@ apiVersion: apps.openshift.io/v1
 metadata:
   name: image-server
   namespace: "{{ .Values.global.xraylab.namespace }}"
+  annotations:
+    argocd.argoproj.io/compare-options: IgnoreExtraneous
+
 spec:
   triggers:
     - type: ImageChange
