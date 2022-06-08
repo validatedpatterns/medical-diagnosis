@@ -10,7 +10,7 @@ spec:
     - name: latest
       from:
         kind: DockerImage
-        name: 'quay.io/rh-data-services/xraylab-image-generator:latest'
+        name: 'quay.io/rh-data-services/xraylab-image-generator:v2.0'
       importPolicy: {}
       referencePolicy:
         type: Source
