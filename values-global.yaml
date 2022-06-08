@@ -17,7 +17,7 @@ global:
   datacenter:
     cloudProvider: aws
     storageClassName: gp2
-    region: us-east-1
+    region: us-east-2
     clustername: jrickard-gitops
     domain: blueprints.rhecoeng.com
 

@@ -110,7 +110,7 @@ clusterGroup:
     - group: apps.openshift.io
       kind: DeploymentConfig
       jsonPointers:
-      - /spec/containers/image
+        - /spec/containers/image
 
   - name: xraylab-risk-assessment
     namespace: xraylab-1
@@ -125,7 +125,7 @@ clusterGroup:
     - group: apps.openshift.io
       kind: DeploymentConfig
       jsonPointers:
-      - /spec/containers/image
+        - /spec/containers/image
 
 #
 #  To have apps in multiple flavors, use namespaces and use helm overrides as appropriate
