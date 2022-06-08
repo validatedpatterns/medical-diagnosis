@@ -5,4 +5,4 @@ metadata:
   namespace: "{{ .Values.global.xraylab.namespace }}"
 data:
   bucket-source: "{{ .Values.images.bucketSource }}"
-  bucket-base-name: "{{ .Values.images.bucketBaseName }}"
+  bucket-base-name: "{{ .Values.images.bucketSource }}"
