@@ -95,7 +95,7 @@ rbac:
       createBinding: true
       scope:
         cluster: false
-        namespace: xraylab-1-sa
+        namespace: xraylab-1
       subjects:
         kind: ServiceAccount
         name: xraylab-1-sa
