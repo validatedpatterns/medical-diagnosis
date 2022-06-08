@@ -85,7 +85,7 @@ rbac:
         namespace: ""
       subjects:
         kind: ServiceAccount
-        name: xraylab-1
+        name: xraylab-1-sa
         namespace: xraylab-1
         apiGroup: ""
       roleRef:
@@ -95,10 +95,10 @@ rbac:
       createBinding: true
       scope:
         cluster: false
-        namespace: xraylab-1
+        namespace: xraylab-1-sa
       subjects:
         kind: ServiceAccount
-        name: xraylab-1
+        name: xraylab-1-sa
         namespace: xraylab-1
         apiGroup: ""
       roleRef:
@@ -111,7 +111,7 @@ rbac:
         namespace: ""
       subjects:
         kind: ServiceAccount
-        name: xraylab-1
+        name: xraylab-1-sa
         namespace: xraylab-1
         apiGroup: ""
       roleRef:
@@ -124,7 +124,7 @@ rbac:
         namespace: ""
       subjects:
         kind: ServiceAccount
-        name: xraylab-1
+        name: xraylab-1-sa
         namespace: xraylab-1
         apiGroup: ""
       roleRef:
@@ -137,7 +137,7 @@ rbac:
         namespace: ""
       subjects:
         kind: ServiceAccount
-        name: xraylab-1
+        name: xraylab-1-sa
         namespace: xraylab-1
         apiGroup: ""
       roleRef:
