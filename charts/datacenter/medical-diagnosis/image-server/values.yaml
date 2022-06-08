@@ -11,7 +11,7 @@ s3:
 #https://github.com/red-hat-data-services/jumpstart-library/blob/main/demo1-xray-pipeline/manual_deployment/deployment/02_config-maps.yaml
 #From jumpstart-library
 images:
-  bucketSource: xray_source
+  bucketSource: xray-source
   bucketBaseName: xraylab-1
 
 #Changing to ODF vs OCS
