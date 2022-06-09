@@ -77,6 +77,19 @@ rbac:
         - '"update"'
         - '"patch"'
         - '"delete"'
+    - name: view-pattern-jobs
+      createRole: true
+      apiGroups:
+        - batch
+      scope:
+        cluster: false
+        namespace: xraylab-1
+      resources:
+        - '"jobs"'
+      verbs:
+        - '"get"'
+        - '"list"'
+        - '"watch"'
   roleBindings:
     - name: read-objectstore-secret
       createBinding: true
@@ -143,3 +156,16 @@ rbac:
       roleRef:
         kind: ClusterRole
         name: view-odf-objectstoreusers
+    - name: view-pattern-jobs
+      createBinding: true
+      scope:
+        cluster: false
+        namespace: xraylab-1
+      subjects:
+        kind: ServiceAccount
+        name: xraylab-1-sa
+        namespace: xraylab-1
+        apiGroup: ""
+      roleRef:
+        kind: Role
+        name: view-pattern-jobs
