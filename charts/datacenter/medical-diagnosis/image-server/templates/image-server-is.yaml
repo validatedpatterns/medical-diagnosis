@@ -9,10 +9,10 @@ spec:
   lookupPolicy:
     local: true
   tags:
-    - name: latest
+    - name: {{ .Values.imageStream.tags.name }}
       from:
         kind: DockerImage
-        name: 'quay.io/rh-data-services/xraylab-image-server:v2.0'
+        name: {{ .Values.imageStream.from.name }}
       importPolicy: {}
       referencePolicy:
         type: Source

@@ -8,6 +8,12 @@ s3:
   bucketSource: 
   bucketBaseName: "xraylab-1"
 
+imageStream:
+  tags:
+    name: latest
+  from:
+    name: "quay.io/rh-data-services/xraylab-image-server:latest"
+
 #https://github.com/red-hat-data-services/jumpstart-library/blob/main/demo1-xray-pipeline/manual_deployment/deployment/02_config-maps.yaml
 #From jumpstart-library
 images:
