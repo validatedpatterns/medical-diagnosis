@@ -18,7 +18,7 @@ global:
     cloudProvider: aws
     storageClassName: gp2
     region: us-east-1
-    clustername: jrickard-devsecops
+    clustername: jrickard-gitops
     domain: blueprints.rhecoeng.com
 
   xraylab:
