@@ -116,6 +116,11 @@ clusterGroup:
     namespace: xraylab-1
     project: datacenter
     path: charts/datacenter/medical-diagnosis/risk-assessment
+  
+  - name: xraylab-s3-bucket-init
+    namespace: xraylab-1
+    project: datacenter
+    path: charts/datacenter/medical-diangosis/s3-bucket-init
 
   - name: xraylab-image-generator
     namespace: xraylab-1
