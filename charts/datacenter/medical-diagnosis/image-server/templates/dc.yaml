@@ -5,6 +5,7 @@ metadata:
   namespace: "{{ .Values.global.xraylab.namespace }}"
   annotations:
     argocd.argoproj.io/compare-options: IgnoreExtraneous
+    argocd.argoproj.io/sync-wave: "10"
 spec:
   triggers:
     - type: ImageChange
