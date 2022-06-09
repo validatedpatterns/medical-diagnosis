@@ -6,7 +6,11 @@ kafkaSource:
   name: "xray-images"
   consumerGroup: "risk-assessment"
 
-createRole: false
+imageStream:
+  tags:
+    name: latest
+  from:
+    name: "quay.io/rh-data-services/xraylab-risk-assessment:latest"
 
 job:
   image: image-registry.openshift-image-registry.svc:5000/openshift/cli:latest
