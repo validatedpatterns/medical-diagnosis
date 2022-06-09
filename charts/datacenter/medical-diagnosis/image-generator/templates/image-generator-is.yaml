@@ -3,14 +3,16 @@ kind: ImageStream
 metadata:
   name: image-generator
   namespace: "{{ .Values.global.xraylab.namespace }}"
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
 spec:
   lookupPolicy:
     local: true
   tags:
-    - name: latest
+    - name: {{ .Values.imageStream.tags.name }}
       from:
         kind: DockerImage
-        name: 'quay.io/rh-data-services/xraylab-image-generator:v2.0'
+        name: {{ .Values.imageStream.from.name }}
       importPolicy: {}
       referencePolicy:
         type: Source

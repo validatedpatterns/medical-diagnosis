@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: buckets-config
+  namespace: "{{ .Values.global.xraylab.namespace }}"
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
+data:
+  bucket-source: "{{ .Values.images.bucketSource }}"
+  bucket-base-name: "{{ .Values.images.bucketSource }}"
