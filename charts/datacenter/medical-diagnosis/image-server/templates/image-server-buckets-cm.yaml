@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
   name: buckets-config
   namespace: "{{ .Values.global.xraylab.namespace }}"
-    annotations:
+  annotations:
     argocd.argoproj.io/sync-wave: "-5"
 data:
   bucket-source: "{{ .Values.images.bucketSource }}"

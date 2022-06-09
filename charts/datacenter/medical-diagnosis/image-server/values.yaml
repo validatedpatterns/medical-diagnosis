@@ -12,7 +12,7 @@ s3:
 #From jumpstart-library
 images:
   bucketSource: xray-source
-  bucketBaseName: xraylab-1
+  bucketBaseName: xray-source
 
 #Changing to ODF vs OCS
 odf:
