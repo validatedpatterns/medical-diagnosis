@@ -4,8 +4,14 @@ global:
   datacenter:
     clustername: ""
 
-#The following RBAC section is just scaffolding in case you wanted to create your own RBAC policies
+#ImageStream values:
+imageStream:
+  tags:
+    name: latest
+  from:
+    name: "quay.io/rh-data-services/xraylab-image-init:latest"  
 
+#The following RBAC section is just scaffolding in case you wanted to create your own RBAC policies
 rbac:
   roles:
     - name: "" # Role Name 
