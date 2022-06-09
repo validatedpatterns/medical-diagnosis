@@ -3,6 +3,8 @@ kind: ImageStream
 metadata:
   name: image-server
   namespace: "{{ .Values.global.xraylab.namespace }}"
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
 spec:
   lookupPolicy:
     local: true

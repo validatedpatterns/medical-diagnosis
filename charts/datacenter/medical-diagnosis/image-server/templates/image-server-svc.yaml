@@ -3,6 +3,8 @@ kind: Service
 metadata:
   name: image-server
   namespace: "{{ .Values.global.xraylab.namespace }}"
+  annotations:
+    argocd.argoproj.io/sync-wave: "15"
 spec:
   ports:
     - protocol: TCP

@@ -3,6 +3,8 @@ apiVersion: route.openshift.io/v1
 metadata:
   name: image-server
   namespace: "{{ .Values.global.xraylab.namespace }}"
+  annotations:
+    argocd.argoproj.io/sync-wave: "17"
 spec:
   to:
     kind: Service
