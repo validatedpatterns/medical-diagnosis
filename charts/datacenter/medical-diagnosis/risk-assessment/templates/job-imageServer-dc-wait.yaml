@@ -15,7 +15,7 @@ spec:
         - /bin/bash
         - -c
         - |
-          oc wait --for=condition=available deploymentconfig/image-server -n {{ .Values.global.xraylab.namespace }} --timeout=300s
+          oc wait --for=condition=available deploymentconfig/image-server -n {{ .Values.global.xraylab.namespace }} --timeout=900s
         name: wait-imageserver-deploy-complete
       dnsPolicy: ClusterFirst
       restartPolicy: Never
