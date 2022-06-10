@@ -3,11 +3,13 @@ global:
     namespace: xraylab-1
   datacenter:
     clustername: gitops
+  s3:
+    bucketBaseName: xray-source
 
-xraylab:
+#xraylab:
   #Commented out by jrickard - changed variable inside of template to use global value for clustername and domain
   #imageServer: https://image-server-xraylab-1.apps.jrickard-med-diag.blueprints.rhecoeng.com
-  bucketBaseName: xray-source
+#  bucketBaseName: xray-source
 
 rbac:
   roles:

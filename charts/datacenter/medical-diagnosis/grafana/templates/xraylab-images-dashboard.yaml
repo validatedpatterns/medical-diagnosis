@@ -65,7 +65,7 @@ spec:
           "timeShift": null,
           "title": "Last uploaded image",
           "type": "ryantxu-ajax-panel",
-          "url": "https://image-server-xraylab-1.apps.{{ .Values.global.datacenter.clustername }}.{{ .Values.global.datacenter.domain }}/last_image_big/{{ .Values.xraylab.bucketBaseName }}",
+          "url": "https://image-server-xraylab-1.apps.{{ .Values.global.datacenter.clustername }}.{{ .Values.global.datacenter.domain }}/last_image_big/{{ .Values.global.s3.bucketBaseName }}",
           "withCredentials": false
         },
         {
@@ -95,7 +95,7 @@ spec:
           "timeShift": null,
           "title": "Last processed image",
           "type": "ryantxu-ajax-panel",
-          "url": "https://image-server-xraylab-1.apps.{{ .Values.global.datacenter.clustername }}.{{ .Values.global.datacenter.domain }}/last_image_big/{{ .Values.xraylab.bucketBaseName }}-processed",
+          "url": "https://image-server-xraylab-1.apps.{{ .Values.global.datacenter.clustername }}.{{ .Values.global.datacenter.domain }}/last_image_big/{{ .Values.global.s3.bucketBaseName }}-processed",
           "withCredentials": false
         },
         {
@@ -125,7 +125,7 @@ spec:
           "timeShift": null,
           "title": "Last anonymized image",
           "type": "ryantxu-ajax-panel",
-          "url": "https://image-server-xraylab-1.apps.{{ .Values.global.datacenter.clustername }}.{{ .Values.global.datacenter.domain }}/last_image_big/{{ .Values.xraylab.bucketBaseName }}-anonymized",
+          "url": "https://image-server-xraylab-1.apps.{{ .Values.global.datacenter.clustername }}.{{ .Values.global.datacenter.domain }}/last_image_big/{{ .Values.global.s3.bucketBaseName }}-anonymized",
           "withCredentials": false
         }
       ],

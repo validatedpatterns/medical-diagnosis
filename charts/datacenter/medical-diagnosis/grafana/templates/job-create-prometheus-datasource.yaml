@@ -45,4 +45,4 @@ spec:
       restartPolicy: Never
       serviceAccount: grafana-serviceaccount
       serviceAccountName: grafana-serviceaccount
-      terminationGracePeriodSeconds: 30
+      terminationGracePeriodSeconds: 60
