@@ -3,6 +3,17 @@ global:
     namespace: xraylab-1
   datacenter:
     clustername: ""
+  s3:
+    bucketSource: ""
+    bucketBaseName: ""
+
+#md2.0 scaffolding for values
+#https://github.com/red-hat-data-services/jumpstart-library/blob/main/demo1-xray-pipeline/manual_deployment/deployment/02_config-maps.yaml
+#From jumpstart-library
+images:
+  bucketSource: xray-source
+  bucketBaseName: xray-source
+#
 
 #ImageStream values:
 imageStream:
