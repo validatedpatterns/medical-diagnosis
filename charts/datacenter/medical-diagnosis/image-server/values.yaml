@@ -2,11 +2,10 @@ global:
   xraylab:
     namespace: xraylab-1
   datacenter:
-    clustername: 
-
-s3:
-  bucketSource: 
-  bucketBaseName: "xraylab-1"
+    clustername: ""
+  s3:
+    bucketSource: ""
+    bucketBaseName: "xraylab-1"
 
 imageStream:
   tags:
@@ -29,6 +28,7 @@ odf:
 job:
   image: image-registry.openshift-image-registry.svc:5000/openshift/cli:latest
 
+#This value is used for the lookup of the objectstore user secret
 objectStore:
   user:
     name: xraylab-1
