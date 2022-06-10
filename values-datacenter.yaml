@@ -120,7 +120,7 @@ clusterGroup:
   - name: xraylab-s3-bucket-init
     namespace: xraylab-1
     project: datacenter
-    path: charts/datacenter/medical-diangosis/s3-bucket-init
+    path: charts/datacenter/medical-diagnosis/s3-bucket-init
 
   - name: xraylab-image-generator
     namespace: xraylab-1
