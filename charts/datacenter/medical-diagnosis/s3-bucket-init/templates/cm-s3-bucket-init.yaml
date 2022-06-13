@@ -4,7 +4,7 @@ metadata:
   name: bucket-init
   namespace: '{{ .Values.global.xraylab.namespace }}'
   annotations:
-    argocd.argoproj.io/sync-wave: "1"
+    argocd.argoproj.io/sync-wave: "-1"
 data:
   bucket-init.py: |
     import os
