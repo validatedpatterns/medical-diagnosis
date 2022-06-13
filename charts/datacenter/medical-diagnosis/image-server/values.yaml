@@ -5,7 +5,7 @@ global:
     clustername: ""
   s3:
     bucketSource: ""
-    bucketBaseName: "xraylab-1"
+    bucketBaseName: ""
 
 imageStream:
   tags:
