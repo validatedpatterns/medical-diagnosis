@@ -6,5 +6,5 @@ metadata:
   annotations:
     argocd.argoproj.io/sync-wave: "0"
 data:
-  bucket-source: "{{ .Values.global.s3.bucketSource }}"
-  bucket-base-name: "{{ .Values.global.s3.bucketBaseName }}"
+  bucket-source: "{{ .Values.global.xraylab.s3.bucketSource }}"
+  bucket-base-name: "{{ .Values.global.xraylab.s3.bucketBaseName }}"
