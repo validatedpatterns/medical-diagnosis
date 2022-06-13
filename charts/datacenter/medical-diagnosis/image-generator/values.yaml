@@ -20,7 +20,7 @@ imageStream:
   tags:
     name: latest
   from:
-    name: "quay.io/rh-data-services/xraylab-image-init:latest"  
+    name: "quay.io/rh-data-services/xraylab-image-generator:latest"  
 
 #The following RBAC section is just scaffolding in case you wanted to create your own RBAC policies
 rbac:
