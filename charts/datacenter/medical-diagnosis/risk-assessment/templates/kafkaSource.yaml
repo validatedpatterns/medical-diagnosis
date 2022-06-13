@@ -6,6 +6,8 @@ metadata:
   annotations:
     argocd.argoproj.io/sync-options: Validate=false, SkipDryRunOnMissingResource=true
     argocd.argoproj.io/sync-wave: "15"
+    argocd.argoproj.io/compare-options: IgnoreExtraneous
+
 spec:
   consumerGroup: {{ .Values.kafkaSource.consumerGroup }}
   bootstrapServers:
