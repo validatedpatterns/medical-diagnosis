@@ -3,9 +3,9 @@ global:
     namespace: xraylab-1
   datacenter:
     clustername: ""
-  s3:
-    bucketSource: ""
-    bucketBaseName: ""
+    s3:
+      bucketSource: ""
+      bucketBaseName: ""
 
 imageStream:
   tags:
