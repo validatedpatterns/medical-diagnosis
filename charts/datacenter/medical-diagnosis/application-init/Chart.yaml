@@ -1,6 +1,6 @@
 apiVersion: v2
-name: application-init
-description: A Helm chart for Kubernetes
+name: xray-init
+description: A Helm chart that deploys application dependendencies together (cephObjectStoreUser, s3-bucket-initialization, and riskAssessment).
 
 # A chart can be either an 'application' or a 'library' chart.
 #
