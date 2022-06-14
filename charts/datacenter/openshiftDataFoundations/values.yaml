@@ -61,13 +61,36 @@ storageSystem:
     namespace: ""
 
 #RoleBasedAccessControl
+serviceAccountName: odf-node-label-sa
 rbac:
-  serviceAccount: label-storage-nodes-sa
-  clusterRole:
-    name: label-storage-nodes-role
-  clusterRoleBinding:
-    name: label-storage-nodes-rolebinding
+  roles:
+    - name: label-storage-nodes
+      createRole: true
+      apiGroups:
+        - '""'
+      scope:
+        cluster: true
+      resources: 
+        - nodes
+      verbs:
+        - "get"
+        - "list"
+        - "patch"
+        - "update"
+  roleBindings:
+    - name: label-storage-nodes
+      createBinding: true
+      scope:
+        cluster: true
+        namespace: ""
+      subjects:
+        kind: ServiceAccount
+        name: odf-node-label-sa
+        namespace: openshift-storage
+        apiGroup: ""
+      roleRef:
+        kind: ClusterRole
+        name: label-storage-nodes
 
 job:
-  name: label-storage-nodes
   image: image-registry.openshift-image-registry.svc:5000/openshift/cli:latest
