@@ -18,6 +18,6 @@ spec:
         name: label-storage-nodes
       dnsPolicy: ClusterFirst
       restartPolicy: Never
-      serviceAccount: {{ .Values.rbac.serviceAccount }}
-      serviceAccountName: {{ .Values.rbac.serviceAccount }}
+      serviceAccount: {{ .Values.serviceAccountName }}
+      serviceAccountName: {{ .Values.serviceAccountName }}
       terminationGracePeriodSeconds: 400
