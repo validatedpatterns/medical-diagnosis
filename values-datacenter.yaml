@@ -87,10 +87,14 @@ clusterGroup:
     project: datacenter
     path: charts/datacenter/medical-diagnosis/service-account
 
-  - name: xraylab-object-store-user
+#  - name: xraylab-object-store-user
+#    namespace: xraylab-1
+#    project: datacenter
+#    path: charts/datacenter/medical-diagnosis/object-store-user
+  - name: xraylab-application-init
     namespace: xraylab-1
     project: datacenter
-    path: charts/datacenter/medical-diagnosis/object-store-user
+    path: charts/datacenter/medical-diagnosis/application-init
 
   - name: xraylab-database
     namespace: xraylab-1
@@ -112,15 +116,15 @@ clusterGroup:
       jsonPointers:
         - /spec/containers/image
 
-  - name: xraylab-risk-assessment
-    namespace: xraylab-1
-    project: datacenter
-    path: charts/datacenter/medical-diagnosis/risk-assessment
+#  - name: xraylab-risk-assessment
+#    namespace: xraylab-1
+#    project: datacenter
+#    path: charts/datacenter/medical-diagnosis/risk-assessment
   
-  - name: xraylab-s3-bucket-init
-    namespace: xraylab-1
-    project: datacenter
-    path: charts/datacenter/medical-diagnosis/s3-bucket-init
+#  - name: xraylab-s3-bucket-init
+#    namespace: xraylab-1
+#    project: datacenter
+#    path: charts/datacenter/medical-diagnosis/s3-bucket-init
 
   - name: xraylab-image-generator
     namespace: xraylab-1
