@@ -19,48 +19,4 @@ images:
   bucketSource: xray-source
   bucketBaseName: xray-source
 
-#Changing to ODF vs OCS
-odf:
-  serviceUrl: "http://rook-ceph-rgw-ocs-storagecluster-cephobjectstore.openshift-storage.svc.cluster.local"
-  externalUrl: "https://s3-rgw-openshift-storage"
-  targetBucket: com.redhat.jrickard.xray-source
 
-job:
-  image: image-registry.openshift-image-registry.svc:5000/openshift/cli:latest
-
-#This value is used for the lookup of the objectstore user secret
-objectStore:
-  user:
-    name: xraylab-1
-
-#The following rbac section is only required if you are going to run this chart independent of the pattern.
-#Set createRole: to true if you want helm/argocd to create the role and rolebinding.
-
-rbac:
-  roles:
-    - name: view-odf-objectstoreusers
-      createRole: false #This role is created in the object-store-user application
-      apiGroups:
-        - "ceph.rook.io"
-      scope:
-        cluster: true
-      resources: 
-        - cephobjectstoreusers
-      verbs:
-        - "get"
-        - "list"
-        - "watch"
-  roleBindings:
-    - name: view-odf-objectstoreusers
-      createBinding: false #This rolebinding is created in the object-store-user application
-      scope:
-        cluster: true
-        namespace: ""
-      subjects:
-        kind: ServiceAccount
-        name: "xraylab-1-sa"
-        namespace: xraylab-1
-        apiGroup: ""
-      roleRef:
-        kind: ClusterRole
-        name: view-odf-objectstoreusers
