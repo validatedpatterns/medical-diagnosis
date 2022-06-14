@@ -91,10 +91,10 @@ clusterGroup:
 #    namespace: xraylab-1
 #    project: datacenter
 #    path: charts/datacenter/medical-diagnosis/object-store-user
-  - name: xraylab-application-init
+  - name: xraylab-init
     namespace: xraylab-1
     project: datacenter
-    path: charts/datacenter/medical-diagnosis/application-init
+    path: charts/datacenter/medical-diagnosis/xray-init
 
   - name: xraylab-database
     namespace: xraylab-1
