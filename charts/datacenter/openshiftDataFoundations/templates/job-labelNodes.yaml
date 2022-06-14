@@ -3,7 +3,7 @@ kind: Job
 metadata:
   annotations:
     argocd.argoproj.io/sync-wave: "1"
-  name: {{ .Values.job.name }}
+  name: job-label-storage-nodes
   namespace: {{ .Values.odf.namespace }}
 spec:
   template:
@@ -15,7 +15,7 @@ spec:
         - -c
         - |
           oc label nodes -l node-role.kubernetes.io/worker= cluster.ocs.openshift.io/openshift-storage='' --overwrite
-        name: {{ .Values.job.name }}
+        name: label-storage-nodes
       dnsPolicy: ClusterFirst
       restartPolicy: Never
       serviceAccount: {{ .Values.rbac.serviceAccount }}
