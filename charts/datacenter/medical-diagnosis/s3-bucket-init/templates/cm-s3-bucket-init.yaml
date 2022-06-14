@@ -14,7 +14,7 @@ data:
     import argparse
 
     namespace = '{{ .Values.global.xraylab.namespace }}'
-    bucket_base_name = '{{ .Values.global.xraylab.namespace }}'
+    bucket_base_name = '{{ .Values.global.xraylab.s3.bucketBaseName }}'
     aws_access_key_id = os.environ['AWS_ACCESS_KEY_ID']
     aws_secret_access_key = os.environ['AWS_SECRET_ACCESS_KEY']
     endpoint_url = 'http://rook-ceph-rgw-ocs-storagecluster-cephobjectstore.openshift-storage.svc.cluster.local'
