@@ -18,11 +18,6 @@ clusterGroup:
     - knative-kafka
 
   subscriptions:
-#  - name: advanced-cluster-management
-#    namespace: open-cluster-management
-#    channel: release-2.3
-#    csv: advanced-cluster-management.v2.3.2
-
   - name: amq-streams
     namespace: xraylab-1 
     channel: stable
@@ -52,11 +47,6 @@ clusterGroup:
   - datacenter
  
   applications:
-#  - name: acm
-#    namespace: open-cluster-management
-#    project: datacenter
-#    path: common/acm
-
   - name: odh
     namespace: opendatahub
     project: datacenter
@@ -87,10 +77,6 @@ clusterGroup:
     project: datacenter
     path: charts/datacenter/medical-diagnosis/service-account
 
-#  - name: xraylab-object-store-user
-#    namespace: xraylab-1
-#    project: datacenter
-#    path: charts/datacenter/medical-diagnosis/object-store-user
   - name: xraylab-init
     namespace: xraylab-1
     project: datacenter
@@ -116,25 +102,15 @@ clusterGroup:
       jsonPointers:
         - /image
 
-#  - name: xraylab-risk-assessment
-#    namespace: xraylab-1
-#    project: datacenter
-#    path: charts/datacenter/medical-diagnosis/risk-assessment
-  
-#  - name: xraylab-s3-bucket-init
-#    namespace: xraylab-1
-#    project: datacenter
-#    path: charts/datacenter/medical-diagnosis/s3-bucket-init
-
   - name: xraylab-image-generator
     namespace: xraylab-1
     project: datacenter
     path: charts/datacenter/medical-diagnosis/image-generator
     ignoreDifferences:
-    - group: apps.openshift.io
+    - group: apps.openshift.io/v1
       kind: DeploymentConfig
       jsonPointers:
-        - /spec/containers/image
+        - /image
 
 #
 #  To have apps in multiple flavors, use namespaces and use helm overrides as appropriate
