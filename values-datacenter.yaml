@@ -111,10 +111,10 @@ clusterGroup:
     project: datacenter
     path: charts/datacenter/medical-diagnosis/image-server
     ignoreDifferences:
-    - group: apps.openshift.io
+    - group: apps.openshift.io/v1
       kind: DeploymentConfig
       jsonPointers:
-        - /spec/containers/image
+        - /image
 
 #  - name: xraylab-risk-assessment
 #    namespace: xraylab-1
