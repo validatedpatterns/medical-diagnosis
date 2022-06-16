@@ -7,11 +7,11 @@ metadata:
     argocd.argoproj.io/sync-wave: "1"
 spec:
   datasources:
-    - type: mysql
-      name: MySQL
-      access: proxy
-      url: xraylabdb
-      database: xraylabdb
-      user: xraylab
-      password: xraylab
+    - type: {{ .Values.dataSources.type }}
+      name: {{ .Values.dataSources.name }}
+      access: {{ .Values.dataSources.access }}
+      url: {{ .Values.dataSources.url }}
+      database: {{ .Values.dataSources.database }}
+      user: {{ .Values.dataSources.user }}
+      password: {{ coalesce .Values.dataSources.password .Values.dataSources.user  }}
   name: mysql-grafana-datasource.yaml
