@@ -15,11 +15,11 @@ global:
   #     domain: <domain>
 
   datacenter:
-    cloudProvider: 
-    storageClassName: 
-    region: 
-    clustername: 
-    domain: 
+    cloudProvider: aws
+    storageClassName: gp2
+    region: us-east-2
+    clustername: jrickard-gitops
+    domain: blueprints.rhecoeng.com
 
   xraylab:
     namespace: "xraylab-1"
@@ -27,7 +27,7 @@ global:
     s3:
       # Values for S3 bucket access
       # bucketSource: "provide s3 bucket name where images are stored"
-      bucketSource: 
+      bucketSource: validated-patterns.xray-source
       # Bucket base name used for xray images
       bucketBaseName: "xray-source"
 
