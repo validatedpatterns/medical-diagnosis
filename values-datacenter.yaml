@@ -50,7 +50,7 @@ clusterGroup:
   - vault:
       name: vault
       namespace: vault
-      project: hub
+      project: datacenter
       chart: vault
       repoURL: https://helm.releases.hashicorp.com
       targetRevision: v0.20.0
@@ -77,7 +77,7 @@ clusterGroup:
   - golang-external-secrets:
       name: golang-external-secrets
       namespace: golang-external-secrets
-      project: golang-external-secrets
+      project: datacenter
       path: common/golang-external-secrets
 
   - name: odh
