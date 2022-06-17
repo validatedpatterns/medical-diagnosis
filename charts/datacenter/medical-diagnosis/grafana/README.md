@@ -25,9 +25,8 @@ This chart utilizes custom RBAC policies in order to properly execute the job. A
 |binding|rbac|serviceAccount|namespace|
 |----|----|--------|-----|
 |grafana-mgmt|grafana-mgmt|grafana-serviceaccount|xraylab-1|
-|grafana-read-secrets|grafana-serviceaccount|xraylab-1|
+|grafana-read-secrets|grafana-read-secrets|grafana-serviceaccount|xraylab-1|
 |cluster-monitoring-view|cluster-monitoring-view|grafana-serviceaccount|xraylab-1|
-
 
 **Dependencies**
 - database
