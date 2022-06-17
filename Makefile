@@ -14,9 +14,9 @@ default: show
 
 install: deploy
 	echo "Bootstrapping Medical Diagnosis Pattern"
-    make vault-init
-    make load-secrets
-    echo "Installed"
+	make vault-init
+	make load-secrets
+	echo "Installed"
 #	make bootstrap
 
 predeploy:

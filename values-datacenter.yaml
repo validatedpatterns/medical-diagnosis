@@ -11,6 +11,7 @@ clusterGroup:
   - knative-serving
   - staging
   - vault
+  - golang-external-secrets
   - medical-diagnosis-datacenter
 
   operatorgroupExcludes:
