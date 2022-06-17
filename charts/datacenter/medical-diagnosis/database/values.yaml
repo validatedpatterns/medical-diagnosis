@@ -13,12 +13,5 @@ xraylabsecret:
   key: secret/data/hub/xraylab
 
 database:
-  secret:
-    create: true
   name: xraylabdb
-  user: xraylab
-  password: ""
-  host: xraylabdb
-  master_user: xraylab
-  master_password: ""
   image: registry.redhat.io/rhel8/mariadb-103:latest
