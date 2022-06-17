@@ -7,7 +7,7 @@ This application is used to `simulate` an imaging device sending an image (xray)
 |resource|description|SyncWave|
 |:--------:|-----------|------|
 |image-generator-buckets-cm | ConfigMap - defines the bucket source and bucket base name | 0 |
-|image-generator-dc | deployConfig - Deployes the image-generator application | 5 |
+|image-generator-dc | deployConfig - Deploys the image-generator application | 5 |
 |image-generator-is| imageStream to pull the image-generator image from quay | 1 |
 
 ### Additional Information:
