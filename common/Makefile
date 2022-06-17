@@ -1,4 +1,4 @@
-#SECRETS=~/values-secret.yaml
+SECRETS=~/values-secret.yaml
 NAME=$(shell basename `pwd`)
 # This is to ensure that whether we start with a git@ or https:// URL, we end up with an https:// URL
 # This is because we expect to use tokens for repo authentication as opposed to SSH keys
