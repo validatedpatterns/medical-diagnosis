@@ -15,13 +15,3 @@ database:
   master_user: xraylab
   master_password: ""
   image: registry.redhat.io/rhel8/mariadb-103:latest
-
-rbac:
-  clusterRole:
-    name: wait-for-deployment
-  clusterRoleBinding:
-    name: get-deployment-rolebinding
-
-job:
-  name: wait-for-deployment
-  image: image-registry.openshift-image-registry.svc:5000/openshift/cli:latest
