@@ -2,17 +2,6 @@
 
 This chart deploys a mariadb datbase used for persisting data about the xray images that have been processed.
 
-#### Kubernetes Resources:
-
-|resource|description|SyncWave|
-|:--------:|-----------|------|
-|db-host-cm | ConfigMap - Establishes the name for the xraylab database | 1 |
-|db-init-cm | ConfigMap - Creates script for deploymentConfig to initialize the database | 1 |
-|db-dc | DeployConfig - Deploy database!| 5 |
-|pvc| Persistent volume for mariadb| 10 |
-|service| database service resource| 8 |
-
-
 The database chart is a primary component of the medical diagnosis pattern. There are several other applications which depend on the database deployment.
 - grafana
 - image-generator
@@ -22,7 +11,8 @@ The database chart is a primary component of the medical diagnosis pattern. Ther
 ### Additional Information:
 
 **Dependencies**:
-none
+- vault 
+- golang-external-secrets
 
 **Reinitialize the database**
 ```shell
