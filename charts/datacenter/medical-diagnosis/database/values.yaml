@@ -5,6 +5,13 @@ global:
     storageClassName: gp2
     region: us-east-1
 
+secretStore:
+  name: vault-backend
+  kind: ClusterSecretStore
+
+xraylabsecret:
+  key: secret/data/hub/xraylab
+
 database:
   secret:
     create: true
