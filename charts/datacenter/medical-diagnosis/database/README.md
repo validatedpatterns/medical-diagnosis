@@ -1,4 +1,4 @@
-# Medical Diagnosis - Database
+# Database
 
 This chart deploys a mariadb datbase used for persisting data about the xray images that have been processed.
 
@@ -20,6 +20,9 @@ The database chart is a primary component of the medical diagnosis pattern. Ther
 - risk-assessment
 
 ### Additional Information:
+
+**Dependencies**:
+none
 
 **Reinitialize the database**
 ```shell

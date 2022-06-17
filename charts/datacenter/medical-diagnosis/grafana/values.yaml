@@ -31,7 +31,7 @@ rbac:
         - "patch"
         - "create"
         - "update"
-    - name: read-namespace-secrets
+    - name: grafana-read-secrets
       apiGroups:
         - '""'
       scope:
@@ -55,7 +55,7 @@ rbac:
         apiGroup: ""
       roleRef:
         kind: Role
-        name: read-namespace-secrets
+        name: grafana-read-secrets
     - name: grafana-mgmt
       scope:
         cluster: false
