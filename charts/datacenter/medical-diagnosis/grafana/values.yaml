@@ -6,6 +6,14 @@ global:
   datacenter:
     clustername: gitops
 
+secretStore:
+  name: vault-backend
+  kind: ClusterSecretStore
+
+xraylabsecret:
+  key: secret/data/hub/grafana
+
+
 dataSources:
   type: mysql
   name: MySQL
