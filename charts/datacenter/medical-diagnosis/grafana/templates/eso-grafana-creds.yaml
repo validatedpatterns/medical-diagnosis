@@ -1,0 +1,32 @@
+---
+apiVersion: "external-secrets.io/v1alpha1"
+kind: ExternalSecret
+metadata:
+  name: grafana-creds-external-secret
+  namespace: {{ .Values.global.xraylab.namespace }}
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+spec:
+  refreshInterval: 15s
+  secretStoreRef:
+    name: {{ .Values.secretStore.name }}
+    kind: {{ .Values.secretStore.kind }}
+  target:
+    name: grafana-creds
+    template:
+      type: Opaque
+  dataFrom:
+    - secretKey: user
+      remoteRef: 
+        key: secret/hub/grafana
+        name: GF_SECURITY_ADMIN_USER
+        property: GF_SECURITY_ADMIN_USER
+    - secretkey: password
+      remoteRef:
+        key: secret/hub/grafana
+        name: GF_SECURITY_ADMIN_PASSWORD
+        property: GF_SECURITY_ADMIN_PASSWORD
+      
+      
+    - extract:
+        key:
