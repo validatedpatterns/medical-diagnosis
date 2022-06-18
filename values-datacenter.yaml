@@ -129,20 +129,20 @@ clusterGroup:
     project: datacenter
     path: charts/datacenter/medical-diagnosis/image-server
     ignoreDifferences:
-    - group: apps.openshift.io/v1
+    - group: apps.openshift.io
       kind: DeploymentConfig
-      jsonPointers:
-        - /image
+      jqPathExpressions:
+      - .spec.template.spec.containers.image
 
   - name: xraylab-image-generator
     namespace: xraylab-1
     project: datacenter
     path: charts/datacenter/medical-diagnosis/image-generator
     ignoreDifferences:
-    - group: apps.openshift.io/v1
+    - group: apps.openshift.io
       kind: DeploymentConfig
-      jsonPointers:
-        - /image
+      jqPathExpressions:
+      - .spec.template.spec.containers.image
 
 #
 #  To have apps in multiple flavors, use namespaces and use helm overrides as appropriate
