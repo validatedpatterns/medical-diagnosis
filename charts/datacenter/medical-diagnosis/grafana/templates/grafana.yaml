@@ -10,7 +10,7 @@ spec:
     skipCreateAdminAccount: true
     envFrom:
       - secretRef
-        name: grafana-creds
+          name: grafana-creds
   ingress:
     enabled: true
   config:
