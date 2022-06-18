@@ -132,7 +132,7 @@ clusterGroup:
     - group: apps.openshift.io
       kind: DeploymentConfig
       jqPathExpressions:
-      - .spec.template.spec.containers.image
+      - '.spec.template.spec.containers[].image'
 
   - name: xraylab-image-generator
     namespace: xraylab-1
@@ -142,7 +142,7 @@ clusterGroup:
     - group: apps.openshift.io
       kind: DeploymentConfig
       jqPathExpressions:
-      - .spec.template.spec.containers.image
+      - '.spec.template.spec.containers[].image'
 
 #
 #  To have apps in multiple flavors, use namespaces and use helm overrides as appropriate
