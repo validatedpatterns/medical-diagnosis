@@ -10,7 +10,7 @@ secretStore:
   name: vault-backend
   kind: ClusterSecretStore
 
-xraylabsecret:
+grafana:
   key: secret/data/hub/grafana
 
 dataSources:
