@@ -6,6 +6,11 @@ metadata:
   annotations:
     argocd.argoproj.io/sync-wave: "1"
 spec:
+  deployment:
+    skipCreateAdminAccount: true
+    envFrom:
+      - secretRef
+        name: grafana-creds
   ingress:
     enabled: true
   config:
@@ -16,9 +21,6 @@ spec:
     log:
       level: warn
       mode: console
-    security:
-      admin_password: secret
-      admin_user: root
   dashboardLabelSelector:
     - matchExpressions:
         - key: app
