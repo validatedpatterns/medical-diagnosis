@@ -13,7 +13,6 @@ secretStore:
 xraylabsecret:
   key: secret/data/hub/grafana
 
-
 dataSources:
   type: mysql
   name: MySQL
