@@ -25,12 +25,11 @@ spec:
             url: "{{.url}}"
             database: "{{ .db }}"
             password: "{{ .password }}"
-            user: "{{ .user }}"
+            user: "{{ .datasource_user }}"
   data:
-  - secretKey: user
+  - secretKey: datasource_user
     remoteRef:
       key: secret/hub/grafana
-      property: datasource_user
   - secretKey: password
     remoteRef:
       key: secret/hub/grafana
