@@ -4,7 +4,7 @@ metadata:
   name: grafana-mysql-datasource-secret
   namespace: {{ .Values.global.xraylab.namespace }}
   labels:
-    grafana-datasource: "1"
+    grafana_datasource: "1"
 spec:
   data:
   - remoteRef:
