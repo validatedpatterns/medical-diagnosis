@@ -24,8 +24,8 @@ spec:
             access: proxy
             url: "{{ .url }}"
             database: "{{ .db }}"
-            password: "{{ .password | toString }}"
-            user: "{{ .user | toString }}"
+            password: "{{ .password }}"
+            user: "{{ .user }}"
   data:
   - secretKey: user
     remoteRef:
