@@ -37,9 +37,9 @@ spec:
           - name: MySQL
             type: mysql
             access: proxy
-            url: $datasource_url
+            url: ${datasource_url}
             database: "{{ .datasource_database }}"
             password: "{{ .datasource_password }}"
-            user: "{{ .datasource_user }}""
+            user: "{{ .datasource_user }}"
       engineVersion: v2
       type: Opaque
