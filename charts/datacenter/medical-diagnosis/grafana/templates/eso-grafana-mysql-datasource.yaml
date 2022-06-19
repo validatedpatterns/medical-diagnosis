@@ -22,24 +22,24 @@ spec:
           - name: MySQL
             type: mysql
             access: proxy
-            url: "{{ .datasource_url | toString }}"
-            database: "{{ .datasource_database }}"
-            password: "{{ .datasource_password }}"
-            user: "{{ .datasource_user }}"
+            url: "{{ .url }}"
+            database: "{{ .db }}"
+            password: "{{ .password }}"
+            user: "{{ .user }}"
   data:
   - remoteRef:
       key: secret/hub/grafana
       property: datasource_user
-    secretKey: datasource_user
+    secretKey: user
   - remoteRef:
       key: secret/hub/grafana
       property: datasource_password
-    secretKey: datasource_password
+    secretKey: password
   - remoteRef:
       key: secret/hub/grafana
       property: datasource_url
-    secretKey: datasource_url
+    secretKey: url
   - remoteRef:
       key: secret/hub/grafana
       property: datasource_database
-    secretKey: datasource_database
+    secretKey: db
