@@ -5,6 +5,7 @@ metadata:
   namespace: {{ .Values.global.xraylab.namespace }}
   labels:
     grafana_datasource: "1"
+    namespace: {{ .Values.global.xraylab.namespace }}
 spec:
   data:
   - remoteRef:
