@@ -15,7 +15,7 @@ spec:
     name: grafana-mysql-datasource-secret
     template:
       type: Opaque
-      engineVersion: v2
+      engineVersion: v1
       data:
         datasource.yaml: |
           datasources:
@@ -24,22 +24,22 @@ spec:
             access: proxy
             url: "{{ .url }}"
             database: "{{ .db }}"
-            password: "{{ .password }}"
-            user: "{{ .user }}"
+            password: "{{ .password | toString }}"
+            user: "{{ .user | toString }}"
   data:
-  - remoteRef:
+  - secretKey: user
+    remoteRef:
       key: secret/hub/grafana
       property: datasource_user
-    secretKey: user
-  - remoteRef:
+  - secretKey: password
+    remoteRef:
       key: secret/hub/grafana
       property: datasource_password
-    secretKey: password
-  - remoteRef:
+  - secretKey: url
+    remoteRef:
       key: secret/hub/grafana
       property: datasource_url
-    secretKey: url
-  - remoteRef:
+  - secretKey: db
+    remoteRef:
       key: secret/hub/grafana
       property: datasource_database
-    secretKey: db
