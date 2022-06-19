@@ -24,3 +24,19 @@ spec:
     remoteRef:
       key: secret/hub/grafana
       property: GF_SECURITY_ADMIN_PASSWORD
+  - secretKey: GF_DATASRC_USER
+    remoteRef:
+      key: secret/hub/grafana
+      property: GF_DATASRC_USER
+  - secretKey: GF_DATASRC_PASSWORD
+    remoteRef:
+      key: secret/hub/grafana
+      property: GF_DATASRC_PASSWORD
+  - secretKey: GF_DATASRC_DB
+    remoteRef:
+      key: secret/hub/grafana
+      property: GF_DATASRC_DB
+  - secretKey: GF_DATASRC_URL
+    remoteRef:
+      key: secret/hub/grafana
+      property: GF_DATASRC_URL
