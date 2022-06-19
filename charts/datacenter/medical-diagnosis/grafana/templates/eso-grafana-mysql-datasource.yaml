@@ -1,0 +1,46 @@
+apiVersion: external-secrets.io/v1alpha1
+kind: ExternalSecret
+metadata:
+  name: grafana-mysql-datasource-secret
+  namespace: {{ .Values.global.xraylab.namespace }}
+spec:
+  data:
+  - remoteRef:
+      key: secret/hub/grafana
+      name: datasource_user
+      property: datasource_user
+    secretKey: datasource_user
+  - remoteRef:
+      key: secret/hub/grafana
+      name: datasource_password
+      property: datasource_password
+    secretKey: datasource_password
+  - remoteRef:
+      key: secret/hub/grafana
+      name: datasource_url
+      property: datasource_url
+    secretKey: datasource_url
+  - remoteRef:
+      key: secret/hub/grafana
+      name: datasource_database
+      property: datasource_database
+    secretKey: datasource_database
+  refreshInterval: 15s
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: vault-backend
+  target:
+    name: grafana-datasource-secret
+    template:
+      data:
+        mysql-grafana-datasource.yaml: |
+          datasources:
+          - name: MySQL
+            type: mysql
+            access: proxy
+            url: {{ .datasource_url }}
+            database: {{ .datasource_database }}
+            password: {{ .datasource_password }}
+            user: {{ .datasource_user }}
+      engineVersion: v2
+      type: Opaque
