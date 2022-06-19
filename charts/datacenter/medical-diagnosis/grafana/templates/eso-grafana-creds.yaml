@@ -15,18 +15,14 @@ spec:
     name: grafana-creds
     template:
       type: Opaque
-  dataFrom:
-    - secretKey: user
-      remoteRef: 
-        key: secret/hub/grafana
-        name: GF_SECURITY_ADMIN_USER
-        property: GF_SECURITY_ADMIN_USER
-    - secretkey: password
-      remoteRef:
-        key: secret/hub/grafana
-        name: GF_SECURITY_ADMIN_PASSWORD
-        property: GF_SECURITY_ADMIN_PASSWORD
-      
-      
-    - extract:
-        key:
+  data:
+  - secretKey: GF_SECURITY_ADMIN_USER
+    remoteRef: 
+      key: secret/hub/grafana
+      name: GF_SECURITY_ADMIN_USER
+      property: GF_SECURITY_ADMIN_USER
+  - secretKey: GF_SECURITY_ADMIN_PASSWORD
+    remoteRef:
+      key: secret/hub/grafana
+      name: GF_SECURITY_ADMIN_PASSWORD
+      property: GF_SECURITY_ADMIN_PASSWORD
