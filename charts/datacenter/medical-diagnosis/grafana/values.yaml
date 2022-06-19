@@ -17,10 +17,10 @@ dataSources:
   type: mysql
   name: MySQL
   access: proxy
-  url: xraylabdb
-  database: xraylabdb
-  user: xraylab
-  password: 
+#  url: xraylabdb
+#  database: xraylabdb
+#  user: xraylab
+#  password: 
 
 rbac:
   roles:
