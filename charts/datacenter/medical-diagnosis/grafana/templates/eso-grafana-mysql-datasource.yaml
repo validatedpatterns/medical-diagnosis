@@ -22,7 +22,7 @@ spec:
           - name: MySQL
             type: mysql
             access: proxy
-            url: "{{ .datasource_url }}"
+            url: "{{ .datasource_url | toString }}"
             database: "{{ .datasource_database }}"
             password: "{{ .datasource_password }}"
             user: "{{ .datasource_user }}"
