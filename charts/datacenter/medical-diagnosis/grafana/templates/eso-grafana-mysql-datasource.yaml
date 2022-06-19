@@ -7,6 +7,25 @@ metadata:
     grafana_datasource: "1"
     namespace: {{ .Values.global.xraylab.namespace }}
 spec:
+  refreshInterval: 15s
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: vault-backend
+  target:
+    name: grafana-mysql-datasource-secret
+    template:
+      type: Opaque
+      engineVersion: v2
+      data:
+        datasource.yaml: |
+          datasources:
+          - name: MySQL
+            type: mysql
+            access: proxy
+            url: "{{ .datasource_url }}"
+            database: "{{ .datasource_database }}"
+            password: "{{ .datasource_password }}"
+            user: "{{ .datasource_user }}"
   data:
   - remoteRef:
       key: secret/hub/grafana
@@ -24,22 +43,3 @@ spec:
       key: secret/hub/grafana
       property: datasource_database
     secretKey: datasource_database
-  refreshInterval: 15s
-  secretStoreRef:
-    kind: ClusterSecretStore
-    name: vault-backend
-  target:
-    name: grafana-datasource-secret
-    template:
-      data:
-        mysql-grafana-datasource.yaml: |
-          datasources:
-          - name: MySQL
-            type: mysql
-            access: proxy
-            url: ${datasource_url}
-            database: "{{ .datasource_database }}"
-            password: "{{ .datasource_password }}"
-            user: "{{ .datasource_user }}"
-      engineVersion: v2
-      type: Opaque
