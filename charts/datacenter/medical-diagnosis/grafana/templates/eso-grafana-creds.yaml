@@ -19,10 +19,8 @@ spec:
   - secretKey: GF_SECURITY_ADMIN_USER
     remoteRef: 
       key: secret/hub/grafana
-      name: GF_SECURITY_ADMIN_USER
       property: GF_SECURITY_ADMIN_USER
   - secretKey: GF_SECURITY_ADMIN_PASSWORD
     remoteRef:
       key: secret/hub/grafana
-      name: GF_SECURITY_ADMIN_PASSWORD
       property: GF_SECURITY_ADMIN_PASSWORD
