@@ -18,7 +18,7 @@ global:
     cloudProvider: aws
     storageClassName: gp2
     region: us-east-2
-    clustername: jrickard-demo
+    clustername: jrickard-xray
     domain: blueprints.rhecoeng.com
 
   xraylab:
