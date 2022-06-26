@@ -3,7 +3,7 @@ PATTERN=medical-diagnosis
 COMPONENT=datacenter
 SECRET_NAME="argocd-env"
 TARGET_REPO=$(shell git remote show origin | grep Push | sed -e 's/.*URL://' -e 's%:[a-z].*@%@%' -e 's%:%/%' -e 's%git@%https://%' )
-CHART_OPTS=-f values-global.yaml -f values-datacenter.yaml --set global.targetRevision=main --set global.valuesDirectoryURL="https://github.com/pattern-clone/pattern/raw/main/" --set global.pattern="medical-diagnosis" --set global.namespace="pattern-namespace"
+CHART_OPTS=-f common/examples/values-secret.yaml -f values-global.yaml -f values-datacenter.yaml --set global.targetRevision=main --set global.valuesDirectoryURL="https://github.com/pattern-clone/pattern/raw/main/" --set global.pattern="medical-diagnosis" --set global.namespace="pattern-namespace"
 
 .PHONY: default
 default: show
