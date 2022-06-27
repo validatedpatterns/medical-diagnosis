@@ -106,6 +106,8 @@ kind: Application
 metadata:
   name: acm
   namespace: mypattern-example
+  annotations:
+    argocd.argoproj.io/sync-wave: "10"
 spec:
   destination:
     name: in-cluster
@@ -154,6 +156,8 @@ kind: Application
 metadata:
   name: pipelines
   namespace: mypattern-example
+  annotations:
+    argocd.argoproj.io/sync-wave: "11"
 spec:
   destination:
     name: in-cluster
