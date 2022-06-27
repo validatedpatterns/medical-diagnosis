@@ -23,8 +23,8 @@ This pipeline is showcased [in this video](https://www.youtube.com/watch?v=zja83
 
 ## Check the values files before deployment
 
-You can run a check before deployment to make sure that you have the required variables to deploy the 
-Medical Diagnosis Validated Pattern.  
+You can run a check before deployment to make sure that you have the required variables to deploy the
+Medical Diagnosis Validated Pattern.
 
 You can run `make predeploy` to check your values. This will allow you to review your values and changed them in
 the case there are typos or old values.  The values files that should be reviewed prior to deploying the
@@ -36,7 +36,7 @@ Medical Diagnosis Validated Pattern are:
 | values-global.yaml | File that is used to contain all the global values used by Helm |
 
 Make sure you have the correct domain, clustername, externalUrl, targetBucket and bucketSource values.
- 
+
 [![asciicast](https://github.com/claudiol/medical-diagnosis/blob/claudiol-xray-deployment/doc/predeploy.svg)](https://github.com/claudiol/medical-diagnosis/blob/claudiol-xray-deployment/doc/predeploy.svg)
 
 Then you can run `make install` to deploy the Medical Diagnosis Validated Pattern.
