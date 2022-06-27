@@ -72,15 +72,7 @@ spec:
   resources:
     requests:
       storage: 1Gi
-<<<<<<< HEAD:tests/datacenter-xraylab-xraydb-normal.expected.yaml
-  storageClassName: PROVIDE_DEFAULT_STORAGE_CLASS
-=======
-<<<<<<< HEAD:tests/datacenter-medical-diagnosis-database-normal.expected.yaml
   storageClassName: PROVIDE_STORAGECLASS_NAME
-=======
-  storageClassName: gp2
->>>>>>> 559e4fa (Fix up helm tests):tests/datacenter-xraylab-xraydb-naked.expected.yaml
->>>>>>> day0hero-jrickard-cleanupdate:tests/datacenter-medical-diagnosis-database-normal.expected.yaml
   volumeMode: Filesystem
 ---
 # Source: xraydb/templates/service.yaml
