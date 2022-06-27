@@ -3,7 +3,7 @@
 The grafana dashboard is used to display the status of the `data services` pipeline. There are input sources from prometheus
 as well as from the xraylab database.
 
-### Additional Information:
+## Additional Information:
 
 This chart utilizes custom RBAC policies in order to properly execute the job. Additionally, in order to use prometheus as a datasource, the `cluster-viewer` clusterRole is assocated with the `grafana-serviceaccount`
 
