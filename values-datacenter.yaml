@@ -10,14 +10,8 @@ clusterGroup:
   - xraylab-1
   - knative-serving
   - staging
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
   - vault
   - golang-external-secrets
-=======
->>>>>>> e93575d (Drop vault usage from medical-diagnosis)
->>>>>>> day0hero-jrickard-cleanupdate
   - medical-diagnosis-datacenter
 
   operatorgroupExcludes:
@@ -54,56 +48,6 @@ clusterGroup:
   - datacenter
  
   applications:
-<<<<<<< HEAD
-    acm:
-      name: acm
-      namespace: open-cluster-management
-      project: datacenter
-      path: common/acm
-
-    odh:
-      name: odh
-      namespace: opendatahub
-      project: datacenter
-      path: charts/datacenter/opendatahub
-
-    cephobjectstore:
-      name: cephobjectstore
-      namespace: openshift-storage
-      project: datacenter
-      path: charts/datacenter/cephobjectstore
-
-    knative:
-      name: knative
-      namespace: xraylab-1
-      project: datacenter
-      path: charts/datacenter/xraylab/knative
-
-    demo:
-      name: demo
-      namespace: xraylab-1
-      project: datacenter
-      path: charts/datacenter/xraylab/demo
-
-    user:
-      name: user
-      namespace: xraylab-1
-      project: datacenter
-      path: charts/datacenter/xraylab/user
-
-    kafka:
-      name: kafka
-      namespace: xraylab-1
-      project: datacenter
-      path: charts/datacenter/xraylab/kafka
-
-    kafkasource:
-      name: kafkasource
-      namespace: xraylab-1
-      project: datacenter
-      path: charts/datacenter/xraylab/kafkasource
-
-=======
   - name: vault
     namespace: vault
     project: datacenter
@@ -190,7 +134,6 @@ clusterGroup:
       jqPathExpressions:
       - '.spec.template.spec.containers[].image'
 
-<<<<<<< HEAD
   - name: xraylab-image-generator
     namespace: xraylab-1
     project: datacenter
@@ -200,35 +143,6 @@ clusterGroup:
       kind: DeploymentConfig
       jqPathExpressions:
       - '.spec.template.spec.containers[].image'
-=======
->>>>>>> day0hero-jrickard-cleanupdate
-    grafana:
-      name:  grafana
-      namespace: xraylab-1
-      project: datacenter
-      path: charts/datacenter/xraylab/grafana
-
-    imageserver:
-      name: imageserver
-      namespace: xraylab-1
-      project: datacenter
-      path: charts/datacenter/xraylab/image-server
-
-    imagegenerator:
-      name: imagegenerator
-      namespace: xraylab-1
-      project: datacenter
-      path: charts/datacenter/xraylab/image-generator
-
-    xraydb:
-      name: xraydb
-      namespace: xraylab-1
-      project: datacenter
-      path: charts/datacenter/xraylab/xraydb
-<<<<<<< HEAD
-=======
->>>>>>> e93575d (Drop vault usage from medical-diagnosis)
->>>>>>> day0hero-jrickard-cleanupdate
 
 #  To have apps in multiple flavors, use namespaces and use helm overrides as appropriate
 #
