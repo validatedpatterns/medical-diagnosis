@@ -3,7 +3,7 @@ PATTERN=medical-diagnosis
 COMPONENT=datacenter
 SECRET_NAME="argocd-env"
 TARGET_REPO=$(shell git remote show origin | grep Push | sed -e 's/.*URL://' -e 's%:[a-z].*@%@%' -e 's%:%/%' -e 's%git@%https://%' )
-CHART_OPTS=-f common/examples/values-secret.yaml -f values-global.yaml -f values-datacenter.yaml --set global.targetRevision=main --set global.valuesDirectoryURL="https://github.com/pattern-clone/pattern/raw/main/" --set global.pattern="medical-diagnosis" --set global.namespace="pattern-namespace"
+CHART_OPTS=-f values-global.yaml -f values-datacenter.yaml --set global.targetRevision=main --set global.valuesDirectoryURL="https://github.com/pattern-clone/pattern/raw/main/" --set global.pattern="medical-diagnosis" --set global.namespace="pattern-namespace"
 
 .PHONY: default
 default: show
@@ -17,7 +17,6 @@ install: deploy
 	make vault-init
 	make load-secrets
 	echo "Installed"
-#	make bootstrap
 
 predeploy:
 	./scripts/precheck.sh
@@ -34,7 +33,7 @@ common-test:
 	make -C common -f common/Makefile test
 
 test:
-	make -f common/Makefile CHARTS="secrets $(shell find charts/datacenter -type f -iname 'Chart.yaml' -not -path "./common/*" -exec dirname "{}" \;)" PATTERN_OPTS="-f values-datacenter.yaml" test
+	make -f common/Makefile CHARTS="secrets $(shell find charts/datacenter -type f -iname 'Chart.yaml' -not -path "./common/*" -exec dirname "{}" \;)" PATTERN_OPTS="-f ~/values-secret.yaml -f values-datacenter.yaml" test
 	make -f common/Makefile CHARTS="$(wildcard charts/factory/*)" PATTERN_OPTS="-f values-factory.yaml" test
 
 helmlint:
