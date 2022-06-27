@@ -9,14 +9,14 @@ The database chart is a primary component of the medical diagnosis pattern. Ther
 - image-server
 - risk-assessment
 
-## Additional Information
+### Additional Information
 
-### Dependencies
+## Dependencies
 
 - vault
 - golang-external-secrets
 
-  **Reinitialize the database**
+## Reinitialize the database
 
 ```shell
 
@@ -34,7 +34,7 @@ INSERT INTO images_anonymized(time,name) SELECT CURRENT_TIMESTAMP(), '';
 
 ```
 
-  **Display rows from each table**
+## Display rows from each table
 
 ```shell
 SELECT * FROM images_uploaded;

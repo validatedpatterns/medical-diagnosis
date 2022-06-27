@@ -7,13 +7,14 @@ as well as from the xraylab database.
 
 This chart utilizes custom RBAC policies in order to properly execute the job. Additionally, in order to use prometheus as a datasource, the `cluster-viewer` clusterRole is assocated with the `grafana-serviceaccount`
 
-**RBAC**
+## RBAC
+
 |rbac|name|roleBinding|serviceAccount|namespace|
 |----|----|-----------|--------------|---------|
 |clusterRole|cluster-monitoring-view|cluster-monitoring-view|xraylab-1/grafana-serviceaccount|n/a(clusterRole)|
 |role|grafana-mgmt|grafana-mgmt|grafana-serviceaccount|xraylab-1|
 |role|grafana-read-secrets|grafana-read-secrets|grafana-serviceaccount|xraylab-1|
 
-**Dependencies**
-- database
+## Dependencies
 
+- database

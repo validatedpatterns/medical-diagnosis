@@ -3,7 +3,7 @@
 This chart makes up the majority of the riskassessment demo application for the pattern. There are a number of services (applications) included
 in this single chart. This application is deployed this way to ensure that the syncwaves/hooks are properly ordering the deployment.
 
-  **Application RollOut Order**
+## Application RollOut Order
 
 |Application|Description|
 |-----------|-----------|
