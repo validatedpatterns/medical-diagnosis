@@ -9,14 +9,14 @@
 - name: Create database secret
   include_tasks: db-secret.yml
 
-#- name: ODF bootstrap
-#  include_tasks: odf.yml
-#
-#- name: xraylab demo bootstrap
-#  include_tasks: xraylab.yml
-#
-#- name: Serverless bootstrap
-#  include_tasks: serverless.yml
-#
-#- name: grafana bootstrap
-#  include_tasks: grafana.yml
+- name: ODF bootstrap
+  include_tasks: odf.yml
+
+- name: xraylab demo bootstrap
+  include_tasks: xraylab.yml
+
+- name: Serverless bootstrap
+  include_tasks: serverless.yml
+
+- name: grafana bootstrap
+  include_tasks: grafana.yml
