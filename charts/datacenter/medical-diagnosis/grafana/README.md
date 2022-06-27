@@ -1,7 +1,7 @@
 # Grafana Dashboard
 
-The grafana dashboard is used to display the status of the `data services` pipeline. There are input sources from prometheus 
-as well as from the xraylab database. 
+The grafana dashboard is used to display the status of the `data services` pipeline. There are input sources from prometheus
+as well as from the xraylab database.
 
 ### Additional Information:
 

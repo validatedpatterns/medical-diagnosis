@@ -1,7 +1,7 @@
-# xray-init 
+# xray-init
 
-This chart makes up the majority of the riskassessment demo application for the pattern. There are a number of services (applications) included 
-in this single chart. This application is deployed this way to ensure that the syncwaves/hooks are properly ordering the deployment. 
+This chart makes up the majority of the riskassessment demo application for the pattern. There are a number of services (applications) included
+in this single chart. This application is deployed this way to ensure that the syncwaves/hooks are properly ordering the deployment.
 
 **Application RollOut Order**:
 
@@ -12,9 +12,9 @@ in this single chart. This application is deployed this way to ensure that the s
 |riskAssessment| ML trained model for detecting anomalies in xray images|
 |RBAC| All role-based-access-controls required for the `xray-init` application|
 
-In addition to syncwaves and synchooks we are using kubernetes jobs to wait for custom resources to return a specific status. Once the desired state has been met, the next item in the syncwave will begin. 
+In addition to syncwaves and synchooks we are using kubernetes jobs to wait for custom resources to return a specific status. Once the desired state has been met, the next item in the syncwave will begin.
 
-The objectstore-user secret is consumed by multiple applications. Without it, there is no notification to trigger the pipeline. 
+The objectstore-user secret is consumed by multiple applications. Without it, there is no notification to trigger the pipeline.
 
 **RBAC**
 |rbac|name|roleBinding|serviceAccount|namespace|
