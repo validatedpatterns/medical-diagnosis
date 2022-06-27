@@ -1,0 +1,6 @@
+global:
+  xraylab:
+    namespace: xraylab-demo
+  datacenter:
+    storageClassName: gp2
+    region: us-east-1

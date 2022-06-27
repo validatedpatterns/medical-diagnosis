@@ -1,11 +1,12 @@
+---
+# Source: kafkasource/templates/xray-kafka-risk-assessment-svc.yaml
 apiVersion: serving.knative.dev/v1 
 kind: Service
 metadata:
   name: risk-assessment
-  namespace: {{ .Values.global.xraylab.namespace }}
+  namespace: xraylab-demo
   annotations:
-    argocd.argoproj.io/sync-wave: "20"
-    argocd.argoproj.io/compare-options: IgnoreExtraneous
+    argocd.argoproj.io/sync-wave: "1"
 spec:
   template:
     metadata:
@@ -67,15 +68,13 @@ spec:
           requests:
             cpu: 400m
             memory: 100M
-<<<<<<< HEAD:charts/datacenter/medical-diagnosis/xray-init/templates/riskAssessment/kafkaservice.yaml
-=======
 ---
 # Source: kafkasource/templates/xray-kafka-risk-assessment-is.yaml
 apiVersion: image.openshift.io/v1
 kind: ImageStream
 metadata:
   name: risk-assessment
-  namespace: xraylab-1
+  namespace: xraylab-demo
   annotations:
     argocd.argoproj.io/sync-wave: "1"
 spec:
@@ -95,7 +94,7 @@ apiVersion: sources.knative.dev/v1beta1
 kind: KafkaSource
 metadata:
   name: xray-images
-  namespace: xraylab-1
+  namespace: xraylab-demo
   annotations:
     argocd.argoproj.io/sync-options: Validate=false, SkipDryRunOnMissingResource=true
     argocd.argoproj.io/sync-wave: "10"
@@ -110,4 +109,3 @@ spec:
       apiVersion: serving.knative.dev/v1
       kind: Service
       name: risk-assessment
->>>>>>> 559e4fa (Fix up helm tests):tests/datacenter-xraylab-kafkasource-normal.expected.yaml
