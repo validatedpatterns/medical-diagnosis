@@ -3,7 +3,7 @@
 This chart makes up the majority of the riskassessment demo application for the pattern. There are a number of services (applications) included
 in this single chart. This application is deployed this way to ensure that the syncwaves/hooks are properly ordering the deployment.
 
-**Application RollOut Order**:
+  **Application RollOut Order**
 
 |Application|Description|
 |-----------|-----------|
@@ -16,7 +16,8 @@ In addition to syncwaves and synchooks we are using kubernetes jobs to wait for 
 
 The objectstore-user secret is consumed by multiple applications. Without it, there is no notification to trigger the pipeline.
 
-**RBAC**
+## RBAC
+
 |rbac|name|roleBinding|serviceAccount|namespace|
 |----|----|-----------|--------------|---------|
 |clusterRole|view-odf-storageclusters|view-odf-storageclusters|xraylab-1/xraylab-1-sa|n/a(clusterRole)|
@@ -32,6 +33,7 @@ The objectstore-user secret is consumed by multiple applications. Without it, th
 |grafana-read-secrets|grafana-read-secrets|grafana-serviceaccount|xraylab-1|
 |cluster-monitoring-view|cluster-monitoring-view|grafana-serviceaccount|xraylab-1|
 
-**Dependencies**:
+## Dependencies
+
 - database
 - db-secret

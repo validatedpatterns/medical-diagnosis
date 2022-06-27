@@ -3,18 +3,20 @@
 This chart deploys a mariadb datbase used for persisting data about the xray images that have been processed.
 
 The database chart is a primary component of the medical diagnosis pattern. There are several other applications which depend on the database deployment.
+
 - grafana
 - image-generator
 - image-server
 - risk-assessment
 
-## Additional Information:
+## Additional Information
 
-**Dependencies**:
+### Dependencies
+
 - vault
 - golang-external-secrets
 
-**Reinitialize the database**
+  **Reinitialize the database**
 
 ```shell
 
@@ -32,7 +34,7 @@ INSERT INTO images_anonymized(time,name) SELECT CURRENT_TIMESTAMP(), '';
 
 ```
 
-**Display rows from each table**
+  **Display rows from each table**
 
 ```shell
 SELECT * FROM images_uploaded;
@@ -40,4 +42,3 @@ SELECT * FROM images_processed;
 SELECT * FROM images_anonymized;
 
 ```
-
