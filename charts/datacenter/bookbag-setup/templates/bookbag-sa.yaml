@@ -1,5 +1,0 @@
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  name: {{ .Values.bookbag.project.name }}
-  namespace: bookbag-xraylab-1

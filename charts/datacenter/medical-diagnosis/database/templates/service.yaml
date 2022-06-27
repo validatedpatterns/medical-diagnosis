@@ -1,0 +1,15 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: {{ .Values.database.name }}
+  namespace: "{{ .Values.global.xraylab.namespace }}"
+  annotations:
+    argocd.argoproj.io/sync-wave: "8"
+spec:
+  ports:
+    - name: mariadb
+      protocol: TCP
+      port: 3306
+      targetPort: 3306
+  selector:
+    app: {{ .Values.database.name }}

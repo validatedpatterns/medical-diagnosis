@@ -10,6 +10,14 @@ clusterGroup:
   - xraylab-1
   - knative-serving
   - staging
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+  - vault
+  - golang-external-secrets
+=======
+>>>>>>> e93575d (Drop vault usage from medical-diagnosis)
+>>>>>>> day0hero-jrickard-cleanupdate
   - medical-diagnosis-datacenter
 
   operatorgroupExcludes:
@@ -17,11 +25,6 @@ clusterGroup:
     - knative-kafka
 
   subscriptions:
-  - name: advanced-cluster-management
-    namespace: open-cluster-management
-    channel: release-2.3
-    csv: advanced-cluster-management.v2.3.2
-
   - name: amq-streams
     namespace: xraylab-1 
     channel: stable
@@ -33,10 +36,10 @@ clusterGroup:
     source: community-operators
     csv: grafana-operator.v3.10.3
 
-  - name: ocs-operator
+  - name: odf-operator
     namespace: openshift-storage
-    channel: stable-4.8
-    csv: ocs-operator.v4.8.7
+    channel: stable-4.10
+    csv: ocs-operator.v4.10.2
 
   - name: serverless-operator
     channel: stable
@@ -51,6 +54,7 @@ clusterGroup:
   - datacenter
  
   applications:
+<<<<<<< HEAD
     acm:
       name: acm
       namespace: open-cluster-management
@@ -99,6 +103,105 @@ clusterGroup:
       project: datacenter
       path: charts/datacenter/xraylab/kafkasource
 
+=======
+  - name: vault
+    namespace: vault
+    project: datacenter
+    chart: vault
+    repoURL: https://helm.releases.hashicorp.com
+    targetRevision: v0.20.0
+    overrides:
+    - name: global.openshift
+      value: "true"
+    - name: injector.enabled
+      value: "false"
+    - name: ui.enabled
+      value: "true"
+    - name: ui.serviceType
+      value: LoadBalancer
+    - name: server.route.enabled
+      value: "true"
+    - name: server.route.host
+      value: null
+    - name: server.route.tls.termination
+      value: edge
+    - name: server.image.repository
+      value: "registry.connect.redhat.com/hashicorp/vault"
+    - name: server.image.tag
+      value: "1.10.3-ubi"
+
+  - name: golang-external-secrets
+    namespace: golang-external-secrets
+    project: datacenter
+    path: common/golang-external-secrets
+
+  - name: odh
+    namespace: opendatahub
+    project: datacenter
+    path: charts/datacenter/openDataHub
+
+  - name: odf
+    namespace: openshift-storage
+    project: datacenter
+    path: charts/datacenter/openshiftDataFoundations
+
+  - name: serverless
+    namespace: xraylab-1
+    project: datacenter
+    path: charts/datacenter/openshiftServerless
+  
+  - name: kafka
+    namespace: xraylab-1
+    project: datacenter
+    path: charts/datacenter/kafka
+  
+  - name: kafdrop
+    namespace: xraylab-1
+    project: datacenter
+    path: charts/datacenter/kafdrop
+  
+  - name: xraylab-service-account
+    namespace: xraylab-1
+    project: datacenter
+    path: charts/datacenter/medical-diagnosis/service-account
+
+  - name: xraylab-init
+    namespace: xraylab-1
+    project: datacenter
+    path: charts/datacenter/medical-diagnosis/xray-init
+
+  - name: xraylab-database
+    namespace: xraylab-1
+    project: datacenter
+    path: charts/datacenter/medical-diagnosis/database
+  
+  - name: xraylab-grafana-dashboards
+    namespace: xraylab-1
+    project: datacenter
+    path: charts/datacenter/medical-diagnosis/grafana
+
+  - name: xraylab-image-server
+    namespace: xraylab-1
+    project: datacenter
+    path: charts/datacenter/medical-diagnosis/image-server
+    ignoreDifferences:
+    - group: apps.openshift.io
+      kind: DeploymentConfig
+      jqPathExpressions:
+      - '.spec.template.spec.containers[].image'
+
+<<<<<<< HEAD
+  - name: xraylab-image-generator
+    namespace: xraylab-1
+    project: datacenter
+    path: charts/datacenter/medical-diagnosis/image-generator
+    ignoreDifferences:
+    - group: apps.openshift.io
+      kind: DeploymentConfig
+      jqPathExpressions:
+      - '.spec.template.spec.containers[].image'
+=======
+>>>>>>> day0hero-jrickard-cleanupdate
     grafana:
       name:  grafana
       namespace: xraylab-1
@@ -122,6 +225,10 @@ clusterGroup:
       namespace: xraylab-1
       project: datacenter
       path: charts/datacenter/xraylab/xraydb
+<<<<<<< HEAD
+=======
+>>>>>>> e93575d (Drop vault usage from medical-diagnosis)
+>>>>>>> day0hero-jrickard-cleanupdate
 
 #  To have apps in multiple flavors, use namespaces and use helm overrides as appropriate
 #
