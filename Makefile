@@ -36,5 +36,36 @@ test:
 	make -f common/Makefile CHARTS="secrets $(shell find charts/datacenter -type f -iname 'Chart.yaml' -not -path "./common/*" -exec dirname "{}" \;)" PATTERN_OPTS="-f values-datacenter.yaml" test
 	make -f common/Makefile CHARTS="$(wildcard charts/factory/*)" PATTERN_OPTS="-f values-factory.yaml" test
 
+<<<<<<< HEAD
 helmlint:
 	@for t in "secrets $(shell find charts/datacenter -type f -iname 'Chart.yaml' -not -path "./common/*" -exec dirname "{}" \;)"; do helm lint $$t; if [ $$? != 0 ]; then exit 1; fi; done
+=======
+deploy: validate-origin ## deploys the pattern
+	helm install $(NAME) common/install/ $(HELM_OPTS)
+
+upgrade: validate-origin ## runs helm upgrade
+	helm upgrade $(NAME) common/install/ $(HELM_OPTS)
+
+uninstall: ## runs helm uninstall
+	helm uninstall $(NAME)
+
+vault-init: ## inits, unseals and configured the vault
+	common/scripts/vault-utils.sh vault_init common/pattern-vault.init
+
+vault-unseal: ## unseals the vault
+	common/scripts/vault-utils.sh vault_unseal common/pattern-vault.init
+
+load-secrets: ## loads the secrets into the vault
+	common/scripts/ansible-push-vault-secrets.sh
+
+super-linter: ## Runs super linter locally
+	podman run -e RUN_LOCAL=true -e USE_FIND_ALGORITHM=true	\
+					-e VALIDATE_BASH=false \
+					-e VALIDATE_JSCPD=false \
+					-e VALIDATE_KUBERNETES_KUBEVAL=false \
+					-e VALIDATE_YAML=false \
+					-v $(PWD):/tmp/lint:rw,z docker.io/github/super-linter:slim-v4
+
+.phony: install test
+
+>>>>>>> d930d63 (Add super linter)
