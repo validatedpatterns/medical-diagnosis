@@ -8,7 +8,7 @@ The database chart is a primary component of the medical diagnosis pattern. Ther
 - image-server
 - risk-assessment
 
-### Additional Information:
+## Additional Information:
 
 **Dependencies**:
 - vault
@@ -31,6 +31,7 @@ INSERT INTO images_processed(time,name,model,label) SELECT CURRENT_TIMESTAMP(), 
 INSERT INTO images_anonymized(time,name) SELECT CURRENT_TIMESTAMP(), '';
 
 ```
+
 **Display rows from each table**
 
 ```shell
