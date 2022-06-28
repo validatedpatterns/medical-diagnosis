@@ -146,7 +146,7 @@ spec:
       terminationGracePeriodSeconds: 60
 ---
 # Source: grafana/templates/eso-grafana-creds.yaml
-apiVersion: "external-secrets.io/v1alpha1"
+apiVersion: "external-secrets.io/v1beta1"
 kind: ExternalSecret
 metadata:
   name: grafana-creds-external-secret
