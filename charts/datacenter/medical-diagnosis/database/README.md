@@ -9,7 +9,7 @@ The database chart is a primary component of the medical diagnosis pattern. Ther
 - image-server
 - risk-assessment
 
-### Additional Information
+## Additional Information
 
 ## Dependencies
 
