@@ -82,17 +82,17 @@ clusterGroup:
   - name: odh
     namespace: opendatahub
     project: datacenter
-    path: charts/datacenter/openDataHub
+    path: charts/datacenter/opendatahub
 
   - name: odf
     namespace: openshift-storage
     project: datacenter
-    path: charts/datacenter/openshiftDataFoundations
+    path: charts/datacenter/openshift-data-foundations
 
   - name: serverless
     namespace: xraylab-1
     project: datacenter
-    path: charts/datacenter/openshiftServerless
+    path: charts/datacenter/openshift-serverless
   
   - name: kafka
     namespace: xraylab-1
