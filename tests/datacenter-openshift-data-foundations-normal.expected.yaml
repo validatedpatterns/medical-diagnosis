@@ -1,5 +1,5 @@
 ---
-# Source: openshiftDataFoundations/templates/rbac/serviceAccount.yaml
+# Source: openshift-data-foundations/templates/rbac/serviceAccount.yaml
 apiVersion: v1
 kind: ServiceAccount
 metadata:
@@ -9,7 +9,7 @@ metadata:
     argocd.argoproj.io/sync-hook: "PreSync"
     argocd.argoproj.io/sync-wave: "-10"
 ---
-# Source: openshiftDataFoundations/templates/cm-odf-servicePoint.yaml
+# Source: openshift-data-foundations/templates/cm-odf-servicePoint.yaml
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -21,7 +21,7 @@ data:
   url: "http://rook-ceph-rgw-ocs-storagecluster-cephobjectstore.openshift-storage.svc.cluster.local"
   url-external: "https://s3-rgw-openshift-storage.apps.PROVIDE_CLUSTERNAME.PROVIDE_DOMAIN"
 ---
-# Source: openshiftDataFoundations/templates/rgw-storageclass.yaml
+# Source: openshift-data-foundations/templates/rgw-storageclass.yaml
 kind: StorageClass
 apiVersion: storage.k8s.io/v1
 metadata:
@@ -36,7 +36,7 @@ parameters:
 reclaimPolicy: Delete
 volumeBindingMode: Immediate
 ---
-# Source: openshiftDataFoundations/templates/rbac/role.yaml
+# Source: openshift-data-foundations/templates/rbac/role.yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
@@ -55,7 +55,7 @@ rules:
       - patch
       - update
 ---
-# Source: openshiftDataFoundations/templates/rbac/rolebinding.yaml
+# Source: openshift-data-foundations/templates/rbac/rolebinding.yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
@@ -73,7 +73,7 @@ roleRef:
   name: label-storage-nodes
   apiGroup: rbac.authorization.k8s.io
 ---
-# Source: openshiftDataFoundations/templates/job-labelNodes.yaml
+# Source: openshift-data-foundations/templates/job-labelNodes.yaml
 apiVersion: batch/v1
 kind: Job
 metadata:
@@ -98,7 +98,7 @@ spec:
       serviceAccountName: odf-node-label-sa
       terminationGracePeriodSeconds: 400
 ---
-# Source: openshiftDataFoundations/templates/odf-cephobjectstore.yaml
+# Source: openshift-data-foundations/templates/odf-cephobjectstore.yaml
 apiVersion: ceph.rook.io/v1
 kind: CephObjectStore
 metadata:
@@ -162,7 +162,7 @@ spec:
     replicated:
       size: 3
 ---
-# Source: openshiftDataFoundations/templates/cephtoolbox.yaml
+# Source: openshift-data-foundations/templates/cephtoolbox.yaml
 apiVersion: ocs.openshift.io/v1
 kind: OCSInitialization
 metadata:
@@ -173,7 +173,7 @@ metadata:
 spec:
   enableCephTools: true
 ---
-# Source: openshiftDataFoundations/templates/rgw-route.yaml
+# Source: openshift-data-foundations/templates/rgw-route.yaml
 apiVersion: route.openshift.io/v1
 kind: Route
 metadata:
@@ -199,7 +199,7 @@ spec:
     insecureEdgeTerminationPolicy: Allow
   wildcardPolicy: None
 ---
-# Source: openshiftDataFoundations/templates/odf-storagecluster.yaml
+# Source: openshift-data-foundations/templates/odf-storagecluster.yaml
 apiVersion: ocs.openshift.io/v1
 kind: StorageCluster
 metadata:

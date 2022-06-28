@@ -1,12 +1,12 @@
 ---
-# Source: openshiftServerless/templates/knative-operator.yaml
+# Source: openshift-serverless/templates/knative-operator.yaml
 apiVersion: operator.knative.dev/v1alpha1
 kind: KnativeEventing
 metadata:
   name: knative-eventing
   namespace: knative-eventing
 ---
-# Source: openshiftServerless/templates/knative-operator.yaml
+# Source: openshift-serverless/templates/knative-operator.yaml
 apiVersion: operator.serverless.openshift.io/v1alpha1
 kind: KnativeKafka
 metadata:
@@ -19,7 +19,7 @@ spec:
   source:
     enabled: true
 ---
-# Source: openshiftServerless/templates/knative-operator.yaml
+# Source: openshift-serverless/templates/knative-operator.yaml
 apiVersion: operator.knative.dev/v1alpha1
 kind: KnativeServing
 metadata:
