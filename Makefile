@@ -38,6 +38,7 @@ test:
 
 helmlint:
 	@for t in "secrets $(shell find charts/datacenter -type f -iname 'Chart.yaml' -not -path "./common/*" -exec dirname "{}" \;)"; do helm lint $$t; if [ $$? != 0 ]; then exit 1; fi; done
+
 deploy: validate-origin ## deploys the pattern
 	helm install $(NAME) common/install/ $(HELM_OPTS)
 
@@ -62,7 +63,7 @@ super-linter: ## Runs super linter locally
 					-e VALIDATE_JSCPD=false \
 					-e VALIDATE_KUBERNETES_KUBEVAL=false \
 					-e VALIDATE_YAML=false \
+					-e VALIDATE_ANSIBLE=false \
 					-v $(PWD):/tmp/lint:rw,z docker.io/github/super-linter:slim-v4
 
 .phony: install test
-
