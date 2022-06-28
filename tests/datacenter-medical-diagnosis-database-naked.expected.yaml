@@ -213,7 +213,7 @@ spec:
       schedulerName: default-scheduler
 ---
 # Source: xraydb/templates/external-secret-db.yaml
-apiVersion: "external-secrets.io/v1alpha1"
+apiVersion: "external-secrets.io/v1beta1"
 kind: ExternalSecret
 metadata:
   name: xraydb-external-secret
@@ -230,4 +230,5 @@ spec:
     template:
       type: Opaque
   dataFrom:
-    - key: secret/data/hub/xraylab
+  - extract:
+      key: secret/data/hub/xraylab
