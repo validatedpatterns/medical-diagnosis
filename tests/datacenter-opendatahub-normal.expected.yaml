@@ -1,5 +1,5 @@
 ---
-# Source: opendatahub/templates/odh-config-map.yaml
+# Source: opendatahub/templates/cm.yaml
 kind: ConfigMap
 apiVersion: v1
 metadata:
@@ -15,7 +15,7 @@ data:
         - name: JUPYTER_PRELOAD_REPOS
           value: https://github.com/red-hat-data-services/xraylab_notebooks.git
 ---
-# Source: opendatahub/templates/odh-kfdef.yaml
+# Source: opendatahub/templates/kfdef.yaml
 apiVersion: kfdef.apps.kubeflow.org/v1
 kind: KfDef
 metadata:
@@ -31,8 +31,6 @@ spec:
           path: odh-common
       name: odh-common
     - kustomizeConfig:
-        overlays:
-        - storage-class:
         parameters:
           - name: storage_class
             value: ocs-storagecluster-ceph-rbd
@@ -56,7 +54,6 @@ spec:
       name: odh-dashboard
   repos:
     - name: kf-manifests
-      uri: >-
-        https://github.com/opendatahub-io/manifests/tarball/v1.2-branch
+      uri: https://github.com/opendatahub-io/manifests/tarball/v1.4.0-rc.2-openshift
     - name: manifests
-      uri: 'https://github.com/opendatahub-io/odh-manifests/tarball/v1.1.0'
+      uri: https://github.com/opendatahub-io/odh-manifests/tarball/v1.2

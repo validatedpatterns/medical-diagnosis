@@ -1,0 +1,17 @@
+global:
+  xraylab:
+    namespace: xraylab-1
+  datacenter:
+    storageClassName: gp2
+    region: us-east-1
+
+secretStore:
+  name: vault-backend
+  kind: ClusterSecretStore
+
+xraylabsecret:
+  key: secret/data/hub/xraylab
+
+database:
+  name: xraylabdb
+  image: registry.redhat.io/rhel8/mariadb-103:latest

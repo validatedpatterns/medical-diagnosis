@@ -1,0 +1,22 @@
+global:
+  xraylab:
+    namespace: xraylab-1
+  datacenter:
+    clustername: ""
+    s3:
+      bucketSource: ""
+      bucketBaseName: ""
+
+imageStream:
+  tags:
+    name: latest
+  from:
+    name: "quay.io/rh-data-services/xraylab-image-server:latest"
+
+#https://github.com/red-hat-data-services/jumpstart-library/blob/main/demo1-xray-pipeline/manual_deployment/deployment/02_config-maps.yaml
+#From jumpstart-library
+images:
+  bucketSource: xray-source
+  bucketBaseName: xray-source
+
+

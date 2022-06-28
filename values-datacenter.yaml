@@ -10,6 +10,8 @@ clusterGroup:
   - xraylab-1
   - knative-serving
   - staging
+  - vault
+  - golang-external-secrets
   - medical-diagnosis-datacenter
 
   operatorgroupExcludes:
@@ -17,11 +19,6 @@ clusterGroup:
     - knative-kafka
 
   subscriptions:
-  - name: advanced-cluster-management
-    namespace: open-cluster-management
-    channel: release-2.3
-    csv: advanced-cluster-management.v2.3.2
-
   - name: amq-streams
     namespace: xraylab-1 
     channel: stable
@@ -33,10 +30,10 @@ clusterGroup:
     source: community-operators
     csv: grafana-operator.v3.10.3
 
-  - name: ocs-operator
+  - name: odf-operator
     namespace: openshift-storage
-    channel: stable-4.8
-    csv: ocs-operator.v4.8.7
+    channel: stable-4.10
+    csv: ocs-operator.v4.10.2
 
   - name: serverless-operator
     channel: stable
@@ -51,77 +48,101 @@ clusterGroup:
   - datacenter
  
   applications:
-    acm:
-      name: acm
-      namespace: open-cluster-management
-      project: datacenter
-      path: common/acm
+  - name: vault
+    namespace: vault
+    project: datacenter
+    chart: vault
+    repoURL: https://helm.releases.hashicorp.com
+    targetRevision: v0.20.0
+    overrides:
+    - name: global.openshift
+      value: "true"
+    - name: injector.enabled
+      value: "false"
+    - name: ui.enabled
+      value: "true"
+    - name: ui.serviceType
+      value: LoadBalancer
+    - name: server.route.enabled
+      value: "true"
+    - name: server.route.host
+      value: null
+    - name: server.route.tls.termination
+      value: edge
+    - name: server.image.repository
+      value: "registry.connect.redhat.com/hashicorp/vault"
+    - name: server.image.tag
+      value: "1.10.3-ubi"
 
-    odh:
-      name: odh
-      namespace: opendatahub
-      project: datacenter
-      path: charts/datacenter/opendatahub
+  - name: golang-external-secrets
+    namespace: golang-external-secrets
+    project: datacenter
+    path: common/golang-external-secrets
 
-    cephobjectstore:
-      name: cephobjectstore
-      namespace: openshift-storage
-      project: datacenter
-      path: charts/datacenter/cephobjectstore
+  - name: odh
+    namespace: opendatahub
+    project: datacenter
+    path: charts/datacenter/opendatahub
 
-    knative:
-      name: knative
-      namespace: xraylab-1
-      project: datacenter
-      path: charts/datacenter/xraylab/knative
+  - name: odf
+    namespace: openshift-storage
+    project: datacenter
+    path: charts/datacenter/openshift-data-foundations
 
-    demo:
-      name: demo
-      namespace: xraylab-1
-      project: datacenter
-      path: charts/datacenter/xraylab/demo
+  - name: serverless
+    namespace: xraylab-1
+    project: datacenter
+    path: charts/datacenter/openshift-serverless
+  
+  - name: kafka
+    namespace: xraylab-1
+    project: datacenter
+    path: charts/datacenter/kafka
+  
+  - name: kafdrop
+    namespace: xraylab-1
+    project: datacenter
+    path: charts/datacenter/kafdrop
+  
+  - name: xraylab-service-account
+    namespace: xraylab-1
+    project: datacenter
+    path: charts/datacenter/medical-diagnosis/service-account
 
-    user:
-      name: user
-      namespace: xraylab-1
-      project: datacenter
-      path: charts/datacenter/xraylab/user
+  - name: xraylab-init
+    namespace: xraylab-1
+    project: datacenter
+    path: charts/datacenter/medical-diagnosis/xray-init
 
-    kafka:
-      name: kafka
-      namespace: xraylab-1
-      project: datacenter
-      path: charts/datacenter/xraylab/kafka
+  - name: xraylab-database
+    namespace: xraylab-1
+    project: datacenter
+    path: charts/datacenter/medical-diagnosis/database
+  
+  - name: xraylab-grafana-dashboards
+    namespace: xraylab-1
+    project: datacenter
+    path: charts/datacenter/medical-diagnosis/grafana
 
-    kafkasource:
-      name: kafkasource
-      namespace: xraylab-1
-      project: datacenter
-      path: charts/datacenter/xraylab/kafkasource
+  - name: xraylab-image-server
+    namespace: xraylab-1
+    project: datacenter
+    path: charts/datacenter/medical-diagnosis/image-server
+    ignoreDifferences:
+    - group: apps.openshift.io
+      kind: DeploymentConfig
+      jqPathExpressions:
+      - '.spec.template.spec.containers[].image'
 
-    grafana:
-      name:  grafana
-      namespace: xraylab-1
-      project: datacenter
-      path: charts/datacenter/xraylab/grafana
-
-    imageserver:
-      name: imageserver
-      namespace: xraylab-1
-      project: datacenter
-      path: charts/datacenter/xraylab/image-server
-
-    imagegenerator:
-      name: imagegenerator
-      namespace: xraylab-1
-      project: datacenter
-      path: charts/datacenter/xraylab/image-generator
-
-    xraydb:
-      name: xraydb
-      namespace: xraylab-1
-      project: datacenter
-      path: charts/datacenter/xraylab/xraydb
+  - name: xraylab-image-generator
+    namespace: xraylab-1
+    project: datacenter
+    path: charts/datacenter/medical-diagnosis/image-generator
+    ignoreDifferences:
+    - group: apps.openshift.io
+      kind: DeploymentConfig
+      jqPathExpressions:
+      - '.spec.template.spec.containers[].image'
 
 #  To have apps in multiple flavors, use namespaces and use helm overrides as appropriate
 #

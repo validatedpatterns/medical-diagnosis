@@ -1,0 +1,18 @@
+apiVersion: image.openshift.io/v1
+kind: ImageStream
+metadata:
+  name: image-generator
+  namespace: "{{ .Values.global.xraylab.namespace }}"
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+spec:
+  lookupPolicy:
+    local: true
+  tags:
+    - name: {{ .Values.imageStream.tags.name }}
+      from:
+        kind: DockerImage
+        name: {{ .Values.imageStream.from.name }}
+      importPolicy: {}
+      referencePolicy:
+        type: Source

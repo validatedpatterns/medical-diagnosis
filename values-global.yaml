@@ -15,23 +15,21 @@ global:
   #     domain: <domain>
 
   datacenter:
-    cloudProvider: PROVIDE_CLOUD_PROVIDER
-    storageClassName: PROVIDE_DEFAULT_STORAGE_CLASS
-    region: PROVIDE_CLOUD_REGION
-    clustername: PROVIDE_CLUSTER_NAME
-    domain: PROVIDE_DNS_DOMAIN
+    cloudProvider: PROVIDE_CLOUDPROVIDER
+    storageClassName: PROVIDE_STORAGECLASS_NAME
+    region: PROVIDE_REGION
+    clustername: PROVIDE_CLUSTERNAME
+    domain: PROVIDE_DOMAIN
 
   xraylab:
     namespace: "xraylab-1"
 
     s3:
       # Values for S3 bucket access
-      # Replace <region> with AWS region where S3 bucket was created
-      # Replace <cluster-name> and <domain> with your OpenShift cluster values
-      # bucketSource: "https://s3.<region>.amazonaws.com/com.redhat.claudiol.xray-source"
-      bucketSource: PROVIDE_S3_BUCKETSOURCE
-      # Bucket base name used for xray images
-      bucketBaseName: "xraylab-1"
+      # bucketSource: "provide s3 bucket name where images are stored"
+      bucketSource: PROVIDE_BUCKETSOURCE
+      # Bucket base name used for image-generator and image-server applications. 
+      bucketBaseName: "xray-source"
 
 main:
   clusterGroupName: datacenter

@@ -31,6 +31,8 @@ ocs:
     objectStoreName: ocs-storagecluster-cephobjectstore
 
 global:
+  xraylab:
+    namespace: "xraylab-1"
   datacenter:
     storageClassName: gp2
     region: us-east-1

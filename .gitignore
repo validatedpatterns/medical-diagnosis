@@ -1,3 +1,5 @@
 *~
 ./values-secret.yaml
 *.swp
+*.vscode
+

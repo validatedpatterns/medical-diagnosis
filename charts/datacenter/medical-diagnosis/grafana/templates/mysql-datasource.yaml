@@ -1,0 +1,17 @@
+apiVersion: integreatly.org/v1alpha1
+kind: GrafanaDataSource
+metadata:
+  name: mysql-grafana-datasource
+  namespace: {{ .Values.global.xraylab.namespace }}
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+spec:
+  datasources:
+    - type: {{ .Values.dataSources.type }}
+      name: {{ .Values.dataSources.name }}
+      access: {{ .Values.dataSources.access }}
+      url: ${GF_DATASRC_URL}
+      database: ${GF_DATASRC_DB}
+      user: ${GF_DATASRC_USER}
+      password: ${GF_DATASRC_PASSWORD}
+  name: mysql-grafana-datasource.yaml
