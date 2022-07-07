@@ -2,4 +2,4 @@
 ./values-secret.yaml
 *.swp
 *.vscode
-
+super-linter.log
