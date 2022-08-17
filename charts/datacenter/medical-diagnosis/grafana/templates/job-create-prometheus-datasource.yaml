@@ -14,7 +14,7 @@ spec:
         - /bin/bash
         - -c
         - |
-          #/usr/bin/env bash
+          #!/usr/bin/env bash
           SECRET=$(oc get secret | grep grafana-serviceaccount-token | head -n1 | awk '{print $1}')
           TOKEN=$(oc extract secret/$SECRET --keys=token --to=-)
           cat <<EOF | oc create -f -
