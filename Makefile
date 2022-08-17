@@ -7,7 +7,7 @@ default: show
 	echo "Delegating $* target"
 	make -f common/Makefile $*
 
-install: deploy
+install: validate-origin deploy
 	echo "Bootstrapping Medical Diagnosis Pattern"
 	make vault-init
 	make load-secrets
