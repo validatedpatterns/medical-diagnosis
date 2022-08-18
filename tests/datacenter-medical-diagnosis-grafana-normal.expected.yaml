@@ -585,7 +585,7 @@ spec:
           "timeShift": null,
           "title": "Last uploaded image",
           "type": "ryantxu-ajax-panel",
-          "url": "https://image-server-xraylab-1.apps.PROVIDE_CLUSTERNAME.PROVIDE_DOMAIN/last_image_small/xray-source",
+          "url": "https://image-server-xraylab-1.apps.jrickard-411xray.blueprints.rhecoeng.com/last_image_small/xray-source",
           "withCredentials": false
         },
         {
@@ -709,7 +709,7 @@ spec:
           "timeShift": null,
           "title": "Last processed image",
           "type": "ryantxu-ajax-panel",
-          "url": "https://image-server-xraylab-1.apps.PROVIDE_CLUSTERNAME.PROVIDE_DOMAIN/last_image_small/xray-source-processed",
+          "url": "https://image-server-xraylab-1.apps.jrickard-411xray.blueprints.rhecoeng.com/last_image_small/xray-source-processed",
           "withCredentials": false
         },
         {
@@ -1155,7 +1155,7 @@ spec:
           "timeShift": null,
           "title": "Last anonymized image",
           "type": "ryantxu-ajax-panel",
-          "url": "https://image-server-xraylab-1.apps.PROVIDE_CLUSTERNAME.PROVIDE_DOMAIN/last_image_small/xray-source-anonymized",
+          "url": "https://image-server-xraylab-1.apps.jrickard-411xray.blueprints.rhecoeng.com/last_image_small/xray-source-anonymized",
           "withCredentials": false
         },
         {
@@ -1542,7 +1542,7 @@ spec:
           "timeShift": null,
           "title": "Last uploaded image",
           "type": "ryantxu-ajax-panel",
-          "url": "https://image-server-xraylab-1.apps.PROVIDE_CLUSTERNAME.PROVIDE_DOMAIN/last_image_big/xray-source",
+          "url": "https://image-server-xraylab-1.apps.jrickard-411xray.blueprints.rhecoeng.com/last_image_big/xray-source",
           "withCredentials": false
         },
         {
@@ -1572,7 +1572,7 @@ spec:
           "timeShift": null,
           "title": "Last processed image",
           "type": "ryantxu-ajax-panel",
-          "url": "https://image-server-xraylab-1.apps.PROVIDE_CLUSTERNAME.PROVIDE_DOMAIN/last_image_big/xray-source-processed",
+          "url": "https://image-server-xraylab-1.apps.jrickard-411xray.blueprints.rhecoeng.com/last_image_big/xray-source-processed",
           "withCredentials": false
         },
         {
@@ -1602,7 +1602,7 @@ spec:
           "timeShift": null,
           "title": "Last anonymized image",
           "type": "ryantxu-ajax-panel",
-          "url": "https://image-server-xraylab-1.apps.PROVIDE_CLUSTERNAME.PROVIDE_DOMAIN/last_image_big/xray-source-anonymized",
+          "url": "https://image-server-xraylab-1.apps.jrickard-411xray.blueprints.rhecoeng.com/last_image_big/xray-source-anonymized",
           "withCredentials": false
         }
       ],
@@ -1667,5 +1667,6 @@ spec:
       url: ${GF_DATASRC_URL}
       database: ${GF_DATASRC_DB}
       user: ${GF_DATASRC_USER}
-      password: ${GF_DATASRC_PASSWORD}
+      secureJsonData:
+        password: ${GF_DATASRC_PASSWORD}
   name: mysql-grafana-datasource.yaml

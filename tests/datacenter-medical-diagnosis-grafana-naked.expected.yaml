@@ -1667,5 +1667,6 @@ spec:
       url: ${GF_DATASRC_URL}
       database: ${GF_DATASRC_DB}
       user: ${GF_DATASRC_USER}
-      password: ${GF_DATASRC_PASSWORD}
+      secureJsonData:
+        password: ${GF_DATASRC_PASSWORD}
   name: mysql-grafana-datasource.yaml

@@ -8,7 +8,7 @@ metadata:
   annotations:
     argocd.argoproj.io/sync-wave: "0"
 data:
-  bucket-source: "https://s3.PROVIDE_REGION.amazonaws.com/PROVIDE_BUCKETSOURCE"
+  bucket-source: "https://s3.us-east-1.amazonaws.com/validated-patterns.xray-source"
   bucket-base-name: "xray-source"
 ---
 # Source: image-generator/templates/image-generator-dc.yaml
