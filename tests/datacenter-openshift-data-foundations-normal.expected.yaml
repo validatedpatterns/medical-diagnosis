@@ -19,7 +19,7 @@ metadata:
     argocd.argoproj.io/sync-wave: "-4"
 data:
   url: "http://rook-ceph-rgw-ocs-storagecluster-cephobjectstore.openshift-storage.svc.cluster.local"
-  url-external: "https://s3-rgw-openshift-storage.apps.jrickard-411xray.blueprints.rhecoeng.com"
+  url-external: "https://s3-rgw-openshift-storage.apps.PROVIDE_CLUSTERNAME.PROVIDE_DOMAIN"
 ---
 # Source: openshift-data-foundations/templates/rgw-storageclass.yaml
 kind: StorageClass
@@ -32,7 +32,7 @@ provisioner: openshift-storage.ceph.rook.io/bucket
 parameters:
   objectStoreName: ocs-storagecluster-cephobjectstore
   objectStoreNamespace: openshift-storage
-  region: us-east-1
+  region: PROVIDE_REGION
 reclaimPolicy: Delete
 volumeBindingMode: Immediate
 ---
@@ -239,7 +239,7 @@ spec:
     placement: {}
     dataPVCTemplate:
       spec:
-        storageClassName: gp2
+        storageClassName: PROVIDE_STORAGECLASS_NAME
         accessModes:
         - ReadWriteOnce
         volumeMode: Block

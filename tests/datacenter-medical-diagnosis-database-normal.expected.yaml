@@ -72,7 +72,7 @@ spec:
   resources:
     requests:
       storage: 1Gi
-  storageClassName: gp2
+  storageClassName: PROVIDE_STORAGECLASS_NAME
   volumeMode: Filesystem
 ---
 # Source: xraydb/templates/service.yaml
