@@ -20,12 +20,12 @@ clusterGroup:
 
   subscriptions:
   - name: amq-streams
-    namespace: xraylab-1 
+    namespace: xraylab-1
     channel: stable
     csv: amqstreams.v1.7.1
 
   - name: grafana-operator
-    namespace: xraylab-1 
+    namespace: xraylab-1
     channel: v4
     source: community-operators
     csv: grafana-operator.v3.10.3
@@ -46,7 +46,7 @@ clusterGroup:
 
   projects:
   - datacenter
- 
+
   applications:
   - name: vault
     namespace: vault
@@ -93,17 +93,17 @@ clusterGroup:
     namespace: xraylab-1
     project: datacenter
     path: charts/datacenter/openshift-serverless
-  
+
   - name: kafka
     namespace: xraylab-1
     project: datacenter
     path: charts/datacenter/kafka
-  
+
   - name: kafdrop
     namespace: xraylab-1
     project: datacenter
     path: charts/datacenter/kafdrop
-  
+
   - name: xraylab-service-account
     namespace: xraylab-1
     project: datacenter
@@ -118,7 +118,7 @@ clusterGroup:
     namespace: xraylab-1
     project: datacenter
     path: charts/datacenter/medical-diagnosis/database
-  
+
   - name: xraylab-grafana-dashboards
     namespace: xraylab-1
     project: datacenter

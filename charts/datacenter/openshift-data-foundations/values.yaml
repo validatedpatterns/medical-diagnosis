@@ -42,7 +42,7 @@ odf:
 
 route:
   name: s3-rgw
-  service: 
+  service:
     name: rook-ceph-rgw-ocs-storagecluster-cephobjectstore
     weight: 100
   port:
@@ -72,7 +72,7 @@ rbac:
         - '""'
       scope:
         cluster: true
-      resources: 
+      resources:
         - nodes
       verbs:
         - "get"

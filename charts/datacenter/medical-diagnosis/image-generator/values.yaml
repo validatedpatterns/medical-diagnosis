@@ -21,19 +21,19 @@ imageStream:
   tags:
     name: latest
   from:
-    name: "quay.io/rh-data-services/xraylab-image-generator:latest"  
+    name: "quay.io/rh-data-services/xraylab-image-generator:latest"
 
 #The following RBAC section is just scaffolding in case you wanted to create your own RBAC policies
 rbac:
   roles:
-    - name: "" # Role Name 
+    - name: "" # Role Name
       createRole: false #Set to true if you want to create a role
       apiGroups:
         - "" #Provide your api group ('""' for core api (i.e. secrets) )
       scope:
         cluster: true #Is this role a cluster or namespaced role
         namespace: #If the scope is namespaced, provide the namespace to create the role in
-      resources: 
+      resources:
         - "" #Provide the resources (i.e. secrets, configmaps )
       verbs:
         - "get"
