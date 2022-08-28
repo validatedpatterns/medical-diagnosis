@@ -1,7 +1,7 @@
 global:
   xraylab:
     namespace: xraylab-1
-    
+
 kafka:
   app: "kafdrop"
   cluster:

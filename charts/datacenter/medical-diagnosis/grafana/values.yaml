@@ -20,7 +20,7 @@ dataSources:
 #  url: xraylabdb
 #  database: xraylabdb
 #  user: xraylab
-#  password: 
+#  password:
 
 rbac:
   roles:
@@ -30,7 +30,7 @@ rbac:
       scope:
         cluster: false
         namespace: xraylab-1
-      resources: 
+      resources:
         - grafanadatasources
       verbs:
         - "get"
@@ -74,7 +74,7 @@ rbac:
         apiGroup: ""
       roleRef:
         kind: Role
-        name: grafana-mgmt      
+        name: grafana-mgmt
     - name: cluster-monitoring-view
       scope:
         cluster: true

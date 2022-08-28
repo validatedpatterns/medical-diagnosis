@@ -8,7 +8,7 @@ global:
     region: ""
 
 objectStore:
-  user: 
+  user:
     name: xraylab-1
     displayName: "XRaylab-1 RGW User"
   name: ocs-storagecluster-cephobjectstore
@@ -36,7 +36,7 @@ rbac:
         - "ocs.openshift.io"
       scope:
         cluster: true
-      resources: 
+      resources:
         - storageclusters
       verbs:
         - "get"

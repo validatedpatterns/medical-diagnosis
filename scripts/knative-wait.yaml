@@ -20,7 +20,7 @@
     - r_kn_serving.resources[0].status.conditions[2].status == "True"
     - r_kn_serving.resources[0].status.conditions[3].status is defined
     - r_kn_serving.resources[0].status.conditions[3].status == "True"
-  
+
     - name: Wait until KNative Eventing installation is complete
       k8s_info:
         api_version: operator.knative.dev/v1alpha1

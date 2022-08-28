@@ -24,7 +24,7 @@ rules:
 {{- range $value.resources }}
       - {{ . }}
 {{- end }}
-    verbs: 
+    verbs:
 {{- range $value.verbs }}
       - {{ . }}
 {{- end }}
