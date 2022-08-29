@@ -26,17 +26,17 @@ spec:
       property: GF_SECURITY_ADMIN_PASSWORD
   - secretKey: GF_DATASRC_USER
     remoteRef:
-      key: secret/hub/grafana
-      property: GF_DATASRC_USER
+      key: secret/hub/xraylab
+      property: database-user
   - secretKey: GF_DATASRC_PASSWORD
     remoteRef:
-      key: secret/hub/grafana
-      property: GF_DATASRC_PASSWORD
+      key: secret/hub/xraylab
+      property: database-password
   - secretKey: GF_DATASRC_DB
     remoteRef:
-      key: secret/hub/grafana
-      property: GF_DATASRC_DB
+      key: secret/hub/xraylab
+      property: database-db
   - secretKey: GF_DATASRC_URL
     remoteRef:
-      key: secret/hub/grafana
-      property: GF_DATASRC_URL
+      key: secret/hub/xraylab
+      property: database-host

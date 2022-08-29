@@ -112,7 +112,7 @@ spec:
         - /bin/bash
         - -c
         - |
-          #/usr/bin/env bash
+          #!/usr/bin/env bash
           SECRET=$(oc get secret | grep grafana-serviceaccount-token | head -n1 | awk '{print $1}')
           TOKEN=$(oc extract secret/$SECRET --keys=token --to=-)
           cat <<EOF | oc create -f -
@@ -173,20 +173,20 @@ spec:
       property: GF_SECURITY_ADMIN_PASSWORD
   - secretKey: GF_DATASRC_USER
     remoteRef:
-      key: secret/hub/grafana
-      property: GF_DATASRC_USER
+      key: secret/hub/xraylab
+      property: database-user
   - secretKey: GF_DATASRC_PASSWORD
     remoteRef:
-      key: secret/hub/grafana
-      property: GF_DATASRC_PASSWORD
+      key: secret/hub/xraylab
+      property: database-password
   - secretKey: GF_DATASRC_DB
     remoteRef:
-      key: secret/hub/grafana
-      property: GF_DATASRC_DB
+      key: secret/hub/xraylab
+      property: database-db
   - secretKey: GF_DATASRC_URL
     remoteRef:
-      key: secret/hub/grafana
-      property: GF_DATASRC_URL
+      key: secret/hub/xraylab
+      property: database-host
 ---
 # Source: grafana/templates/grafana.yaml
 apiVersion: integreatly.org/v1alpha1
@@ -1667,5 +1667,6 @@ spec:
       url: ${GF_DATASRC_URL}
       database: ${GF_DATASRC_DB}
       user: ${GF_DATASRC_USER}
-      password: ${GF_DATASRC_PASSWORD}
+      secureJsonData:
+        password: ${GF_DATASRC_PASSWORD}
   name: mysql-grafana-datasource.yaml
