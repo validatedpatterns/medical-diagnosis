@@ -34,7 +34,7 @@ clusterGroup:
     odf:
       name: odf-operator
       namespace: openshift-storage
-      channel: stable-4.10
+      channel: stable-4.11
       csv: ocs-operator.v4.10.2
 
     severless:
