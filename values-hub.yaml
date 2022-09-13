@@ -15,7 +15,6 @@ clusterGroup:
   - staging
   - vault
   - golang-external-secrets
-  - medical-diagnosis-datacenter
 
   subscriptions:
     amq-streams:
