@@ -5,11 +5,20 @@ default: show
 	echo "Delegating $* target"
 	make -f common/Makefile $*
 
-install: validate-origin deploy
-	echo "Bootstrapping Medical Diagnosis Pattern"
-	make vault-init
-	make load-secrets
+install: operator-deploy post-install ## installs the pattern, inits the vault and loads the secrets
 	echo "Installed"
+
+legacy-install: legacy-deploy post-install ## install the pattern the old way without the operator
+	echo "Installed"
+
+post-install: ## Post-install tasks - vault init and load-secrets
+	@if grep -v -e '^\s\+#' "values-hub.yaml" | grep -q -e "insecureUnsealVaultInsideCluster:\s\+true"; then \
+	  echo "Skipping 'make vault-init' as we're unsealing the vault from inside the cluster"; \
+	else \
+	  make vault-init; \
+	fi
+	make load-secrets
+	echo "Done"
 
 update: upgrade
 	echo "Bootstrapping Medical Diagnosis Pattern"
