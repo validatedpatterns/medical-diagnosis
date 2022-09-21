@@ -10,7 +10,7 @@ global:
     cloudProvider: aws
     storageClassName: gp2
     region: us-east-2
-    clustername: jrickard-mbp357
+    clustername: jrickard-devsecops
     domain: blueprints.rhecoeng.com
 
   xraylab:
