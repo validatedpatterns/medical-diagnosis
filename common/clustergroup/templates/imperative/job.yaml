@@ -1,5 +1,5 @@
-{{/* Only define this if there are any imperativejobs defined */}}
-{{- if gt (len $.Values.clusterGroup.imperative.jobs) 0 -}}
+{{/* Define this if needed (jobs defined */}}
+{{- if (gt (len $.Values.clusterGroup.imperative.jobs) 0) -}}
 ---
 apiVersion: batch/v1
 kind: CronJob
@@ -21,20 +21,9 @@ spec:
           initContainers:
             # git init happens in /git/repo so that we can set the folder to 0770 permissions
             # reason for that is ansible refuses to create temporary folders in there
-            - name: git-init
-              image: {{ $.Values.clusterGroup.imperative.image }}
-              imagePullPolicy: {{ $.Values.clusterGroup.imperative.imagePullPolicy }}
-              env:
-                - name: HOME
-                  value: /git/home
-              command:
-              - 'sh'
-              - '-c'
-              - "mkdir /git/{repo,home};git clone --single-branch --branch {{ $.Values.global.targetRevision }} --depth 1 -- {{ $.Values.global.repoURL }} /git/repo;chmod 0770 /git/{repo,home}"
-              volumeMounts:
-              - name: git
-                mountPath: "/git"
+            {{- include  "imperative.initcontainers.gitinit" . | indent 12 }}
     {{- range $.Values.clusterGroup.imperative.jobs }}
+      {{- if ne (.disabled | default "false" | toString | lower ) "true" }}
             - name: {{ .name }}
               image: {{ .image | default $.Values.clusterGroup.imperative.image }}
               imagePullPolicy: {{ $.Values.clusterGroup.imperative.imagePullPolicy }}
@@ -48,35 +37,26 @@ spec:
                 - timeout
                 - {{ .timeout | default "600" | quote }}
                 - ansible-playbook
-                {{- if $.Values.clusterGroup.imperative.verbosity }}
-                - {{ $.Values.clusterGroup.imperative.verbosity }}
+                {{- if .verbosity }}
+                - {{ .verbosity }}
+                {{- end }}
+                {{- if .tags }}
+                - -t
+                - {{ .tags }}
                 {{- end }}
                 - -e
                 - "@/values/values.yaml"
+                {{- range .extravars }}
+                - -e
+                - {{ . | quote }}
+                {{- end }}
                 - {{ .playbook }}
               volumeMounts:
-              - name: git
-                mountPath: "/git"
-              - name: values-volume
-                mountPath: /values/values.yaml
-                subPath: values.yaml
+                {{- include "imperative.volumemounts" . | indent 16 }}
+      {{- end }}
     {{- end }}
           containers:
-          - name: {{ $.Values.clusterGroup.imperative.jobName }}-done
-            image: {{ $.Values.clusterGroup.imperative.image }}
-            imagePullPolicy: {{ $.Values.clusterGroup.imperative.imagePullPolicy }}
-            command:
-            - 'sh'
-            - '-c'
-            - echo
-            - {{ range $.Values.clusterGroup.imperative.jobs }}{{ .name }}{{ end }}
-            - '\n'
-            volumeMounts:
-            - name: git
-              mountPath: "/git"
-            - name: values-volume
-              mountPath: /values/values.yaml
-              subPath: values.yaml
+          {{- include "imperative.containers.done" . | indent 12 }}
           volumes:
           - name: git
             emptyDir: {}

@@ -1,18 +1,10 @@
 global:
   pattern: xray
+
   options:
     useCSV: False
     syncPolicy: Automatic
     installPlanApproval: Automatic
-
-  # XRay configuration for service-point config map
-  # Found in charts/datacenter/xraylab/templates
-  #   datacenter:
-  #     cloudProvider: <aws,azure,gcp>
-  #     storageClassName: <gp2>
-  #     region: <us-east-1>
-  #     clustername: <cluster-name>
-  #     domain: <domain>
 
   datacenter:
     cloudProvider: PROVIDE_CLOUDPROVIDER
@@ -28,8 +20,17 @@ global:
       # Values for S3 bucket access
       # bucketSource: "provide s3 bucket name where images are stored"
       bucketSource: PROVIDE_BUCKETSOURCE
-      # Bucket base name used for image-generator and image-server applications. 
+      # Bucket base name used for image-generator and image-server applications.
       bucketBaseName: "xray-source"
 
 main:
-  clusterGroupName: datacenter
+  clusterGroupName: hub
+
+# Example Configuration
+  #datacenter:
+  #  cloudProvider: aws
+  #  storageClassName: gp2
+  #  region: us-east-1
+  #  clustername: example-sample
+  #  domain: patterns.redhat.com
+

@@ -1,0 +1,42 @@
+---
+apiVersion: "external-secrets.io/v1beta1"
+kind: ExternalSecret
+metadata:
+  name: grafana-creds-external-secret
+  namespace: {{ .Values.global.xraylab.namespace }}
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+spec:
+  refreshInterval: 15s
+  secretStoreRef:
+    name: {{ .Values.secretStore.name }}
+    kind: {{ .Values.secretStore.kind }}
+  target:
+    name: grafana-creds
+    template:
+      type: Opaque
+  data:
+  - secretKey: GF_SECURITY_ADMIN_USER
+    remoteRef:
+      key: secret/hub/grafana
+      property: GF_SECURITY_ADMIN_USER
+  - secretKey: GF_SECURITY_ADMIN_PASSWORD
+    remoteRef:
+      key: secret/hub/grafana
+      property: GF_SECURITY_ADMIN_PASSWORD
+  - secretKey: GF_DATASRC_USER
+    remoteRef:
+      key: secret/hub/xraylab
+      property: database-user
+  - secretKey: GF_DATASRC_PASSWORD
+    remoteRef:
+      key: secret/hub/xraylab
+      property: database-password
+  - secretKey: GF_DATASRC_DB
+    remoteRef:
+      key: secret/hub/xraylab
+      property: database-db
+  - secretKey: GF_DATASRC_URL
+    remoteRef:
+      key: secret/hub/xraylab
+      property: database-host

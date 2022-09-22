@@ -15,7 +15,19 @@ spec:
   sourceNamespace: {{ default "openshift-marketplace" $subs.sourceNamespace }}
   channel: {{ default "stable" $subs.channel }}
   installPlanApproval: {{ coalesce $installPlanValue $.Values.global.options.installPlanApproval }}
+  {{- if $subs.config }}
+  {{- if $subs.config.env }}
+  config:
+    env:
+  {{- range $subs.config.env }}
+      - name: {{ .name }}
+        value: {{ .value }}
+  {{- end }}
+  {{- end }}
+  {{- end }}
   {{- if $.Values.global.options.useCSV }}
+  startingCSV: {{ $subs.csv }}
+  {{- else if $subs.csv }}
   startingCSV: {{ $subs.csv }}
   {{- end }}
 ---
@@ -32,7 +44,19 @@ spec:
   sourceNamespace: {{ default "openshift-marketplace" $subs.sourceNamespace }}
   channel: {{ default "stable" $subs.channel }}
   installPlanApproval: {{ coalesce  $installPlanValue $.Values.global.options.installPlanApproval }}
+  {{- if $subs.config }}
+  {{- if $subs.config.env }}
+  config:
+    env:
+  {{- range $subs.config.env }}
+      - name: {{ .name }}
+        value: {{ .value }}
+  {{- end }}
+  {{- end }}
+  {{- end }}
   {{- if $.Values.global.options.useCSV }}
+  startingCSV: {{ $subs.csv }}
+  {{- else if $subs.csv }}
   startingCSV: {{ $subs.csv }}
   {{- end }}
 ---

@@ -1,0 +1,89 @@
+global:
+  xraylab:
+    namespace: xraylab-1
+    s3:
+      bucketBaseName: xray-source
+  datacenter:
+    clustername: gitops
+
+secretStore:
+  name: vault-backend
+  kind: ClusterSecretStore
+
+grafana:
+  key: secret/data/hub/grafana
+
+dataSources:
+  type: mysql
+  name: MySQL
+  access: proxy
+#  url: xraylabdb
+#  database: xraylabdb
+#  user: xraylab
+#  password:
+
+rbac:
+  roles:
+    - name: grafana-mgmt
+      apiGroups:
+        - "integreatly.org"
+      scope:
+        cluster: false
+        namespace: xraylab-1
+      resources:
+        - grafanadatasources
+      verbs:
+        - "get"
+        - "list"
+        - "patch"
+        - "create"
+        - "update"
+    - name: grafana-read-secrets
+      apiGroups:
+        - '""'
+      scope:
+        cluster: false
+        namespace: xraylab-1
+      resources:
+        - secrets
+      verbs:
+        - "get"
+        - "list"
+        - "watch"
+  roleBindings:
+    - name: grafana-read-secrets
+      scope:
+        cluster: false
+        namespace: xraylab-1
+      subjects:
+        kind: ServiceAccount
+        name: grafana-serviceaccount
+        namespace: xraylab-1
+        apiGroup: ""
+      roleRef:
+        kind: Role
+        name: grafana-read-secrets
+    - name: grafana-mgmt
+      scope:
+        cluster: false
+        namespace: xraylab-1
+      subjects:
+        kind: ServiceAccount
+        name: grafana-serviceaccount
+        namespace: xraylab-1
+        apiGroup: ""
+      roleRef:
+        kind: Role
+        name: grafana-mgmt
+    - name: cluster-monitoring-view
+      scope:
+        cluster: true
+        namespace: ""
+      subjects:
+        kind: ServiceAccount
+        name: grafana-serviceaccount
+        namespace: xraylab-1
+        apiGroup: ""
+      roleRef:
+        kind: ClusterRole
+        name: cluster-monitoring-view
