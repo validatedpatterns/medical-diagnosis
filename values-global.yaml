@@ -11,7 +11,7 @@ global:
     storageClassName: gp2
     region: us-east-1
     clustername: jrickard-xraydemo
-    domain: blueprint.rhecoeng.com
+    domain: blueprints.rhecoeng.com
 
   xraylab:
     namespace: "xraylab-1"
