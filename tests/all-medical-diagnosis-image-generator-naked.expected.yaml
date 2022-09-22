@@ -8,7 +8,7 @@ metadata:
   annotations:
     argocd.argoproj.io/sync-wave: "0"
 data:
-  bucket-source: "https://s3..amazonaws.com/"
+  bucket-source: "https://s3.amazonaws.com/"
   bucket-base-name: ""
 ---
 # Source: image-generator/templates/image-generator-dc.yaml
