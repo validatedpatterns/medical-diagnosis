@@ -106,10 +106,7 @@ metadata:
   namespace: openshift-storage
 spec:
   dataPool:
-    crushRoot: ""
-    deviceClass: ""
     erasureCoded:
-      algorithm: ""
       codingChunks: 0
       dataChunks: 0
     failureDomain: zone
@@ -149,13 +146,8 @@ spec:
       requests:
         cpu: "1"
         memory: 4Gi
-    securePort: 0
-    sslCertificateRef: ""
   metadataPool:
-    crushRoot: ""
-    deviceClass: ""
     erasureCoded:
-      algorithm: ""
       codingChunks: 0
       dataChunks: 0
     failureDomain: zone
@@ -206,38 +198,40 @@ metadata:
   namespace: openshift-storage
   name: ocs-storagecluster
 spec:
-  manageNodes: false
   resources:
     mon:
       requests:
-        cpu: 1
+        cpu: '1'
         memory: 2Gi
     mds:
       requests:
-        cpu: 3
+        cpu: '3'
         memory: 8Gi
     mgr:
       requests:
-        cpu: 1
+        cpu: '1'
         memory: 3Gi
     noobaa-core:
       requests:
-        cpu: 1
+        cpu: '1'
         memory: 4Gi
     noobaa-db:
       requests:
-        cpu: 1
+        cpu: '1'
         memory: 4Gi
   storageDeviceSets:
   - name: ocs-deviceset
+    config: {}
     count: 1
     replica: 3
     resources:
       requests:
-        cpu: 2
+        cpu: '2'
         memory: 5Gi
     placement: {}
+    preparePlacement: {}
     dataPVCTemplate:
+      metadata: {}
       spec:
         storageClassName: PROVIDE_STORAGECLASS_NAME
         accessModes:
@@ -246,4 +240,5 @@ spec:
         resources:
           requests:
             storage: 2Ti
+      status: {}
     portable: true
