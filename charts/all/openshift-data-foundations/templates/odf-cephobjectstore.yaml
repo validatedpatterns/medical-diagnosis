@@ -5,10 +5,7 @@ metadata:
   namespace: openshift-storage
 spec:
   dataPool:
-    crushRoot: ""
-    deviceClass: ""
     erasureCoded:
-      algorithm: ""
       codingChunks: 0
       dataChunks: 0
     failureDomain: zone
@@ -48,13 +45,8 @@ spec:
       requests:
         cpu: "1"
         memory: 4Gi
-    securePort: 0
-    sslCertificateRef: ""
   metadataPool:
-    crushRoot: ""
-    deviceClass: ""
     erasureCoded:
-      algorithm: ""
       codingChunks: 0
       dataChunks: 0
     failureDomain: zone
