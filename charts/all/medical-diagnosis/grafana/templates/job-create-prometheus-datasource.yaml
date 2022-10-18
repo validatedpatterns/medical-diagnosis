@@ -9,7 +9,7 @@ spec:
   template:
     spec:
       containers:
-      - image: image-registry.openshift-image-registry.svc:5000/openshift/cli:latest
+      - image: {{ .Values.job.image }}
         command:
         - /bin/bash
         - -c
