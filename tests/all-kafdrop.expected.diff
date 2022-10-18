@@ -1,0 +1,29 @@
+--- tests/all-kafdrop-naked.expected.yaml
++++ tests/all-kafdrop-normal.expected.yaml
+@@ -4,7 +4,7 @@
+ kind: Service
+ metadata:
+   name: kafdrop
+-  namespace: xraylab-demo
++  namespace: xraylab-1
+ spec:
+   selector:
+     app: kafdrop
+@@ -18,7 +18,7 @@
+ kind: DeploymentConfig
+ metadata:
+   name: kafdrop
+-  namespace: xraylab-demo
++  namespace: xraylab-1
+ spec:
+   selector:
+     app: kafdrop
+@@ -46,7 +46,7 @@
+ apiVersion: route.openshift.io/v1
+ metadata:
+   name: kafdrop
+-  namespace: xraylab-demo
++  namespace: xraylab-1
+ spec:
+   subdomain: 
+   to:

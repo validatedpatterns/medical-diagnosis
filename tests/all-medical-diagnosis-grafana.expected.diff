@@ -1,0 +1,56 @@
+--- tests/all-medical-diagnosis-grafana-naked.expected.yaml
++++ tests/all-medical-diagnosis-grafana-normal.expected.yaml
+@@ -648,7 +648,7 @@
+           "timeShift": null,
+           "title": "Last uploaded image",
+           "type": "ryantxu-ajax-panel",
+-          "url": "https://image-server-xraylab-1.apps.gitops./last_image_small/xray-source",
++          "url": "https://image-server-xraylab-1.apps.PROVIDE_CLUSTERNAME.PROVIDE_DOMAIN/last_image_small/xray-source",
+           "withCredentials": false
+         },
+         {
+@@ -772,7 +772,7 @@
+           "timeShift": null,
+           "title": "Last processed image",
+           "type": "ryantxu-ajax-panel",
+-          "url": "https://image-server-xraylab-1.apps.gitops./last_image_small/xray-source-processed",
++          "url": "https://image-server-xraylab-1.apps.PROVIDE_CLUSTERNAME.PROVIDE_DOMAIN/last_image_small/xray-source-processed",
+           "withCredentials": false
+         },
+         {
+@@ -1218,7 +1218,7 @@
+           "timeShift": null,
+           "title": "Last anonymized image",
+           "type": "ryantxu-ajax-panel",
+-          "url": "https://image-server-xraylab-1.apps.gitops./last_image_small/xray-source-anonymized",
++          "url": "https://image-server-xraylab-1.apps.PROVIDE_CLUSTERNAME.PROVIDE_DOMAIN/last_image_small/xray-source-anonymized",
+           "withCredentials": false
+         },
+         {
+@@ -1605,7 +1605,7 @@
+           "timeShift": null,
+           "title": "Last uploaded image",
+           "type": "ryantxu-ajax-panel",
+-          "url": "https://image-server-xraylab-1.apps.gitops./last_image_big/xray-source",
++          "url": "https://image-server-xraylab-1.apps.PROVIDE_CLUSTERNAME.PROVIDE_DOMAIN/last_image_big/xray-source",
+           "withCredentials": false
+         },
+         {
+@@ -1635,7 +1635,7 @@
+           "timeShift": null,
+           "title": "Last processed image",
+           "type": "ryantxu-ajax-panel",
+-          "url": "https://image-server-xraylab-1.apps.gitops./last_image_big/xray-source-processed",
++          "url": "https://image-server-xraylab-1.apps.PROVIDE_CLUSTERNAME.PROVIDE_DOMAIN/last_image_big/xray-source-processed",
+           "withCredentials": false
+         },
+         {
+@@ -1665,7 +1665,7 @@
+           "timeShift": null,
+           "title": "Last anonymized image",
+           "type": "ryantxu-ajax-panel",
+-          "url": "https://image-server-xraylab-1.apps.gitops./last_image_big/xray-source-anonymized",
++          "url": "https://image-server-xraylab-1.apps.PROVIDE_CLUSTERNAME.PROVIDE_DOMAIN/last_image_big/xray-source-anonymized",
+           "withCredentials": false
+         }
+       ],
