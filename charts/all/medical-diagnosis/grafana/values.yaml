@@ -18,6 +18,9 @@ dataSources:
   name: MySQL
   access: proxy
 
+job:
+  image: image-registry.openshift-image-registry.svc:5000/openshift/cli:latest
+
 rbac:
   roles:
     - name: grafana-mgmt
