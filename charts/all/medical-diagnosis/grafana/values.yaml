@@ -17,10 +17,6 @@ dataSources:
   type: mysql
   name: MySQL
   access: proxy
-#  url: xraylabdb
-#  database: xraylabdb
-#  user: xraylab
-#  password:
 
 rbac:
   roles:
@@ -46,6 +42,18 @@ rbac:
         namespace: xraylab-1
       resources:
         - secrets
+      verbs:
+        - "get"
+        - "list"
+        - "watch"
+    - name: grafana-view-deploymentconfigs
+      apiGroups: 
+        - apps.openshift.io
+      scope:
+        cluster: false
+        namespace: xraylab-1
+      resources:
+        - deploymentconfigs
       verbs:
         - "get"
         - "list"
@@ -87,3 +95,15 @@ rbac:
       roleRef:
         kind: ClusterRole
         name: cluster-monitoring-view
+    - name: grafana-view-deploymentconfigs
+      scope:
+        cluster: false
+        namespace: xraylab-1
+      subjects:
+        kind: ServiceAccount
+        name: xraylab-1-sa
+        namespace: xraylab-1
+        apiGroup: ""
+      roleRef:
+        kind: Role
+        name: grafana-view-deploymentconfigs
