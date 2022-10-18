@@ -4,7 +4,7 @@ metadata:
   name: create-prometheus-datasource-object
   namespace: {{ .Values.global.xraylab.namespace }}
   annotations:
-    argocd.argoproj.io/sync-wave: "3"
+    argocd.argoproj.io/hook: PostSync
 spec:
   template:
     spec:
