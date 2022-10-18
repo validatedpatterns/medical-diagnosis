@@ -10,7 +10,7 @@ global:
     cloudProvider: aws
     storageClassName: gp2
     region: us-east-2
-    clustername: jrickard-mbp392-191-411
+    clustername: jrickard-mbp392-191-410
     domain: blueprints.rhecoeng.com
 
   xraylab:
