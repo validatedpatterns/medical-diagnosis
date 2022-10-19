@@ -1,0 +1,11 @@
+--- tests/all-medical-diagnosis-xray-init-naked.expected.yaml
++++ tests/all-medical-diagnosis-xray-init-normal.expected.yaml
+@@ -29,7 +29,7 @@
+     import argparse
+ 
+     namespace = 'xraylab-1'
+-    bucket_base_name = ''
++    bucket_base_name = 'xray-source'
+     aws_access_key_id = os.environ['AWS_ACCESS_KEY_ID']
+     aws_secret_access_key = os.environ['AWS_SECRET_ACCESS_KEY']
+     endpoint_url = 'http://rook-ceph-rgw-ocs-storagecluster-cephobjectstore.openshift-storage.svc.cluster.local'

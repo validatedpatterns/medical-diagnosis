@@ -57,6 +57,25 @@ rules:
       - list
       - watch
 ---
+# Source: grafana/templates/rbac/role.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: grafana-view-deploymentconfigs
+  namespace: xraylab-1
+  annotations:
+    argocd.argoproj.io/hook: PreSync
+    argocd.argoproj.io/sync-wave: "-15"
+rules:
+  - apiGroups:
+      - apps.openshift.io
+    resources:
+      - deploymentconfigs
+    verbs:
+      - get
+      - list
+      - watch
+---
 # Source: grafana/templates/rbac/rolebinding.yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
@@ -93,6 +112,25 @@ subjects:
 roleRef:
   kind: Role
   name: grafana-mgmt
+  apiGroup: rbac.authorization.k8s.io
+---
+# Source: grafana/templates/rbac/rolebinding.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: grafana-view-deploymentconfigs
+  namespace: xraylab-1
+  annotations:
+    argocd.argoproj.io/hook: PreSync
+    argocd.argoproj.io/sync-wave: "-15"
+subjects:
+- kind: ServiceAccount
+  name: xraylab-1-sa
+  namespace: xraylab-1
+  apiGroup: ""
+roleRef:
+  kind: Role
+  name: grafana-view-deploymentconfigs
   apiGroup: rbac.authorization.k8s.io
 ---
 # Source: grafana/templates/job-create-prometheus-datasource.yaml
@@ -102,7 +140,7 @@ metadata:
   name: create-prometheus-datasource-object
   namespace: xraylab-1
   annotations:
-    argocd.argoproj.io/sync-wave: "10"
+    argocd.argoproj.io/hook: PostSync
 spec:
   template:
     spec:
@@ -143,6 +181,31 @@ spec:
       restartPolicy: Never
       serviceAccount: grafana-serviceaccount
       serviceAccountName: grafana-serviceaccount
+      terminationGracePeriodSeconds: 60
+---
+# Source: grafana/templates/job-wait-for-database.yaml
+apiVersion: batch/v1
+kind: Job
+metadata:
+  annotations:
+    argocd.argoproj.io/hook: PreSync
+  name: job-wait-for-database
+  namespace: xraylab-1
+spec:
+  template:
+    spec:
+      containers:
+      - image: image-registry.openshift-image-registry.svc:5000/openshift/cli:latest
+        command:
+        - /bin/bash
+        - -c
+        - |
+          oc wait --for=condition=Available=true deploymentconfig/xraylabdb -n xraylab-1 --timeout=900s
+        name: wait-for-xraylab-database
+      dnsPolicy: ClusterFirst
+      restartPolicy: Never
+      serviceAccount: xraylab-1-sa
+      serviceAccountName: xraylab-1-sa
       terminationGracePeriodSeconds: 60
 ---
 # Source: grafana/templates/eso-grafana-creds.yaml
@@ -1658,7 +1721,7 @@ metadata:
   name: mysql-grafana-datasource
   namespace: xraylab-1
   annotations:
-    argocd.argoproj.io/sync-wave: "1"
+    argocd.argoproj.io/hook: PostSync
 spec:
   datasources:
     - type: mysql

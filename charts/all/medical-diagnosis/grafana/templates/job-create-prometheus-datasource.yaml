@@ -4,12 +4,12 @@ metadata:
   name: create-prometheus-datasource-object
   namespace: {{ .Values.global.xraylab.namespace }}
   annotations:
-    argocd.argoproj.io/sync-wave: "10"
+    argocd.argoproj.io/hook: PostSync
 spec:
   template:
     spec:
       containers:
-      - image: image-registry.openshift-image-registry.svc:5000/openshift/cli:latest
+      - image: {{ .Values.job.image }}
         command:
         - /bin/bash
         - -c
