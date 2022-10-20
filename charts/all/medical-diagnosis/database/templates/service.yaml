@@ -4,7 +4,7 @@ metadata:
   name: {{ .Values.database.name }}
   namespace: "{{ .Values.global.xraylab.namespace }}"
   annotations:
-    argocd.argoproj.io/sync-wave: "8"
+    argocd.argoproj.io/sync-wave: "1"
 spec:
   ports:
     - name: mariadb
