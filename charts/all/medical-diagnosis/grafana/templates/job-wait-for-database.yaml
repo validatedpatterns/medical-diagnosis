@@ -1,0 +1,23 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  annotations:
+    argocd.argoproj.io/hook: PreSync
+  name: job-wait-for-database
+  namespace: {{ .Values.global.xraylab.namespace }}
+spec:
+  template:
+    spec:
+      containers:
+      - image: {{ .Values.job.image }}
+        command:
+        - /bin/bash
+        - -c
+        - |
+          oc wait --for=condition=Available=true deploymentconfig/xraylabdb -n {{ .Values.global.xraylab.namespace }} --timeout=900s
+        name: wait-for-xraylab-database
+      dnsPolicy: ClusterFirst
+      restartPolicy: Never
+      serviceAccount: {{ .Values.global.xraylab.namespace }}-sa
+      serviceAccountName: {{ .Values.global.xraylab.namespace }}-sa
+      terminationGracePeriodSeconds: 60

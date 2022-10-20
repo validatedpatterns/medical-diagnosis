@@ -58,20 +58,22 @@ data:
 
     CREATE TABLE `images_anonymized` (`time` TIMESTAMP, `name` VARCHAR(255));
 ---
-# Source: xraydb/templates/pvc.yaml
+# Source: xraydb/templates/deploymentconfig.yaml
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   name: xraylabdb
   namespace: "xraylab-1"
   annotations:
-    argocd.argoproj.io/sync-wave: "10"
+    argocd.argoproj.io/sync-wave: "1"
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=True
 spec:
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
       storage: 1Gi
+##storageClassName: 
   storageClassName: PROVIDE_STORAGECLASS_NAME
   volumeMode: Filesystem
 ---
@@ -82,7 +84,7 @@ metadata:
   name: xraylabdb
   namespace: "xraylab-1"
   annotations:
-    argocd.argoproj.io/sync-wave: "8"
+    argocd.argoproj.io/sync-wave: "1"
 spec:
   ports:
     - name: mariadb
@@ -101,7 +103,8 @@ metadata:
   labels:
     app: xraylabdb
   annotations:
-    argocd.argoproj.io/sync-wave: "5"
+    argocd.argoproj.io/sync-wave: "1"
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=True
 spec:
   strategy:
     type: Recreate

@@ -4,7 +4,7 @@ metadata:
   name: mysql-grafana-datasource
   namespace: {{ .Values.global.xraylab.namespace }}
   annotations:
-    argocd.argoproj.io/sync-wave: "1"
+    argocd.argoproj.io/hook: PostSync
 spec:
   datasources:
     - type: {{ .Values.dataSources.type }}
