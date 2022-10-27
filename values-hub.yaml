@@ -21,7 +21,7 @@ clusterGroup:
       name: amq-streams
       namespace: xraylab-1
       channel: stable
-    
+
     grafana:
       name: grafana-operator
       namespace: xraylab-1
@@ -40,7 +40,7 @@ clusterGroup:
     opendatahub:
       name: opendatahub-operator
       source: community-operators
-  
+
   projects:
   - hub
   - medical-diagnosis
@@ -50,35 +50,14 @@ clusterGroup:
       name: vault
       namespace: vault
       project: hub
-      chart: vault
-      repoURL: https://helm.releases.hashicorp.com
-      targetRevision: v0.20.1
-      overrides:
-      - name: global.openshift
-        value: "true"
-      - name: injector.enabled
-        value: "false"
-      - name: ui.enabled
-        value: "true"
-      - name: ui.serviceType
-        value: LoadBalancer
-      - name: server.route.enabled
-        value: "true"
-      - name: server.route.host
-        value: null
-      - name: server.route.tls.termination
-        value: edge
-      - name: server.image.repository
-        value: "registry.connect.redhat.com/hashicorp/vault"
-      - name: server.image.tag
-        value: "1.10.3-ubi"
+      path: common/hashicorp-vault
 
     golang-external-secrets:
       name: golang-external-secrets
       namespace: golang-external-secrets
       project: hub
       path: common/golang-external-secrets
-    
+
     opendatahub:
       name: odh
       namespace: opendatahub
@@ -103,7 +82,7 @@ clusterGroup:
       project: medical-diagnosis
       path: charts/all/kafka
 
-    kafdrop: 
+    kafdrop:
       name: kafdrop
       namespace: xraylab-1
       project: medical-diagnosis
@@ -153,7 +132,7 @@ clusterGroup:
       - group: apps.openshift.io
         kind: DeploymentConfig
         jqPathExpressions:
-        - '.spec.template.spec.containers[].image'   
+        - '.spec.template.spec.containers[].image'
 
   imperative:
     # NOTE: We *must* use lists and not hashes. As hashes lose ordering once parsed by helm
