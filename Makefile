@@ -35,7 +35,4 @@ test:
 	make -f common/Makefile CHARTS="$(shell find charts/all -type f -iname 'Chart.yaml' -not -path "./common/*" -exec dirname "{}" \;)" PATTERN_OPTS="-f values-hub.yaml" test
 	make -f common/Makefile CHARTS="$(wildcard charts/region/*)" PATTERN_OPTS="-f values-region-one.yaml" test
 
-helmlint:
-	@for t in "$(shell find charts/all -type f -iname 'Chart.yaml' -not -path "./common/*" -exec dirname "{}" \;)"; do helm lint $$t; if [ $$? != 0 ]; then exit 1; fi; done
-
 .phony: install test
