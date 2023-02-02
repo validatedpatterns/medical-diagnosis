@@ -1,6 +1,11 @@
 .PHONY: default
 default: show
 
+##@ Pattern tasks
+
+help:
+	@make -f common/Makefile MAKEFILE_LIST="Makefile common/Makefile" help
+
 %:
 	echo "Delegating $* target"
 	make -f common/Makefile $*
