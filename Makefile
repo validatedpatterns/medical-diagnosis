@@ -1,22 +1,19 @@
 .PHONY: default
 default: show
 
+##@ Pattern tasks
+
+help:
+	@make -f common/Makefile MAKEFILE_LIST="Makefile common/Makefile" help
+
 %:
 	echo "Delegating $* target"
 	make -f common/Makefile $*
 
-install: operator-deploy post-install ## installs the pattern, inits the vault and loads the secrets
+install: operator-deploy post-install ## installs the pattern and loads the secrets
 	echo "Installed"
 
-legacy-install: legacy-deploy post-install ## install the pattern the old way without the operator
-	echo "Installed"
-
-post-install: ## Post-install tasks - vault init and load-secrets
-	@if grep -v -e '^\s\+#' "values-hub.yaml" | grep -q -e "insecureUnsealVaultInsideCluster:\s\+true"; then \
-	  echo "Skipping 'make vault-init' as we're unsealing the vault from inside the cluster"; \
-	else \
-	  make vault-init; \
-	fi
+post-install: ## Post-install tasks - load-secrets
 	make load-secrets
 	echo "Done"
 
@@ -28,11 +25,5 @@ bootstrap:
 	#./scripts/bootstrap-medical-edge.sh
 	ansible-playbook -e pattern_repo_dir="{{lookup('env','PWD')}}" -e helm_charts_dir="{{lookup('env','PWD')}}/charts/all" ./ansible/site.yaml
 
-common-test:
-	make -C common -f common/Makefile test
-
 test:
-	make -f common/Makefile CHARTS="$(shell find charts/all -type f -iname 'Chart.yaml' -not -path "./common/*" -exec dirname "{}" \;)" PATTERN_OPTS="-f values-hub.yaml" test
-	make -f common/Makefile CHARTS="$(wildcard charts/region/*)" PATTERN_OPTS="-f values-region-one.yaml" test
-
-.phony: install test
+	@make -f common/Makefile PATTERN_OPTS="-f values-global.yaml -f values-hub.yaml" test
