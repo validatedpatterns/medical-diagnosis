@@ -29,7 +29,4 @@ common-test:
 	make -C common -f common/Makefile test
 
 test:
-	make -f common/Makefile CHARTS="$(shell find charts/all -type f -iname 'Chart.yaml' -not -path "./common/*" -exec dirname "{}" \;)" PATTERN_OPTS="-f values-hub.yaml" test
-	make -f common/Makefile CHARTS="$(wildcard charts/region/*)" PATTERN_OPTS="-f values-region-one.yaml" test
-
-.phony: install test
+	@make -f common/Makefile PATTERN_OPTS="-f values-global.yaml -f values-hub.yaml" test
