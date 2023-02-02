@@ -10,10 +10,10 @@ help:
 	echo "Delegating $* target"
 	make -f common/Makefile $*
 
-install: operator-deploy post-install ## installs the pattern, inits the vault and loads the secrets
+install: operator-deploy post-install ## installs the pattern and loads the secrets
 	echo "Installed"
 
-post-install: ## Post-install tasks - vault init and load-secrets
+post-install: ## Post-install tasks - load-secrets
 	make load-secrets
 	echo "Done"
 
