@@ -1,6 +1,9 @@
 # Medical Diagnosis Validated Pattern
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+[![AWS](https://img.shields.io/endpoint?url=https%3A%2F%2Fstorage.googleapis.com%2Fhcp-results%2Fmedicaldiag-aws-ci.json)](https://storage.googleapis.com/hcp-results/medicaldiag-aws-ci.json)
+[![Azure](https://img.shields.io/endpoint?url=https%3A%2F%2Fstorage.googleapis.com%2Fhcp-results%2Fmedicaldiag-azr-ci.json)](https://storage.googleapis.com/hcp-results/medicaldiag-azr-ci.json)
+[![GCP](https://img.shields.io/endpoint?url=https%3A%2F%2Fstorage.googleapis.com%2Fhcp-results%2Fmedicaldiag-gcp-ci.json)](https://storage.googleapis.com/hcp-results/medicaldiag-gcp-ci.json)
 
 ## XRay analysis automated pipeline
 
