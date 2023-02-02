@@ -25,8 +25,5 @@ bootstrap:
 	#./scripts/bootstrap-medical-edge.sh
 	ansible-playbook -e pattern_repo_dir="{{lookup('env','PWD')}}" -e helm_charts_dir="{{lookup('env','PWD')}}/charts/all" ./ansible/site.yaml
 
-common-test:
-	make -C common -f common/Makefile test
-
 test:
 	@make -f common/Makefile PATTERN_OPTS="-f values-global.yaml -f values-hub.yaml" test
