@@ -148,7 +148,7 @@
     },
     "GlobalGit": {
       "type": "object",
-      "additionalProperties": false,
+      "additionalProperties": true,
       "description": "The git configuration used to support Tekton pipeline tasks.",
       "properties": {
         "hostname": {
@@ -221,6 +221,20 @@
           "description": "This is the array of namespaces that the VP framework will create.  In addition, operator groups will also be created for each namespace.",
           "items": {
             "type": "string"
+          }
+        },
+        "indexImages": {
+          "anyOf": [
+            {
+              "type": "array"
+            },
+            {
+              "type": "object"
+            }
+          ],
+          "description": "List of index images for overriding default catalog sources.",
+          "items": {
+            "$ref": "#/definitions/IndexImages"
           }
         },
         "operatorgroupExcludes": {
@@ -395,6 +409,21 @@
         "project"
       ],
       "title": "Applications"
+    },
+    "IndexImages": {
+      "type": "object",
+      "description": "Details for overriding default catalog sources",
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name for the custom catalog source."
+        },
+        "image": {
+          "type": "string",
+          "description": "Location of the index image."
+        }
+      }
     },
     "HostedSite": {
       "type": "object",
