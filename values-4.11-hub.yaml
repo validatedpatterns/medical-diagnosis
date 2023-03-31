@@ -1,6 +1,0 @@
-clusterGroup:
-  subscriptions:
-    odf:
-      name: odf-operator
-      namespace: openshift-storage
-      channel: stable-4.11

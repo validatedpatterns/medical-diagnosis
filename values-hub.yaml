@@ -17,22 +17,18 @@ clusterGroup:
     amq-streams:
       name: amq-streams
       namespace: xraylab-1
-      channel: stable
     
     grafana:
       name: grafana-operator
       namespace: xraylab-1
-      channel: v4
       source: community-operators
 
     odf:
       name: odf-operator
       namespace: openshift-storage
-      channel: stable-4.11
 
     severless:
       name: serverless-operator
-      channel: stable
 
     opendatahub:
       name: opendatahub-operator
