@@ -1,6 +1,6 @@
 ---
 # Source: openshift-serverless/templates/knative-operator.yaml
-apiVersion: operator.knative.dev/v1alpha1
+apiVersion: operator.knative.dev/v1beta1
 kind: KnativeEventing
 metadata:
   name: knative-eventing
@@ -20,7 +20,7 @@ spec:
     enabled: true
 ---
 # Source: openshift-serverless/templates/knative-operator.yaml
-apiVersion: operator.knative.dev/v1alpha1
+apiVersion: operator.knative.dev/v1beta1
 kind: KnativeServing
 metadata:
   name: knative-serving
