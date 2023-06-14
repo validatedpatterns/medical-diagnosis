@@ -2,7 +2,7 @@
 {{- if eq .kind "KnativeKafka" }}
 apiVersion: operator.serverless.openshift.io/v1alpha1
 {{- else }}
-apiVersion: operator.knative.dev/v1alpha1
+apiVersion: operator.knative.dev/v1beta1
 {{- end }}
 kind: {{ .kind }}
 metadata:
