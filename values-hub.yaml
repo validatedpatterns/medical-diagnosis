@@ -5,7 +5,6 @@ clusterGroup:
   namespaces:
   - open-cluster-management
   - openshift-serverless
-  - opendatahub
   - openshift-storage
   - xraylab-1
   - knative-serving
@@ -30,10 +29,6 @@ clusterGroup:
     severless:
       name: serverless-operator
 
-    opendatahub:
-      name: opendatahub-operator
-      source: community-operators
-  
   projects:
   - hub
   - medical-diagnosis
@@ -51,12 +46,6 @@ clusterGroup:
       project: hub
       path: common/golang-external-secrets
     
-    opendatahub:
-      name: odh
-      namespace: opendatahub
-      project: medical-diagnosis
-      path: charts/all/opendatahub
-
     openshift-data-foundations:
       name: odf
       namespace: openshift-storage
