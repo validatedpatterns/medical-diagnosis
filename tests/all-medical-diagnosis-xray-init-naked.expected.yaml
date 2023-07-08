@@ -12,6 +12,26 @@ data:
     #!/bin/bash
     oc create secret generic s3-secret-bck -n xraylab-1 --from-literal=AWS_ACCESS_KEY_ID=$(oc extract -n openshift-storage secret/rook-ceph-object-user-ocs-storagecluster-cephobjectstore-xraylab-1 --keys=AccessKey --to=-) --from-literal=AWS_SECRET_ACCESS_KEY=$(oc extract -n openshift-storage secret/rook-ceph-object-user-ocs-storagecluster-cephobjectstore-xraylab-1 --keys=SecretKey --to=-)
 ---
+# Source: xray-init/templates/objectstore-user/cm-wait-for-objectstore.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: wait-for-objectstore
+  namespace: xraylab-1
+  annotations:
+    argocd.argoproj.io/sync-wave: "-1"
+data:
+  wait-for-objectstore.sh: |
+    #!/bin/bash
+    # Get ODF version
+    ODFMINV=$(oc get subs -n openshift-storage odf-operator -o jsonpath='{.status.currentCSV}' | cut -d '.' -f3 )
+    if [[ ${ODFMINV} -lt 13 ]]
+      then
+        oc wait --for=jsonpath='{.status.phase}'=Connected cephobjectstore/ocs-storagecluster-cephobjectstore -n openshift-storage --timeout=100s
+      else
+        oc wait --for=jsonpath='{.status.phase}'=Ready cephobjectstore/ocs-storagecluster-cephobjectstore -n openshift-storage --timeout=100s
+    fi
+---
 # Source: xray-init/templates/s3-bucket-init/cm-s3-bucket-init.yaml
 kind: ConfigMap
 apiVersion: v1
@@ -135,6 +155,25 @@ rules:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
+  name: view-odf-subs
+  annotations:
+    argocd.argoproj.io/hook: PreSync
+    argocd.argoproj.io/sync-wave: "-15"
+rules:
+  - apiGroups:
+      - operators.coreos.com
+    resources:
+      - subs
+      - subscriptions
+    verbs:
+      - get
+      - list
+      - watch
+---
+# Source: xray-init/templates/rbac/role.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
   name: view-odf-objectstoreusers
   annotations:
     argocd.argoproj.io/hook: PreSync
@@ -183,6 +222,24 @@ subjects:
 roleRef:
   kind: ClusterRole
   name: read-objectstore-secret
+  apiGroup: rbac.authorization.k8s.io
+---
+# Source: xray-init/templates/rbac/rolebinding.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: view-odf-subs-rb
+  annotations:
+    argocd.argoproj.io/hook: PreSync
+    argocd.argoproj.io/sync-wave: "-15"
+subjects:
+- kind: ServiceAccount
+  name: xraylab-1-sa
+  namespace: xraylab-1
+  apiGroup: ""
+roleRef:
+  kind: ClusterRole
+  name: view-odf-subs
   apiGroup: rbac.authorization.k8s.io
 ---
 # Source: xray-init/templates/rbac/rolebinding.yaml
@@ -406,8 +463,17 @@ spec:
         - /bin/bash
         - -c
         - |
-          oc wait --for=jsonpath='{.status.phase}'=Connected cephobjectstore/ocs-storagecluster-cephobjectstore -n openshift-storage --timeout=900s
+           '/tmp/wait-for-objectstore.sh'
         name: wait-odf-cephobjectstore-complete
+        volumeMounts:
+          - mountPath: /tmp/wait-for-objectstore.sh
+            name: wait-for-objectstore
+            subPath: wait-for-objectstore.sh
+      volumes:
+        - name: wait-for-objectstore
+          configMap:
+            name: wait-for-objectstore
+            defaultMode: 0755
       dnsPolicy: ClusterFirst
       restartPolicy: Never
       serviceAccount: xraylab-1-sa
