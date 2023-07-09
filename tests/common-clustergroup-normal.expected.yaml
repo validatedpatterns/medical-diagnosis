@@ -199,6 +199,7 @@ data:
       multiClusterTarget: all
       namespace: pattern-namespace
       options:
+        applicationRetryLimit: 20
         installPlanApproval: Automatic
         syncPolicy: Automatic
         useCSV: false
@@ -569,6 +570,8 @@ spec:
 ]
   syncPolicy:
     automated: {}
+    retry:
+      limit: 20
     #  selfHeal: true
 ---
 # Source: pattern-clustergroup/templates/plumbing/applications.yaml
@@ -615,6 +618,8 @@ spec:
           value: apps.region.example.com
   syncPolicy:
     automated: {}
+    retry:
+      limit: 20
     #  selfHeal: true
 ---
 # Source: pattern-clustergroup/templates/plumbing/hosted-sites.yaml
