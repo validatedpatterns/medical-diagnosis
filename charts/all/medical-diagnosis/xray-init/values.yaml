@@ -54,6 +54,20 @@ rbac:
         - "get"
         - "list"
         - "watch"
+    - name: view-odf-subs
+      createRole: true
+      apiGroups:
+        - "operators.coreos.com"
+      scope:
+        cluster: true
+        namespace: ""
+      resources:
+        - subs
+        - subscriptions
+      verbs:
+        - "get"
+        - "list"
+        - "watch"
     - name: view-odf-objectstoreusers
       createRole: true
       apiGroups:
@@ -133,6 +147,19 @@ rbac:
       roleRef:
         kind: Role
         name: create-pattern-secret
+    - name: view-odf-subs-rb
+      createBinding: true
+      scope:
+        cluster: true
+        namespace: ""
+      subjects:
+        kind: ServiceAccount
+        name: xraylab-1-sa
+        namespace: xraylab-1
+        apiGroup: ""
+      roleRef:
+        kind: ClusterRole
+        name: view-odf-subs
     - name: view-odf-storageclusters
       createBinding: true
       scope:
