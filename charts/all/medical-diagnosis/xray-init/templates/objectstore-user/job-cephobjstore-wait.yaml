@@ -15,8 +15,17 @@ spec:
         - /bin/bash
         - -c
         - |
-          oc wait --for=jsonpath='{.status.phase}'=Connected cephobjectstore/ocs-storagecluster-cephobjectstore -n openshift-storage --timeout=900s
+           '/tmp/wait-for-objectstore.sh'
         name: wait-odf-cephobjectstore-complete
+        volumeMounts:
+          - mountPath: /tmp/wait-for-objectstore.sh
+            name: wait-for-objectstore
+            subPath: wait-for-objectstore.sh
+      volumes:
+        - name: wait-for-objectstore
+          configMap:
+            name: wait-for-objectstore
+            defaultMode: 0755
       dnsPolicy: ClusterFirst
       restartPolicy: Never
       serviceAccount: {{ .Values.global.xraylab.namespace }}-sa
