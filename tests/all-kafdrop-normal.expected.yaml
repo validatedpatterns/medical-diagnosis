@@ -30,7 +30,7 @@ spec:
     spec:
       containers:
         - name: kafdrop
-          image: obsidiandynamics/kafdrop:latest
+          image: docker.io/obsidiandynamics/kafdrop:latest
           ports:
             - containerPort: 9000
           env:
