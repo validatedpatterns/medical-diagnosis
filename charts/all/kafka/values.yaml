@@ -9,7 +9,7 @@ kafka:
     replicas: 3
   deployment:
     replicas: 1
-    image: "obsidiandynamics/kafdrop:latest"
+    image: "docker.io/obsidiandynamics/kafdrop:latest"
     env:
       - name: KAFKA_BROKERCONNECT
         value: "xray-cluster-kafka-0.xray-cluster-kafka-brokers.xraylab-1.svc:9092"
