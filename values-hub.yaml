@@ -26,7 +26,7 @@ clusterGroup:
       name: odf-operator
       namespace: openshift-storage
 
-    severless:
+    serverless:
       name: serverless-operator
 
   projects:
