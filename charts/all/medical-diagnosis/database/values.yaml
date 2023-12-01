@@ -4,6 +4,7 @@ global:
   datacenter:
     storageClassName: gp2
     region: us-east-1
+  clusterDomain: foo.example.com
 
 secretStore:
   name: vault-backend
@@ -15,3 +16,4 @@ xraylabsecret:
 database:
   name: xraylabdb
   image: registry.redhat.io/rhel8/mariadb-103:latest
+  storageClassName: ocs-storagecluster-cephfs

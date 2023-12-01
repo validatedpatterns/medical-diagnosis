@@ -4,6 +4,7 @@ global:
   datacenter:
     storageClassName: gp2
     region: us-east-1
+  clusterDomain: gitops.com
 
 odf:
   namespace: openshift-storage

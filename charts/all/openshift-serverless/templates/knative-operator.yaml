@@ -15,6 +15,11 @@ spec:
     bootstrapServers: {{ $.Values.knative.kafkaSource.bootstrapserver }}
   source:
     enabled: true
+{{- else }}
+spec:
+  config:
+    features:
+      kubernetes.podspec-nodeselector: enabled
 {{- end }}
 ---
 {{- end }}

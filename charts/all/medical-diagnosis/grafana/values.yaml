@@ -3,9 +3,11 @@ global:
     namespace: xraylab-1
     s3:
       bucketBaseName: xray-source
+  clusterDomain: gitops.com
+  clusterName: gitops
   datacenter:
     clustername: gitops
-
+    
 secretStore:
   name: vault-backend
   kind: ClusterSecretStore

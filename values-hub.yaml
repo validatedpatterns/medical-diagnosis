@@ -11,6 +11,7 @@ clusterGroup:
   - staging
   - vault
   - golang-external-secrets
+  - openshift-nfd
 
   subscriptions:
     amq-streams:
@@ -29,11 +30,24 @@ clusterGroup:
     serverless:
       name: serverless-operator
 
+    nfd:
+      name: nfd
+      namespace: openshift-nfd
+      channel: stable
+      source: redhat-operators
+
   projects:
   - hub
   - medical-diagnosis
+  - openshift-nfd
 
   applications:
+    nfd:
+      name: nfd
+      namespace: openshift-nfd
+      project: openshift-nfd
+      path: charts/all/nfd
+
     vault:
       name: vault
       namespace: vault

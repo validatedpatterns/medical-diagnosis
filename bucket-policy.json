@@ -1,0 +1,11 @@
+{
+"Statement": [
+    {
+    "Sid": "listobjs",
+    "Effect": "Allow",
+    "Principal": "*",
+    "Action": "s3:*",
+    "Resource": "*"
+    }
+    ]
+}

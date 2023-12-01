@@ -7,6 +7,10 @@ global:
   datacenter:
     clustername: ""
     region: ""
+  clusterDomain: gitops.com
+
+odf:
+  externalUrl: "https://s3-rgw-openshift-storage"
 
 #md2.0 scaffolding for values
 #https://github.com/red-hat-data-services/jumpstart-library/blob/main/demo1-xray-pipeline/manual_deployment/deployment/02_config-maps.yaml
