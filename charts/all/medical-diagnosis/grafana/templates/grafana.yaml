@@ -1,29 +1,37 @@
-apiVersion: integreatly.org/v1alpha1
+apiVersion: grafana.integreatly.org/v1beta1
 kind: Grafana
 metadata:
   name: xraylab-grafana
   namespace: {{ .Values.global.xraylab.namespace }}
   annotations:
     argocd.argoproj.io/sync-wave: "1"
+  labels:
+    dashboards: "grafana"
 spec:
   deployment:
-    skipCreateAdminAccount: true
-    envFrom:
-      - secretRef:
-          name: grafana-creds
-  ingress:
-    enabled: true
+    spec:
+      template:
+        spec:
+          containers:
+            - name: grafana
+              env:
+                - name: GF_SECURITY_ADMIN_USER
+                  valueFrom:
+                    secretKeyRef:
+                      key: GF_SECURITY_ADMIN_USER
+                      name: grafana-creds
+                - name: GF_SECURITY_ADMIN_PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      key: GF_SECURITY_ADMIN_PASSWORD
+                      name: grafana-creds 
+  route:
+    spec: {}
   config:
     auth:
-      disable_signout_menu: true
+      disable_signout_menu: "true"
     auth.anonymous:
-      enabled: true
+      enabled: "true"
     log:
       level: warn
       mode: console
-  dashboardLabelSelector:
-    - matchExpressions:
-        - key: app
-          operator: In
-          values:
-            - grafana
