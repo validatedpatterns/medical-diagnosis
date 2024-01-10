@@ -1750,6 +1750,11 @@ spec:
         secretKeyRef:
           name: grafana-creds
           key: GF_DATASRC_DB
+    - targetPath: "url"
+      valueFrom:
+        secretKeyRef:
+          name: grafana-creds
+          key: GF_DATASRC_URL
     - targetPath: "secureJsonData.password"
       valueFrom:
         secretKeyRef:
@@ -1762,7 +1767,7 @@ spec:
     type: mysql
     name: MySQL
     access: proxy
-    url: 
+    url: ${GF_DATASRC_URL}
     database: ${GF_DATASRC_DB}
     user: ${GF_DATASRC_USER}
     secureJsonData:
