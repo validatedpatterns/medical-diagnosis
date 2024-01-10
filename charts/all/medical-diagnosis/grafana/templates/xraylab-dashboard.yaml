@@ -1,4 +1,4 @@
-apiVersion: integreatly.org/v1alpha1
+apiVersion: grafana.integreatly.org/v1beta1
 kind: GrafanaDashboard
 metadata:
   labels:
@@ -8,6 +8,9 @@ metadata:
   annotations:
     argocd.argoproj.io/sync-wave: "2"
 spec:
+  instanceSelector:
+    matchLabels:
+      dashboards: "grafana"
   json: |
     {
       "annotations": {
@@ -1248,6 +1251,6 @@ spec:
     }
   plugins:
   - name: larona-epict-panel
-    version: 1.2.2
+    version: 2.0.6
   - name: ryantxu-ajax-panel
-    version: 0.0.7-dev
+    version: 0.1.0
