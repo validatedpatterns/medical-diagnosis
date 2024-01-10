@@ -17,6 +17,11 @@ spec:
         secretKeyRef:
           name: grafana-creds
           key: GF_DATASRC_DB
+    - targetPath: "url"
+      valueFrom:
+        secretKeyRef:
+          name: grafana-creds
+          key: GF_DATASRC_URL
     - targetPath: "secureJsonData.password"
       valueFrom:
         secretKeyRef:
@@ -29,7 +34,7 @@ spec:
     type: {{ .Values.dataSources.type }}
     name: {{ .Values.dataSources.name }}
     access: {{ .Values.dataSources.access }}
-    url: {{ .Values.dataSources.url }}
+    url: ${GF_DATASRC_URL}
     database: ${GF_DATASRC_DB}
     user: ${GF_DATASRC_USER}
     secureJsonData:
