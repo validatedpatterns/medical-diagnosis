@@ -25,7 +25,7 @@ rbac:
   roles:
     - name: grafana-mgmt
       apiGroups:
-        - "integreatly.org"
+        - "grafana.integreatly.org"
       scope:
         cluster: false
         namespace: xraylab-1
@@ -68,7 +68,7 @@ rbac:
         namespace: xraylab-1
       subjects:
         kind: ServiceAccount
-        name: grafana-serviceaccount
+        name: xraylab-grafana-sa
         namespace: xraylab-1
         apiGroup: ""
       roleRef:
@@ -80,7 +80,7 @@ rbac:
         namespace: xraylab-1
       subjects:
         kind: ServiceAccount
-        name: grafana-serviceaccount
+        name: xraylab-grafana-sa
         namespace: xraylab-1
         apiGroup: ""
       roleRef:
@@ -92,7 +92,7 @@ rbac:
         namespace: ""
       subjects:
         kind: ServiceAccount
-        name: grafana-serviceaccount
+        name: xraylab-grafana-sa
         namespace: xraylab-1
         apiGroup: ""
       roleRef:

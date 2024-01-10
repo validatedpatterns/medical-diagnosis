@@ -9,7 +9,7 @@ metadata:
     argocd.argoproj.io/sync-wave: "-15"
 subjects:
 - kind: ServiceAccount
-  name: grafana-serviceaccount
+  name: xraylab-grafana-sa
   namespace: xraylab-1
   apiGroup: ""
 roleRef:
@@ -28,7 +28,7 @@ metadata:
     argocd.argoproj.io/sync-wave: "-15"
 rules:
   - apiGroups:
-      - integreatly.org
+      - grafana.integreatly.org
     resources:
       - grafanadatasources
     verbs:
@@ -87,7 +87,7 @@ metadata:
     argocd.argoproj.io/sync-wave: "-15"
 subjects:
 - kind: ServiceAccount
-  name: grafana-serviceaccount
+  name: xraylab-grafana-sa
   namespace: xraylab-1
   apiGroup: ""
 roleRef:
@@ -106,7 +106,7 @@ metadata:
     argocd.argoproj.io/sync-wave: "-15"
 subjects:
 - kind: ServiceAccount
-  name: grafana-serviceaccount
+  name: xraylab-grafana-sa
   namespace: xraylab-1
   apiGroup: ""
 roleRef:
@@ -151,36 +151,38 @@ spec:
         - -c
         - |
           #!/usr/bin/env bash
-          SECRET=$(oc get secret | grep grafana-serviceaccount-token | head -n1 | awk '{print $1}')
+          SECRET=$(oc get secret | grep xraylab-grafana-sa-token | head -n1 | awk '{print $1}')
           TOKEN=$(oc extract secret/$SECRET --keys=token --to=-)
           cat <<EOF | oc create -f -
-           apiVersion: integreatly.org/v1alpha1
-           kind: GrafanaDataSource
+           apiVersion: grafana.integreatly.org/v1beta1
+           kind: GrafanaDatasource
            metadata:
              name: prometheus-grafana-datasource
              namespace: xraylab-1
            spec:
-             datasources:
-               - basicAuthUser: internal
-                 access: proxy
-                 editable: true
-                 isDefault: false
-                 secureJsonData:
-                   httpHeaderValue1: 'Bearer ${TOKEN}'
-                 name: prometheus
-                 url: 'https://thanos-querier.openshift-monitoring.svc.cluster.local:9091'
-                 jsonData:
-                   httpHeaderName1: 'Authorization'
-                   timeInterval: 5s
-                   tlsSkipVerify: true
-                 type: prometheus
+             instanceSelector:
+               matchLabels:
+                 dashboards: "grafana"
+             datasource:
+               basicAuthUser: internal
+               access: proxy
+               editable: true
+               isDefault: false
+               secureJsonData:
+                 httpHeaderValue1: 'Bearer ${TOKEN}'
+               name: prometheus
+               url: 'https://thanos-querier.openshift-monitoring.svc.cluster.local:9091'
+               jsonData:
+                 httpHeaderName1: 'Authorization'
+                 timeInterval: 5s
+                 tlsSkipVerify: true
+               type: prometheus
              name: grafana-prometheus-datasource.yaml
           EOF
         name: get-grafana-token
       dnsPolicy: ClusterFirst
       restartPolicy: Never
-      serviceAccount: grafana-serviceaccount
-      serviceAccountName: grafana-serviceaccount
+      serviceAccount: xraylab-grafana-sa
       terminationGracePeriodSeconds: 60
 ---
 # Source: grafana/templates/job-wait-for-database.yaml
@@ -252,38 +254,46 @@ spec:
       property: database-host
 ---
 # Source: grafana/templates/grafana.yaml
-apiVersion: integreatly.org/v1alpha1
+apiVersion: grafana.integreatly.org/v1beta1
 kind: Grafana
 metadata:
   name: xraylab-grafana
   namespace: xraylab-1
   annotations:
     argocd.argoproj.io/sync-wave: "1"
+  labels:
+    dashboards: "grafana"
 spec:
   deployment:
-    skipCreateAdminAccount: true
-    envFrom:
-      - secretRef:
-          name: grafana-creds
-  ingress:
-    enabled: true
+    spec:
+      template:
+        spec:
+          containers:
+            - name: grafana
+              env:
+                - name: GF_SECURITY_ADMIN_USER
+                  valueFrom:
+                    secretKeyRef:
+                      key: GF_SECURITY_ADMIN_USER
+                      name: grafana-creds
+                - name: GF_SECURITY_ADMIN_PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      key: GF_SECURITY_ADMIN_PASSWORD
+                      name: grafana-creds 
+  route:
+    spec: {}
   config:
     auth:
-      disable_signout_menu: true
+      disable_signout_menu: "true"
     auth.anonymous:
-      enabled: true
+      enabled: "true"
     log:
       level: warn
       mode: console
-  dashboardLabelSelector:
-    - matchExpressions:
-        - key: app
-          operator: In
-          values:
-            - grafana
 ---
 # Source: grafana/templates/xraylab-dashboard.yaml
-apiVersion: integreatly.org/v1alpha1
+apiVersion: grafana.integreatly.org/v1beta1
 kind: GrafanaDashboard
 metadata:
   labels:
@@ -293,6 +303,9 @@ metadata:
   annotations:
     argocd.argoproj.io/sync-wave: "2"
 spec:
+  instanceSelector:
+    matchLabels:
+      dashboards: "grafana"
   json: |
     {
       "annotations": {
@@ -1533,12 +1546,12 @@ spec:
     }
   plugins:
   - name: larona-epict-panel
-    version: 1.2.2
+    version: 2.0.6
   - name: ryantxu-ajax-panel
-    version: 0.0.7-dev
+    version: 0.1.0
 ---
 # Source: grafana/templates/xraylab-images-dashboard.yaml
-apiVersion: integreatly.org/v1alpha1
+apiVersion: grafana.integreatly.org/v1beta1
 kind: GrafanaDashboard
 metadata:
   labels:
@@ -1549,6 +1562,9 @@ metadata:
   annotations:
     argocd.argoproj.io/sync-wave: "2"
 spec:
+  instanceSelector:
+    matchLabels:
+      dashboards: "grafana"
   json: |
     {
       "annotations": {
@@ -1712,24 +1728,48 @@ spec:
     }
   plugins:
     - name: ryantxu-ajax-panel
-      version: 0.0.7-dev
+      version: 0.1.0
 ---
 # Source: grafana/templates/mysql-datasource.yaml
-apiVersion: integreatly.org/v1alpha1
-kind: GrafanaDataSource
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDatasource
 metadata:
   name: mysql-grafana-datasource
   namespace: xraylab-1
   annotations:
     argocd.argoproj.io/hook: PostSync
 spec:
-  datasources:
-    - type: mysql
-      name: MySQL
-      access: proxy
-      url: ${GF_DATASRC_URL}
-      database: ${GF_DATASRC_DB}
-      user: ${GF_DATASRC_USER}
-      secureJsonData:
-        password: ${GF_DATASRC_PASSWORD}
+  valuesFrom:
+    - targetPath: "user"
+      valueFrom:
+        secretKeyRef:
+          name: grafana-creds
+          key: GF_DATASRC_USER
+    - targetPath: "database"
+      valueFrom:
+        secretKeyRef:
+          name: grafana-creds
+          key: GF_DATASRC_DB
+    - targetPath: "url"
+      valueFrom:
+        secretKeyRef:
+          name: grafana-creds
+          key: GF_DATASRC_URL
+    - targetPath: "secureJsonData.password"
+      valueFrom:
+        secretKeyRef:
+          name: grafana-creds
+          key: GF_DATASRC_PASSWORD
+  instanceSelector:
+    matchLabels:
+      dashboards: "grafana"
+  datasource:
+    type: mysql
+    name: MySQL
+    access: proxy
+    url: ${GF_DATASRC_URL}
+    database: ${GF_DATASRC_DB}
+    user: ${GF_DATASRC_USER}
+    secureJsonData:
+      password: ${GF_DATASRC_PASSWORD}
   name: mysql-grafana-datasource.yaml
