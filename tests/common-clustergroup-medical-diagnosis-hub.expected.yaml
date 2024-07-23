@@ -884,9 +884,9 @@ spec:
       - "/values-4.12-hub.yaml" 
       parameters:
         - name: global.repoURL
-          value: $ARGOCD_APP_SOURCE_REPO_URL
+          value: https://github.com/pattern-clone/mypattern
         - name: global.targetRevision
-          value: $ARGOCD_APP_SOURCE_TARGET_REVISION
+          value: main
         - name: global.namespace
           value: $ARGOCD_APP_NAMESPACE
         - name: global.pattern
@@ -899,6 +899,12 @@ spec:
           value: "aws"
         - name: global.hubClusterDomain
           value: apps.hub.example.com
+        - name: global.multiSourceSupport
+          value: 
+        - name: global.multiSourceRepoUrl
+          value: 
+        - name: global.multiSourceTargetRevision
+          value: 
         - name: global.localClusterDomain
           value: apps.region.example.com
         - name: global.privateRepo
@@ -942,9 +948,9 @@ spec:
       - "/values-4.12-hub.yaml" 
       parameters:
         - name: global.repoURL
-          value: $ARGOCD_APP_SOURCE_REPO_URL
+          value: https://github.com/pattern-clone/mypattern
         - name: global.targetRevision
-          value: $ARGOCD_APP_SOURCE_TARGET_REVISION
+          value: main
         - name: global.namespace
           value: $ARGOCD_APP_NAMESPACE
         - name: global.pattern
@@ -957,6 +963,12 @@ spec:
           value: "aws"
         - name: global.hubClusterDomain
           value: apps.hub.example.com
+        - name: global.multiSourceSupport
+          value: 
+        - name: global.multiSourceRepoUrl
+          value: 
+        - name: global.multiSourceTargetRevision
+          value: 
         - name: global.localClusterDomain
           value: apps.region.example.com
         - name: global.privateRepo
@@ -1000,9 +1012,9 @@ spec:
       - "/values-4.12-hub.yaml" 
       parameters:
         - name: global.repoURL
-          value: $ARGOCD_APP_SOURCE_REPO_URL
+          value: https://github.com/pattern-clone/mypattern
         - name: global.targetRevision
-          value: $ARGOCD_APP_SOURCE_TARGET_REVISION
+          value: main
         - name: global.namespace
           value: $ARGOCD_APP_NAMESPACE
         - name: global.pattern
@@ -1015,6 +1027,12 @@ spec:
           value: "aws"
         - name: global.hubClusterDomain
           value: apps.hub.example.com
+        - name: global.multiSourceSupport
+          value: 
+        - name: global.multiSourceRepoUrl
+          value: 
+        - name: global.multiSourceTargetRevision
+          value: 
         - name: global.localClusterDomain
           value: apps.region.example.com
         - name: global.privateRepo
@@ -1058,9 +1076,9 @@ spec:
       - "/values-4.12-hub.yaml" 
       parameters:
         - name: global.repoURL
-          value: $ARGOCD_APP_SOURCE_REPO_URL
+          value: https://github.com/pattern-clone/mypattern
         - name: global.targetRevision
-          value: $ARGOCD_APP_SOURCE_TARGET_REVISION
+          value: main
         - name: global.namespace
           value: $ARGOCD_APP_NAMESPACE
         - name: global.pattern
@@ -1073,6 +1091,12 @@ spec:
           value: "aws"
         - name: global.hubClusterDomain
           value: apps.hub.example.com
+        - name: global.multiSourceSupport
+          value: 
+        - name: global.multiSourceRepoUrl
+          value: 
+        - name: global.multiSourceTargetRevision
+          value: 
         - name: global.localClusterDomain
           value: apps.region.example.com
         - name: global.privateRepo
@@ -1116,9 +1140,9 @@ spec:
       - "/values-4.12-hub.yaml" 
       parameters:
         - name: global.repoURL
-          value: $ARGOCD_APP_SOURCE_REPO_URL
+          value: https://github.com/pattern-clone/mypattern
         - name: global.targetRevision
-          value: $ARGOCD_APP_SOURCE_TARGET_REVISION
+          value: main
         - name: global.namespace
           value: $ARGOCD_APP_NAMESPACE
         - name: global.pattern
@@ -1131,6 +1155,12 @@ spec:
           value: "aws"
         - name: global.hubClusterDomain
           value: apps.hub.example.com
+        - name: global.multiSourceSupport
+          value: 
+        - name: global.multiSourceRepoUrl
+          value: 
+        - name: global.multiSourceTargetRevision
+          value: 
         - name: global.localClusterDomain
           value: apps.region.example.com
         - name: global.privateRepo
@@ -1174,9 +1204,9 @@ spec:
       - "/values-4.12-hub.yaml" 
       parameters:
         - name: global.repoURL
-          value: $ARGOCD_APP_SOURCE_REPO_URL
+          value: https://github.com/pattern-clone/mypattern
         - name: global.targetRevision
-          value: $ARGOCD_APP_SOURCE_TARGET_REVISION
+          value: main
         - name: global.namespace
           value: $ARGOCD_APP_NAMESPACE
         - name: global.pattern
@@ -1189,6 +1219,12 @@ spec:
           value: "aws"
         - name: global.hubClusterDomain
           value: apps.hub.example.com
+        - name: global.multiSourceSupport
+          value: 
+        - name: global.multiSourceRepoUrl
+          value: 
+        - name: global.multiSourceTargetRevision
+          value: 
         - name: global.localClusterDomain
           value: apps.region.example.com
         - name: global.privateRepo
@@ -1232,9 +1268,9 @@ spec:
       - "/values-4.12-hub.yaml" 
       parameters:
         - name: global.repoURL
-          value: $ARGOCD_APP_SOURCE_REPO_URL
+          value: https://github.com/pattern-clone/mypattern
         - name: global.targetRevision
-          value: $ARGOCD_APP_SOURCE_TARGET_REVISION
+          value: main
         - name: global.namespace
           value: $ARGOCD_APP_NAMESPACE
         - name: global.pattern
@@ -1247,6 +1283,12 @@ spec:
           value: "aws"
         - name: global.hubClusterDomain
           value: apps.hub.example.com
+        - name: global.multiSourceSupport
+          value: 
+        - name: global.multiSourceRepoUrl
+          value: 
+        - name: global.multiSourceTargetRevision
+          value: 
         - name: global.localClusterDomain
           value: apps.region.example.com
         - name: global.privateRepo
@@ -1290,9 +1332,9 @@ spec:
       - "/values-4.12-hub.yaml" 
       parameters:
         - name: global.repoURL
-          value: $ARGOCD_APP_SOURCE_REPO_URL
+          value: https://github.com/pattern-clone/mypattern
         - name: global.targetRevision
-          value: $ARGOCD_APP_SOURCE_TARGET_REVISION
+          value: main
         - name: global.namespace
           value: $ARGOCD_APP_NAMESPACE
         - name: global.pattern
@@ -1305,6 +1347,12 @@ spec:
           value: "aws"
         - name: global.hubClusterDomain
           value: apps.hub.example.com
+        - name: global.multiSourceSupport
+          value: 
+        - name: global.multiSourceRepoUrl
+          value: 
+        - name: global.multiSourceTargetRevision
+          value: 
         - name: global.localClusterDomain
           value: apps.region.example.com
         - name: global.privateRepo
@@ -1366,9 +1414,9 @@ spec:
       - "/values-4.12-hub.yaml" 
       parameters:
         - name: global.repoURL
-          value: $ARGOCD_APP_SOURCE_REPO_URL
+          value: https://github.com/pattern-clone/mypattern
         - name: global.targetRevision
-          value: $ARGOCD_APP_SOURCE_TARGET_REVISION
+          value: main
         - name: global.namespace
           value: $ARGOCD_APP_NAMESPACE
         - name: global.pattern
@@ -1381,6 +1429,12 @@ spec:
           value: "aws"
         - name: global.hubClusterDomain
           value: apps.hub.example.com
+        - name: global.multiSourceSupport
+          value: 
+        - name: global.multiSourceRepoUrl
+          value: 
+        - name: global.multiSourceTargetRevision
+          value: 
         - name: global.localClusterDomain
           value: apps.region.example.com
         - name: global.privateRepo
@@ -1424,9 +1478,9 @@ spec:
       - "/values-4.12-hub.yaml" 
       parameters:
         - name: global.repoURL
-          value: $ARGOCD_APP_SOURCE_REPO_URL
+          value: https://github.com/pattern-clone/mypattern
         - name: global.targetRevision
-          value: $ARGOCD_APP_SOURCE_TARGET_REVISION
+          value: main
         - name: global.namespace
           value: $ARGOCD_APP_NAMESPACE
         - name: global.pattern
@@ -1439,6 +1493,12 @@ spec:
           value: "aws"
         - name: global.hubClusterDomain
           value: apps.hub.example.com
+        - name: global.multiSourceSupport
+          value: 
+        - name: global.multiSourceRepoUrl
+          value: 
+        - name: global.multiSourceTargetRevision
+          value: 
         - name: global.localClusterDomain
           value: apps.region.example.com
         - name: global.privateRepo
@@ -1482,9 +1542,9 @@ spec:
       - "/values-4.12-hub.yaml" 
       parameters:
         - name: global.repoURL
-          value: $ARGOCD_APP_SOURCE_REPO_URL
+          value: https://github.com/pattern-clone/mypattern
         - name: global.targetRevision
-          value: $ARGOCD_APP_SOURCE_TARGET_REVISION
+          value: main
         - name: global.namespace
           value: $ARGOCD_APP_NAMESPACE
         - name: global.pattern
@@ -1497,6 +1557,12 @@ spec:
           value: "aws"
         - name: global.hubClusterDomain
           value: apps.hub.example.com
+        - name: global.multiSourceSupport
+          value: 
+        - name: global.multiSourceRepoUrl
+          value: 
+        - name: global.multiSourceTargetRevision
+          value: 
         - name: global.localClusterDomain
           value: apps.region.example.com
         - name: global.privateRepo
@@ -1549,9 +1615,9 @@ spec:
       - "/values-4.12-hub.yaml" 
       parameters:
         - name: global.repoURL
-          value: $ARGOCD_APP_SOURCE_REPO_URL
+          value: https://github.com/pattern-clone/mypattern
         - name: global.targetRevision
-          value: $ARGOCD_APP_SOURCE_TARGET_REVISION
+          value: main
         - name: global.namespace
           value: $ARGOCD_APP_NAMESPACE
         - name: global.pattern
@@ -1564,6 +1630,12 @@ spec:
           value: "aws"
         - name: global.hubClusterDomain
           value: apps.hub.example.com
+        - name: global.multiSourceSupport
+          value: 
+        - name: global.multiSourceRepoUrl
+          value: 
+        - name: global.multiSourceTargetRevision
+          value: 
         - name: global.localClusterDomain
           value: apps.region.example.com
         - name: global.privateRepo
@@ -1616,9 +1688,9 @@ spec:
       - "/values-4.12-hub.yaml" 
       parameters:
         - name: global.repoURL
-          value: $ARGOCD_APP_SOURCE_REPO_URL
+          value: https://github.com/pattern-clone/mypattern
         - name: global.targetRevision
-          value: $ARGOCD_APP_SOURCE_TARGET_REVISION
+          value: main
         - name: global.namespace
           value: $ARGOCD_APP_NAMESPACE
         - name: global.pattern
@@ -1631,6 +1703,12 @@ spec:
           value: "aws"
         - name: global.hubClusterDomain
           value: apps.hub.example.com
+        - name: global.multiSourceSupport
+          value: 
+        - name: global.multiSourceRepoUrl
+          value: 
+        - name: global.multiSourceTargetRevision
+          value: 
         - name: global.localClusterDomain
           value: apps.region.example.com
         - name: global.privateRepo
