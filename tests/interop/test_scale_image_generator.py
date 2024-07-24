@@ -4,7 +4,7 @@ import time
 import pytest
 
 from . import __loggername__
-from .crd import DeploymentConfig
+from validatedpatterns_tests.interop.crd import DeploymentConfig
 
 logger = logging.getLogger(__loggername__)
 
