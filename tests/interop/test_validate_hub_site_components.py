@@ -38,6 +38,7 @@ def test_validate_hub_site_components(openshift_dyn_client):
 
     logger.info("Dump PVC and storageclass info")
     pvcs_out = components.dump_pvc()
+
     logger.info(f"PVCs:\n{pvcs_out}")
 
     for sc in StorageClass.get(dyn_client=openshift_dyn_client):
