@@ -65,6 +65,14 @@
         "clusterGroupName": {
           "type": "string"
         },
+        "extraParameters": {
+          "type": "array",
+          "description": "Pass in extra Helm parameters to all ArgoCD Applications and the framework."
+        },
+        "experimentalCapabilities": {
+          "type": "string",
+          "description": "String to enable certain experimental capabilities in the operator and the framework."
+        },
         "git": {
           "type": "object",
           "additionalProperties": false,
@@ -153,12 +161,27 @@
         },
         "options": {
           "$ref": "#/definitions/Options"
+        },
+        "secretStore": {
+          "$ref": "#/definitions/GlobalSecretStore"
         }
       },
       "required": [
         "options"
       ],
       "title": "Global"
+    },
+    "GlobalSecretStore": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "backend": {
+          "type": "string",
+          "description": "Name of the secrets backend",
+          "default": "vault"
+        }
+      },
+      "title": "GlobalSecretsStore"
     },
     "GlobalGit": {
       "type": "object",
@@ -207,6 +230,10 @@
           "deprecated": true,
           "description": "This is used to approval strategy for the subscriptions of OpenShift Operators being installed. You can choose Automatic or Manual updates. NOTE: This setting is now available in the subcriptions description in the values file."
         },
+        "autoApproveManualInstallPlans": {
+          "type": "boolean",
+          "description": "This is used to approve automatically those subscriptions of OpenShift Operators that are in Manual with a startingCSV version. You can choose True or False. Defaults: False."
+        },
         "applicationRetryLimit": {
           "type": "integer",
           "description": "Number of failed sync attempt retries; unlimited number of attempts if less than 0"
@@ -238,8 +265,19 @@
             "type": "array",
             "description": "Templated value file paths."
 	},
+        "scheduler": {
+          "type": "object",
+          "description": "If set, it will become the spec of the scheduler/cluster in the managed cluster."
+        },
         "namespaces": {
-          "type": "array",
+          "anyOf": [
+            {
+              "type": "array"
+            },
+            {
+              "type": "object"
+            }
+          ],
           "description": "This is the array of namespaces that the VP framework will create.  In addition, operator groups will also be created for each namespace.",
           "items": {
             "$ref": "#/definitions/Namespaces"
@@ -297,7 +335,14 @@
           }
         },
         "projects": {
-          "type": "array",
+          "anyOf": [
+            {
+              "type": "array"
+            },
+            {
+              "type": "object"
+            }
+          ],
           "description": "The list of projects that will be created in the ArgoCD instances.",
           "items": {
             "type": "string"
@@ -317,6 +362,9 @@
             "$ref": "#/definitions/Applications"
           }
         },
+        "argoCD": {
+          "$ref": "#/definitions/ArgoCD"
+        },
         "imperative": {
           "$ref": "#/definitions/Imperative"
         },
@@ -333,9 +381,6 @@
           "items": {
             "$ref": "#/definitions/ManagedClusterGroup"
           }
-        },
-        "externalClusters": {
-          "type": "array"
         }
       },
       "required": [
@@ -488,6 +533,89 @@
       ],
       "title": "Applications"
     },
+    "ArgoCD": {
+      "type": "object",
+      "description": "Details for configuring ArgoCD instances in particular",
+      "additionalProperties": false,
+      "properties": {
+        "configManagementPlugins": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ArgoCDConfigManagementPlugin"
+          },
+          "description": "The new configManagementPlugins array, will also generate configMaps to inject into the plugins"
+        },
+        "initContainers": {
+          "type": "array",
+          "description": "A list of initContainers to add to the repo-server if needed"
+        },
+        "resourceTrackingMethod": {
+          "type": "string",
+          "description": "ResourceTrackingMethod defines how Argo CD should track resources that it manages",
+          "enum": [
+            "annotation",
+            "label",
+            "annotation+label"
+          ]
+        },
+        "resourceExclusions": {
+          "type": "string",
+          "description": "ResourceExclusions is used to completely ignore entire classes of resource group/kinds."
+        },
+        "resourceHealthChecks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ArgoCDResourceHealthChecks"
+          },
+          "description": "ResourceHealthChecks customizes resource health check behavior."
+        }
+      }
+    },
+    "ArgoCDConfigManagementPlugin": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name for the config management plugin"
+        },
+        "image": {
+          "type": "string",
+          "description": "Image for a sidecar container"
+        },
+        "imagePullPolicy": {
+          "type": "string",
+          "description": "Image pull policy for the sidecar. Defaults to 'Always'"
+        },
+        "pluginConfig": {
+          "type": "string",
+          "description": "Configuration file to project into sidecar container. This will create a configMap if specified"
+        },
+        "pluginArgs": {
+          "type": "array",
+          "description": "Additional args to pass to the cmpserver command, usually loglevel"
+        }
+      },
+      "required": [
+        "name",
+        "image"
+      ]
+    },
+    "ArgoCDResourceHealthChecks": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "check": {
+          "type": "string"
+        },
+        "group": {
+          "type": "string"
+        },
+        "kind": {
+          "type": "string"
+        }
+      }
+    },
     "IndexImages": {
       "type": "object",
       "description": "Details for overriding default catalog sources",
@@ -596,6 +724,15 @@
         },
         "roleYaml": {
           "type": "string"
+        },
+        "adminServiceAccountCreate": {
+          "type": "boolean"
+        },
+        "adminServiceAccountName": {
+          "type": "string"
+        },
+        "adminClusterRoleName": {
+          "type": "string"
         }
       },
       "required": [
@@ -664,6 +801,12 @@
             "$ref": "#/definitions/ClusterPools"
           }
         },
+        "clusterDeployments": {
+          "type": "object",
+          "items": {
+            "$ref": "#/definitions/ClusterDeployments"
+          }
+        },
         "clusterSelector": {
           "type": "object",
           "additionalProperties": true
@@ -710,6 +853,32 @@
         "clusters"
       ],
       "title": "ClusterPools"
+    },
+    "ClusterDeployments": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "openshiftVersion": {
+          "type": "string"
+        },
+        "baseDomain": {
+          "type": "string"
+        },
+        "platform": {
+          "type": "object",
+          "$ref": "#/definitions/ClusterPoolsPlatform"
+        }
+      },
+      "required": [
+        "name",
+        "openshiftVersion",
+        "baseDomain",
+        "platform"
+      ],
+      "title": "ClusterDeployments"
     },
     "ClusterPoolsPlatform": {
       "type": "object",

@@ -1,5 +1,9 @@
 # VP hashicorp-vault
 
+## PRs
+
+Please send PRs [here](https://github.com/validatedpatterns/common)
+
 ## Updating the chart
 
 1. Edit Chart.yaml with the new version
@@ -9,12 +13,6 @@
 5. Git add the new chart in `./charts/vault-<version>.tgz`
 
 ## Patches
-
-### Issue 9136
-
-**IMPORTANT**: Due to the fact that 'null' values do not work in helm charts
-([GH#9136](https://github.com/helm/helm/issues/9136)), we need to patch the
-chart to skip setting the host.
 
 ### Issue 674
 

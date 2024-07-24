@@ -1,4 +1,5 @@
 NAME ?= $(shell basename "`pwd`")
+
 ifneq ($(origin TARGET_SITE), undefined)
   TARGET_SITE_OPT=--set main.clusterGroupName=$(TARGET_SITE)
 endif
@@ -28,7 +29,18 @@ ifneq ("$(wildcard $(UUID_FILE))","")
 	UUID_HELM_OPTS := --set main.analyticsUUID=$(UUID)
 endif
 
-HELM_OPTS=-f values-global.yaml --set main.git.repoURL="$(TARGET_REPO)" --set main.git.revision=$(TARGET_BRANCH) $(TARGET_SITE_OPT) $(UUID_HELM_OPTS) $(EXTRA_HELM_OPTS)
+# Set the secret name *and* its namespace when deploying from private repositories
+# The format of said secret is documented here: https://argo-cd.readthedocs.io/en/stable/operator-manual/declarative-setup/#repositories
+TOKEN_SECRET ?=
+TOKEN_NAMESPACE ?=
+
+ifeq ($(TOKEN_SECRET),)
+  HELM_OPTS=-f values-global.yaml --set main.git.repoURL="$(TARGET_REPO)" --set main.git.revision=$(TARGET_BRANCH) $(TARGET_SITE_OPT) $(UUID_HELM_OPTS) $(EXTRA_HELM_OPTS)
+else
+  # When we are working with a private repository we do not escape the git URL as it might be using an ssh secret which does not use https://
+  TARGET_CLEAN_REPO=$(shell git ls-remote --get-url --symref $(TARGET_ORIGIN))
+  HELM_OPTS=-f values-global.yaml --set main.tokenSecret=$(TOKEN_SECRET) --set main.tokenSecretNamespace=$(TOKEN_NAMESPACE) --set main.git.repoURL="$(TARGET_CLEAN_REPO)" --set main.git.revision=$(TARGET_BRANCH) $(TARGET_SITE_OPT) $(UUID_HELM_OPTS) $(EXTRA_HELM_OPTS)
+endif
 
 
 ##@ Pattern Common Tasks
@@ -43,6 +55,14 @@ help: ## This help message
 .PHONY: show
 show: ## show the starting template without installing it
 	helm template common/operator-install/ --name-template $(NAME) $(HELM_OPTS)
+
+preview-all: ## (EXPERIMENTAL) Previews all applications on hub and managed clusters
+	@echo "NOTE: This is just a tentative approximation of rendering all hub and managed clusters templates"
+	@common/scripts/preview-all.sh $(TARGET_REPO) $(TARGET_BRANCH)
+
+preview-%:
+	$(eval CLUSTERGROUP ?= $(shell yq ".main.clusterGroupName" values-global.yaml))
+	@common/scripts/preview.sh $(CLUSTERGROUP) $* $(TARGET_REPO) $(TARGET_BRANCH)
 
 .PHONY: operator-deploy
 operator-deploy operator-upgrade: validate-prereq validate-origin validate-cluster ## runs helm install
@@ -59,15 +79,41 @@ uninstall: ## runs helm uninstall
 	@oc delete csv -n openshift-operators $(CSV)
 
 .PHONY: load-secrets
-load-secrets: ## loads the secrets into the vault
+load-secrets: ## loads the secrets into the backend determined by values-global setting
+	common/scripts/process-secrets.sh $(NAME)
+
+.PHONY: legacy-load-secrets
+legacy-load-secrets: ## loads the secrets into vault (only)
 	common/scripts/vault-utils.sh push_secrets $(NAME)
+
+.PHONY: secrets-backend-vault
+secrets-backend-vault: ## Edits values files to use default Vault+ESO secrets config
+	common/scripts/set-secret-backend.sh vault
+	common/scripts/manage-secret-app.sh vault present
+	common/scripts/manage-secret-app.sh golang-external-secrets present
+	common/scripts/manage-secret-namespace.sh validated-patterns-secrets absent
+	@git diff --exit-code || echo "Secrets backend set to vault, please review changes, commit, and push to activate in the pattern"
+
+.PHONY: secrets-backend-kubernetes
+secrets-backend-kubernetes: ## Edits values file to use Kubernetes+ESO secrets config
+	common/scripts/set-secret-backend.sh kubernetes
+	common/scripts/manage-secret-namespace.sh validated-patterns-secrets present
+	common/scripts/manage-secret-app.sh vault absent
+	common/scripts/manage-secret-app.sh golang-external-secrets present
+	@git diff --exit-code || echo "Secrets backend set to kubernetes, please review changes, commit, and push to activate in the pattern"
+
+.PHONY: secrets-backend-none
+secrets-backend-none: ## Edits values files to remove secrets manager + ESO
+	common/scripts/set-secret-backend.sh none
+	common/scripts/manage-secret-app.sh vault absent
+	common/scripts/manage-secret-app.sh golang-external-secrets absent
+	common/scripts/manage-secret-namespace.sh validated-patterns-secrets absent
+	@git diff --exit-code || echo "Secrets backend set to none, please review changes, commit, and push to activate in the pattern"
 
 .PHONY: load-iib
 load-iib: ## CI target to install Index Image Bundles
 	@set -e; if [ x$(INDEX_IMAGES) != x ]; then \
-		for IIB in $(shell echo $(INDEX_IMAGES) | tr ',' '\n'); do \
-			INDEX_IMAGE="$${IIB}" ansible-playbook common/ansible/playbooks/iib-ci/iib-ci.yaml; \
-		done; \
+		ansible-playbook common/ansible/playbooks/iib-ci/iib-ci.yaml; \
 	else \
 		echo "No INDEX_IMAGES defined. Bailing out"; \
 		exit 1; \
@@ -81,14 +127,9 @@ load-iib: ## CI target to install Index Image Bundles
 .PHONY: validate-origin
 validate-origin: ## verify the git origin is available
 	@echo "Checking repository:"
-	@echo -n "  $(TARGET_REPO) - branch $(TARGET_BRANCH): "
-	@if [ ! -f /run/.containerenv ]; then\
-		git ls-remote --exit-code --heads $(TARGET_REPO) $(TARGET_BRANCH) >/dev/null &&\
-				echo "OK" ||\
-				(echo "NOT FOUND"; exit 1);\
-	else\
-		echo "Running inside a container: Skipping git ssh checks";\
-	fi
+	@echo -n "  $(TARGET_REPO) - branch '$(TARGET_BRANCH)': "
+	@git ls-remote --exit-code --heads $(TARGET_REPO) $(TARGET_BRANCH) >/dev/null &&\
+		echo "OK" || (echo "NOT FOUND"; exit 1)
 
 .PHONY: validate-cluster
 validate-cluster: ## Do some cluster validations before installing
@@ -112,15 +153,19 @@ validate-schema: ## validates values files against schema in common/clustergroup
 
 .PHONY: validate-prereq
 validate-prereq: ## verify pre-requisites
-	@echo "Checking prerequisites:"
-	@for t in $(EXECUTABLES); do if ! which $$t > /dev/null 2>&1; then echo "No $$t in PATH"; exit 1; fi; done
-	@echo "  Check for '$(EXECUTABLES)': OK"
-	@echo -n "  Check for python-kubernetes: "
-	@if ! ansible -m ansible.builtin.command -a "{{ ansible_python_interpreter }} -c 'import kubernetes'" localhost > /dev/null 2>&1; then echo "Not found"; exit 1; fi
-	@echo "OK"
-	@echo -n "  Check for kubernetes.core collection: "
-	@if ! ansible-galaxy collection list | grep kubernetes.core > /dev/null 2>&1; then echo "Not found"; exit 1; fi
-	@echo "OK"
+	@if [ ! -f /run/.containerenv ]; then\
+	  echo "Checking prerequisites:";\
+	  for t in $(EXECUTABLES); do if ! which $$t > /dev/null 2>&1; then echo "No $$t in PATH"; exit 1; fi; done;\
+	  echo "  Check for '$(EXECUTABLES)': OK";\
+	  echo -n "  Check for python-kubernetes: ";\
+	  if ! ansible -m ansible.builtin.command -a "{{ ansible_python_interpreter }} -c 'import kubernetes'" localhost > /dev/null 2>&1; then echo "Not found"; exit 1; fi;\
+	  echo "OK";\
+	  echo -n "  Check for kubernetes.core collection: ";\
+	  if ! ansible-galaxy collection list | grep kubernetes.core > /dev/null 2>&1; then echo "Not found"; exit 1; fi;\
+	  echo "OK";\
+	else\
+	  echo "Skipping prerequisites check as we're running inside a container";\
+	fi
 
 .PHONY: argo-healthcheck
 argo-healthcheck: ## Checks if all argo applications are synced
@@ -185,17 +230,20 @@ kubeconform: ## run helm kubeconform
 super-linter: ## Runs super linter locally
 	rm -rf .mypy_cache
 	podman run -e RUN_LOCAL=true -e USE_FIND_ALGORITHM=true	\
+					-e VALIDATE_ANSIBLE=false \
 					-e VALIDATE_BASH=false \
+					-e VALIDATE_CHECKOV=false \
+					-e VALIDATE_DOCKERFILE_HADOLINT=false \
 					-e VALIDATE_JSCPD=false \
 					-e VALIDATE_KUBERNETES_KUBECONFORM=false \
-					-e VALIDATE_YAML=false \
-					-e VALIDATE_ANSIBLE=false \
-					-e VALIDATE_DOCKERFILE_HADOLINT=false \
+					-e VALIDATE_PYTHON_PYLINT=false \
+					-e VALIDATE_SHELL_SHFMT=false \
 					-e VALIDATE_TEKTON=false \
+					-e VALIDATE_YAML=false \
 					$(DISABLE_LINTERS) \
 					-v $(PWD):/tmp/lint:rw,z \
 					-w /tmp/lint \
-					docker.io/github/super-linter:slim-v5
+					ghcr.io/super-linter/super-linter:slim-v6
 
 .PHONY: ansible-lint
 ansible-lint: ## run ansible lint on ansible/ folder

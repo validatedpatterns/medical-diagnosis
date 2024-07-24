@@ -1,6 +1,7 @@
+
 {{- if (eq .Values.enabled "all") }}
 {{- $namespace := print $.Values.global.pattern "-" $.Values.clusterGroup.name }}
-apiVersion: argoproj.io/v1alpha1
+apiVersion: argoproj.io/v1beta1
 kind: ArgoCD
 metadata:
   finalizers:
@@ -35,37 +36,8 @@ spec:
       hs.message = "Waiting for PVC"
       return hs
 
+  resourceTrackingMethod: {{ $.Values.clusterGroup.argoCD.resourceTrackingMethod}}
   applicationInstanceLabelKey: argocd.argoproj.io/instance
-  # Not the greatest way to pass git/quay info to sub-applications, but it will do until
-  # we can support helmChart with kustomize
-  # The other option is to pass them in as environment variables eg. BLUEPRINT_VERSION
-  configManagementPlugins: |
-    - name: kustomize-version
-      generate:
-        command: ["sh", "-c"]
-        args: ["kustomize version 1>&2 && exit 1"]
-    - name: kustomize-with-helm
-      generate:
-        command: ["kustomize"]
-        args: ["build", "--enable-helm"]
-    - name: helm-with-kustomize
-      init:
-        command: ["/bin/sh", "-c"]
-        args: ["helm dependency build"]
-      generate:
-        command: ["/bin/bash", "-c"]
-        args: ["helm template . --name-template ${ARGOCD_APP_NAME:0:52}
-            -f $(git rev-parse --show-toplevel)/values-global.yaml
-            -f $(git rev-parse --show-toplevel)/values-{{ .Values.clusterGroup.name }}.yaml
-            --set global.repoURL=$ARGOCD_APP_SOURCE_REPO_URL
-            --set global.targetRevision=$ARGOCD_APP_SOURCE_TARGET_REVISION
-            --set global.namespace=$ARGOCD_APP_NAMESPACE
-            --set global.pattern={{ .Values.global.pattern }}
-            --set global.clusterDomain={{ .Values.global.clusterDomain }}
-            --set global.hubClusterDomain={{ .Values.global.hubClusterDomain }}
-            --set global.localClusterDomain={{ coalesce .Values.global.localClusterDomain .Values.global.hubClusterDomain }}
-            --set clusterGroup.name={{ .Values.clusterGroup.name }}
-            --post-renderer ./kustomize"]
   applicationSet:
     resources:
       limits:
@@ -98,6 +70,86 @@ spec:
   rbac:
     defaultPolicy: role:admin
   repo:
+    initContainers:
+    - command:
+      - bash
+      - -c
+      - cat /var/run/kube-root-ca/ca.crt /var/run/trusted-ca/ca-bundle.crt /var/run/trusted-hub/hub-kube-root-ca.crt > /tmp/ca-bundles/ca-bundle.crt || true
+      image: {{ $.Values.clusterGroup.imperative.image }}
+      name: fetch-ca
+      resources: {}
+      volumeMounts:
+      - mountPath: /var/run/kube-root-ca
+        name: kube-root-ca
+      - mountPath: /var/run/trusted-ca
+        name: trusted-ca-bundle
+      - mountPath: /var/run/trusted-hub
+        name: trusted-hub-bundle
+      - mountPath: /tmp/ca-bundles
+        name: ca-bundles
+    resources:
+      limits:
+        cpu: "1"
+        memory: 1Gi
+      requests:
+        cpu: 250m
+        memory: 256Mi
+    volumeMounts:
+    - mountPath: /etc/pki/tls/certs
+      name: ca-bundles
+    volumes:
+    - configMap:
+        name: kube-root-ca.crt
+      name: kube-root-ca
+    - configMap:
+        name: trusted-ca-bundle
+        optional: true
+      name: trusted-ca-bundle
+    - configMap:
+        name: trusted-hub-bundle
+        optional: true
+      name: trusted-hub-bundle
+    - emptyDir: {}
+      name: ca-bundles
+{{- if len $.Values.clusterGroup.argoCD.initContainers }}
+{{ $.Values.clusterGroup.argoCD.initContainers | toPrettyJson }}
+{{- end }}
+{{- if len $.Values.clusterGroup.argoCD.configManagementPlugins }}
+    sidecarContainers:
+{{- range $cmp := $.Values.clusterGroup.argoCD.configManagementPlugins }}
+      - name: {{ $cmp.name }}
+        command: [/var/run/argocd/argocd-cmp-server]
+{{- if $cmp.pluginArgs }}
+        args: {{ $cmp.pluginArgs | toPrettyJson }}
+{{- end }}
+        image: {{ $cmp.image }}
+        imagePullPolicy: {{ coalesce $cmp.imagePullPolicy "Always" }}
+        securityContext:
+          runAsNonRoot: true
+        volumeMounts:
+          - mountPath: /var/run/argocd
+            name: var-files
+          - mountPath: /home/argocd/cmp-server/plugins
+            name: plugins
+          - mountPath: /tmp
+            name: cmp-tmp
+{{- if $cmp.pluginConfig }}
+          - mountPath: /home/argocd/cmp-server/config/plugin.yaml
+            subPath: plugin.yaml
+            name: {{ $cmp.name }}
+{{- end }}
+{{- end }}
+{{- end }}
+{{- if len $.Values.clusterGroup.argoCD.configManagementPlugins }}
+    volumes:
+      - emptyDir: {}
+        name: cmp-tmp
+{{- range $cmp := $.Values.clusterGroup.argoCD.configManagementPlugins }}
+      - configMap:
+          name: "argocd-cmp-{{ $cmp.name }}"
+        name: {{ $cmp.name }}
+{{- end }}
+{{- end }}
     resources:
       limits:
         cpu: "1"
@@ -105,12 +157,15 @@ spec:
       requests:
         cpu: 250m
         memory: 256Mi
-  resourceExclusions: |
+{{- if $.Values.clusterGroup.argoCD.resourceExclusions }}
+  resourceExclusions: {{- $.Values.clusterGroup.argoCD.resourceExclusions | toYaml | indent 2 }}
+{{- end }}
+{{- if .Values.global.excludeESO }}
     - apiGroups:
-      - tekton.dev
+      - external-secrets.io
       kinds:
-      - TaskRun
-      - PipelineRun
+      - ExternalSecret
+{{- end }}
   server:
     autoscale:
       enabled: false
