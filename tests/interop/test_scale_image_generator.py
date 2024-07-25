@@ -2,9 +2,9 @@ import logging
 import time
 
 import pytest
+from validatedpatterns_tests.interop.crd import DeploymentConfig
 
 from . import __loggername__
-from .crd import DeploymentConfig
 
 logger = logging.getLogger(__loggername__)
 
