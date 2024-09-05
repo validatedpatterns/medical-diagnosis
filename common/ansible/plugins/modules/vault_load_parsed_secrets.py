@@ -82,6 +82,7 @@ EXAMPLES = """
 
 
 class VaultSecretLoader:
+
     def __init__(
         self,
         module,
@@ -215,7 +216,7 @@ class VaultSecretLoader:
         for prefix in prefixes:
             cmd = (
                 f"oc exec -n {self.namespace} {self.pod} -i -- sh -c "
-                f"\"vault kv {verb} -mount={mount} {prefix}/{secret_name} {fieldname}='{fieldvalue}'\""
+                f"\"vault kv {verb} -mount={mount} {prefix}/{secret_name} {fieldname}='\"'{fieldvalue}'\"'\""
             )
             self._run_command(cmd, attempts=3)
         return

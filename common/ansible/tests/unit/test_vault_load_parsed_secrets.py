@@ -70,6 +70,7 @@ def fail_json(*args, **kwargs):
 
 
 class TestMyModule(unittest.TestCase):
+
     def setUp(self):
         self.mock_module_helper = patch.multiple(
             basic.AnsibleModule, exit_json=exit_json, fail_json=fail_json
@@ -120,7 +121,7 @@ class TestMyModule(unittest.TestCase):
                 attempts=3,
             ),
             call(
-                "oc exec -n vault vault-0 -i -- sh -c \"vault kv put -mount=secret hub/config-demo secret='value123'\"",
+                "oc exec -n vault vault-0 -i -- sh -c \"vault kv put -mount=secret hub/config-demo secret='\"'value123'\"'\"",  # noqa: E501
                 attempts=3,
             ),
         ]
@@ -159,7 +160,7 @@ class TestMyModule(unittest.TestCase):
                 attempts=3,
             ),
             call(
-                "oc exec -n vault vault-0 -i -- sh -c \"vault kv put -mount=secret hub/config-demo secret='dmFsdWUxMjMK'\"",  # noqa: E501
+                "oc exec -n vault vault-0 -i -- sh -c \"vault kv put -mount=secret hub/config-demo secret='\"'dmFsdWUxMjMK'\"'\"",  # noqa: E501
                 attempts=3,
             ),
         ]
@@ -198,11 +199,11 @@ class TestMyModule(unittest.TestCase):
                 attempts=3,
             ),
             call(
-                "oc exec -n vault vault-0 -i -- sh -c \"vault kv put -mount=secret secret/region-one/config-demo secret='value123'\"",  # noqa: E501
+                "oc exec -n vault vault-0 -i -- sh -c \"vault kv put -mount=secret secret/region-one/config-demo secret='\"'value123'\"'\"",  # noqa: E501
                 attempts=3,
             ),
             call(
-                "oc exec -n vault vault-0 -i -- sh -c \"vault kv put -mount=secret secret/snowflake.blueprints.rhecoeng.com/config-demo secret='value123'\"",  # noqa: E501
+                "oc exec -n vault vault-0 -i -- sh -c \"vault kv put -mount=secret secret/snowflake.blueprints.rhecoeng.com/config-demo secret='\"'value123'\"'\"",  # noqa: E501
                 attempts=3,
             ),
             call(
@@ -249,11 +250,11 @@ class TestMyModule(unittest.TestCase):
                 attempts=3,
             ),
             call(
-                "oc exec -n vault vault-0 -i -- sh -c \"vault kv put -mount=secret secret/region-one/config-demo secret='value123'\"",  # noqa: E501
+                "oc exec -n vault vault-0 -i -- sh -c \"vault kv put -mount=secret secret/region-one/config-demo secret='\"'value123'\"'\"",  # noqa: E501
                 attempts=3,
             ),
             call(
-                "oc exec -n vault vault-0 -i -- sh -c \"vault kv put -mount=secret secret/snowflake.blueprints.rhecoeng.com/config-demo secret='value123'\"",  # noqa: E501
+                "oc exec -n vault vault-0 -i -- sh -c \"vault kv put -mount=secret secret/snowflake.blueprints.rhecoeng.com/config-demo secret='\"'value123'\"'\"",  # noqa: E501
                 attempts=3,
             ),
             call(
