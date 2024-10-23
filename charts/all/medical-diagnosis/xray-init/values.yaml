@@ -17,10 +17,13 @@ objectStore:
 job:
   image: image-registry.openshift-image-registry.svc:5000/openshift/cli:latest
 
+
 kafkaSource:
   bootstrapserver: "xray-cluster-kafka-bootstrap.xraylab-1.svc:9092"
   name: "xray-images"
   consumerGroup: "risk-assessment"
+  serviceOdfUrl: "http://rook-ceph-rgw-ocs-storagecluster-cephobjectstore.openshift-storage.svc.cluster.local"
+  externalOdfUrl: "https://s3-rgw-openshift-storage"
 
 imageStream:
   tags:
