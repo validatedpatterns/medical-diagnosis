@@ -24,6 +24,9 @@ main:
   multiSourceConfig:
     enabled: true
     clusterGroupChartVersion: 0.9.*
+  git:
+    repoUpstreamURL: https://github.com/validatedpatterns/medical-diagnosis
+    revision: rhdp-deploy
 
 # Example Configuration
   #datacenter:
