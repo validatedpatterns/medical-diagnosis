@@ -7,11 +7,7 @@ global:
     installPlanApproval: Automatic
 
   datacenter:
-    cloudProvider: PROVIDE_CLOUDPROVIDER
-    storageClassName: PROVIDE_STORAGECLASS_NAME
-    region: PROVIDE_REGION
-    clustername: PROVIDE_CLUSTERNAME
-    domain: PROVIDE_DOMAIN
+    storageClassName: gp3-csi
 
   xraylab:
     namespace: "xraylab-1"
