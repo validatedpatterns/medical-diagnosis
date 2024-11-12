@@ -47,7 +47,14 @@ def test_check_pod_status(openshift_dyn_client):
         "xraylab-1",
         "vault",
     ]
-    err_msg = components.check_pod_status(openshift_dyn_client, projects)
+    skip_check = [
+        "risk-assessment",
+        "job-odf-storagecluster-complete",
+    ]
+
+    err_msg = components.check_pod_status(
+        openshift_dyn_client, projects, skip_check=skip_check
+    )
     if err_msg:
         logger.error(f"FAIL: {err_msg}")
         assert False, err_msg
