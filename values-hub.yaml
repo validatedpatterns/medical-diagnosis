@@ -59,6 +59,12 @@ clusterGroup:
       project: medical-diagnosis
       chart: openshift-data-foundations
       chartVersion: 0.1.*
+      overrides:
+        - name: objectStorage.dataPool.failureDomain
+          value: host
+        - name: objectStorage.metadataPool.failureDomain
+          value: host
+
 
     openshift-serverless:
       name: serverless
