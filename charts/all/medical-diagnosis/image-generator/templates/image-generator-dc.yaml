@@ -29,7 +29,7 @@ spec:
           image: image-generator:latest
           env:
             - name: SECONDS_WAIT
-              value: "1"
+              value: "10"
             - name: AWS_ACCESS_KEY_ID
               valueFrom:
                 secretKeyRef:
