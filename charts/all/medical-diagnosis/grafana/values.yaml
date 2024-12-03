@@ -76,6 +76,18 @@ rbac:
         - "get"
         - "list"
         - "watch"
+    - name: grafana-view-deploymentconfigs
+      apiGroups: 
+        - apps.openshift.io
+      scope:
+        cluster: false
+        namespace: xraylab-1
+      resources:
+        - deploymentconfigs
+      verbs:
+        - "get"
+        - "list"
+        - "watch"
   roleBindings:
     - name: grafana-read-secrets
       scope:
