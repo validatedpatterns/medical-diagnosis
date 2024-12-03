@@ -131,7 +131,7 @@ rbac:
         namespace: xraylab-1
       subjects:
         kind: ServiceAccount
-        name: xraylab-1-sa
+        name: grafana-sa
         namespace: xraylab-1
         apiGroup: ""
       roleRef:
@@ -155,7 +155,7 @@ rbac:
         namespace: xraylab-1
       subjects:
         kind: ServiceAccount
-        name: xraylab-1-sa
+        name: grafana-sa
         namespace: xraylab-1
         apiGroup: ""
       roleRef:
