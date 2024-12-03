@@ -155,10 +155,9 @@ rbac:
         namespace: xraylab-1
       subjects:
         kind: ServiceAccount
-        name: Cxraylab-1-sa
+        name: xraylab-1-sa
         namespace: xraylab-1
         apiGroup: ""
       roleRef:
         kind: Role
         name: grafana-view-deploymentconfigs
-
