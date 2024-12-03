@@ -39,6 +39,19 @@ rbac:
         - "patch"
         - "create"
         - "update"
+    - name: grafana-serviceAccount-token
+      apiGroups:
+        - '""'
+      scope:
+        cluster: false
+        namespace: xraylab-1
+      resources:
+        - "serviceaccounts/tokens"
+      verbs:
+        - "get"
+        - "list"
+        - "create"
+        - "update"
     - name: grafana-read-secrets
       apiGroups:
         - '""'
@@ -51,14 +64,14 @@ rbac:
         - "get"
         - "list"
         - "watch"
-    - name: grafana-view-deploymentconfigs
+    - name: grafana-view-deployments
       apiGroups: 
-        - apps.openshift.io
+        - apps
       scope:
         cluster: false
         namespace: xraylab-1
       resources:
-        - deploymentconfigs
+        - deployments
       verbs:
         - "get"
         - "list"
@@ -70,7 +83,7 @@ rbac:
         namespace: xraylab-1
       subjects:
         kind: ServiceAccount
-        name: xraylab-grafana-sa
+        name: grafana-sa
         namespace: xraylab-1
         apiGroup: ""
       roleRef:
@@ -82,7 +95,7 @@ rbac:
         namespace: xraylab-1
       subjects:
         kind: ServiceAccount
-        name: xraylab-grafana-sa
+        name: grafana-sa
         namespace: xraylab-1
         apiGroup: ""
       roleRef:
@@ -94,13 +107,13 @@ rbac:
         namespace: ""
       subjects:
         kind: ServiceAccount
-        name: xraylab-grafana-sa
+        name: grafana-sa
         namespace: xraylab-1
         apiGroup: ""
       roleRef:
         kind: ClusterRole
         name: cluster-monitoring-view
-    - name: grafana-view-deploymentconfigs
+    - name: grafana-view-deployments
       scope:
         cluster: false
         namespace: xraylab-1
@@ -111,4 +124,93 @@ rbac:
         apiGroup: ""
       roleRef:
         kind: Role
-        name: grafana-view-deploymentconfigs
+        name: grafana-view-deployments
+    - name: grafana-image-puller
+      scope:
+        cluster: false
+        namespace: xraylab-1
+      subjects:
+        kind: ServiceAccount
+        name: grafana-sa
+        namespace: xraylab-1
+        apiGroup: "image.openshift.io"
+      roleRef:
+        kind: ClusterRole
+        name: "system:image-puller"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
