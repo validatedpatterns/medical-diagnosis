@@ -22,6 +22,8 @@ job:
   image: image-registry.openshift-image-registry.svc:5000/openshift/cli:latest
 
 rbac:
+  createServiceAccount: true
+  serviceAccountName: "grafana-sa"
   roles:
     - name: grafana-mgmt
       apiGroups:
