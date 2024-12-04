@@ -2,7 +2,7 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   name: create-prometheus-datasource-object
-  namespace: {{ .Values.global.xraylab.namespace }}
+  namespace: xraylab-1
   annotations:
     argocd.argoproj.io/hook: PostSync
 spec:
@@ -14,9 +14,9 @@ spec:
         - /bin/bash
         - -c
         - |
-          #!/usr/bin/env bash
-          SECRET=$(oc get secret | grep xraylab-grafana-sa-token | head -n1 | awk '{print $1}')
-          TOKEN=$(oc extract secret/$SECRET --keys=token --to=-)
+          #TOKEN=$(oc create token {{ .Values.rbac.serviceAccountName }}-token --duration=$((365*24))h)
+          #SECRET=$(oc get secret | grep xraylab-grafana-sa-token | head -n1 | awk '{print $1}')
+          TOKEN=$(oc extract secret/{{ .Values.rbac.serviceAccountName }}-token --keys=token --to=-)
           cat <<EOF | oc create -f -
            apiVersion: grafana.integreatly.org/v1beta1
            kind: GrafanaDatasource
@@ -46,5 +46,5 @@ spec:
         name: get-grafana-token
       dnsPolicy: ClusterFirst
       restartPolicy: Never
-      serviceAccount: xraylab-grafana-sa
+      serviceAccount: {{ .Values.rbac.serviceAccountName }}
       terminationGracePeriodSeconds: 60
