@@ -1,11 +1,11 @@
+# We need this object store user to have a single AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY 
+# for all the buckets to be created manually (job)
+---
 apiVersion: ceph.rook.io/v1
 kind: CephObjectStoreUser
 metadata:
   name: {{ .Values.objectStore.user.name }}
   namespace: {{ .Values.objectStore.namespace }}
-  annotations:
-    argocd.argoproj.io/hook: Sync
-    argocd.argoproj.io/sync-wave: "1"
 spec:
   store: {{ .Values.objectStore.name }}
   displayName: {{ .Values.objectStore.user.displayName }}

@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
         - name: bucket-init
-          image: quay.io/thoth-station/s2i-generic-data-science-notebook:v0.0.4
+          image: '{{ .Values.jobs.s3_bucket_init.image }}'
           env:
             - name: AWS_ACCESS_KEY_ID
               valueFrom:
@@ -25,6 +25,12 @@ spec:
                 secretKeyRef:
                   name: s3-secret-bck
                   key: AWS_SECRET_ACCESS_KEY
+            - name: kafka_endpoint
+              value: '{{ .Values.kafkaSource.bootstrapserver }}'
+            - name: bucket_base_name
+              value: '{{ .Values.global.xraylab.s3.bucketBaseName }}'
+            - name: endpoint_url
+              value: '{{ .Values.kafkaSource.serviceOdfUrl}}'
           volumeMounts:
             - mountPath: /opt/app-root/src/bucket-init.py
               name: bucket-init
@@ -39,6 +45,4 @@ spec:
       dnsPolicy: ClusterFirst
       activeDeadlineSeconds: 900
       restartPolicy: Never
-      serviceAccount: {{ .Values.global.xraylab.namespace }}-sa
-      serviceAccountName: {{ .Values.global.xraylab.namespace }}-sa
       terminationGracePeriodSeconds: 60

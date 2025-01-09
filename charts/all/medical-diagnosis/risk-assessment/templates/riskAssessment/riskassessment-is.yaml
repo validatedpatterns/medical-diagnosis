@@ -3,8 +3,6 @@ kind: ImageStream
 metadata:
   name: risk-assessment
   namespace: {{ .Values.global.xraylab.namespace }}
-  annotations:
-    argocd.argoproj.io/sync-wave: "0"
 spec:
   lookupPolicy:
     local: true
