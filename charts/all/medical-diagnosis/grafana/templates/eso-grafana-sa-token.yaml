@@ -5,5 +5,4 @@ metadata:
   namespace: xraylab-1
   annotations:
     kubernetes.io/service-account.name: {{ .Values.rbac.serviceAccountName }}
-    argocd.argoproj.io/sync-wave: "1"
 type: kubernetes.io/service-account-token

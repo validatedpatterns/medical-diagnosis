@@ -3,8 +3,6 @@ kind: Grafana
 metadata:
   name: xraylab-grafana
   namespace: {{ .Values.global.xraylab.namespace }}
-  annotations:
-    argocd.argoproj.io/sync-wave: "1"
   labels:
     dashboards: "grafana"
 spec:

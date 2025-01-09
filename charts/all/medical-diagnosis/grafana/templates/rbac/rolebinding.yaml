@@ -10,9 +10,6 @@ metadata:
 {{- if eq $value.scope.cluster false }}
   namespace: {{ $value.scope.namespace }}
 {{- end }}
-  annotations:
-    argocd.argoproj.io/hook: PreSync
-    argocd.argoproj.io/sync-wave: "-15"
 subjects:
 - kind: {{ $value.subjects.kind | default "ServiceAccount" }}
   name: {{ $.Values.rbac.serviceAccountName }}

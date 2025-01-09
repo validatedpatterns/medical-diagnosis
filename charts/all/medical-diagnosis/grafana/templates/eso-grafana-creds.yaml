@@ -4,8 +4,6 @@ kind: ExternalSecret
 metadata:
   name: grafana-creds-external-secret
   namespace: {{ .Values.global.xraylab.namespace }}
-  annotations:
-    argocd.argoproj.io/sync-wave: "1"
 spec:
   refreshInterval: 15s
   secretStoreRef:
