@@ -21,7 +21,7 @@ clusterGroup:
     amq-streams:
       name: amq-streams
       namespace: xraylab-1
-    
+
     grafana:
       name: grafana-operator
       namespace: xraylab-1
@@ -52,7 +52,7 @@ clusterGroup:
       project: hub
       chart: golang-external-secrets
       chartVersion: 0.1.*
-    
+
     openshift-data-foundations:
       name: odf
       namespace: openshift-storage
@@ -72,7 +72,7 @@ clusterGroup:
       project: medical-diagnosis
       path: charts/all/kafka
 
-    kafka-ui: 
+    kafka-ui:
       name: kafka-ui
       namespace: xraylab-1
       project: medical-diagnosis
@@ -102,10 +102,10 @@ clusterGroup:
       project: medical-diagnosis
       path: charts/all/medical-diagnosis/image-server
       ignoreDifferences:
-      - group: apps.openshift.io
-        kind: DeploymentConfig
+      - group: apps
+        kind: Deployment
         jqPathExpressions:
-        - '.spec.template.spec.containers[].image'
+        - .spec.template.spec.containers[].image
 
     xraylab-image-generator:
       name: xraylab-image-generator
@@ -113,10 +113,11 @@ clusterGroup:
       project: medical-diagnosis
       path: charts/all/medical-diagnosis/image-generator
       ignoreDifferences:
-      - group: apps.openshift.io
-        kind: DeploymentConfig
+      - group: apps
+        kind: Deployment
         jqPathExpressions:
-        - '.spec.template.spec.containers[].image'   
+        - .spec.template.spec.containers[].image
+        - .spec.replicas
 
   imperative:
     # NOTE: We *must* use lists and not hashes. As hashes lose ordering once parsed by helm

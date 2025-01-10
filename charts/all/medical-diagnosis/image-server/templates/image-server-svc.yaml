@@ -11,4 +11,4 @@ spec:
       port: 80
       targetPort: 5000
   selector:
-    name: image-server
+    app: image-server
