@@ -3,8 +3,6 @@ kind: GrafanaDatasource
 metadata:
   name: mysql-grafana-datasource
   namespace: {{ .Values.global.xraylab.namespace }}
-  annotations:
-    argocd.argoproj.io/hook: PostSync
 spec:
   valuesFrom:
     - targetPath: "user"
@@ -31,12 +29,11 @@ spec:
     matchLabels:
       dashboards: "grafana"
   datasource:
-    type: {{ .Values.dataSources.type }}
-    name: {{ .Values.dataSources.name }}
-    access: {{ .Values.dataSources.access }}
+    type: mysql
+    name: MySQL
+    access: proxy
     url: ${GF_DATASRC_URL}
     database: ${GF_DATASRC_DB}
     user: ${GF_DATASRC_USER}
     secureJsonData:
       password: ${GF_DATASRC_PASSWORD}
-  name: mysql-grafana-datasource.yaml

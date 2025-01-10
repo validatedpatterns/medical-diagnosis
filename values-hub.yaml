@@ -72,23 +72,17 @@ clusterGroup:
       project: medical-diagnosis
       path: charts/all/kafka
 
-    kafdrop: 
-      name: kafdrop
+    kafka-ui: 
+      name: kafka-ui
       namespace: xraylab-1
       project: medical-diagnosis
       path: charts/all/kafdrop
 
-    service-account:
-      name: xraylab-service-account
+    xraylab-risk-assessment:
+      name: xraylab-risk-assessment
       namespace: xraylab-1
       project: medical-diagnosis
-      path: charts/all/medical-diagnosis/service-account
-
-    xraylab-init:
-      name: xraylab-init
-      namespace: xraylab-1
-      project: medical-diagnosis
-      path: charts/all/medical-diagnosis/xray-init
+      path: charts/all/medical-diagnosis/risk-assessment
 
     xraylab-database:
       name: xraylab-database

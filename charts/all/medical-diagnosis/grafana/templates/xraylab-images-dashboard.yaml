@@ -6,8 +6,6 @@ metadata:
     grafana: dashboard
   name: xraylab-images-dashboard
   namespace: {{ .Values.global.xraylab.namespace }}
-  annotations:
-    argocd.argoproj.io/sync-wave: "2"
 spec:
   instanceSelector:
     matchLabels:

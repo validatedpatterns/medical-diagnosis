@@ -12,8 +12,6 @@ This chart utilizes custom RBAC policies in order to properly execute the job. A
 |rbac|name|roleBinding|serviceAccount|namespace|
 |----|----|-----------|--------------|---------|
 |clusterRole|cluster-monitoring-view|cluster-monitoring-view|xraylab-1/grafana-serviceaccount|n/a(clusterRole)|
-|role|grafana-mgmt|grafana-mgmt|grafana-serviceaccount|xraylab-1|
-|role|grafana-read-secrets|grafana-read-secrets|grafana-serviceaccount|xraylab-1|
 
 ## Dependencies
 

@@ -1,0 +1,36 @@
+global:
+  xraylab:
+    namespace: xraylab-1
+    s3:
+      bucketBaseName: ""
+  datacenter:
+    storageClassName: gp2
+    region: ""
+
+secretStore:
+  name: vault-backend
+  kind: ClusterSecretStore
+
+objectStore:
+  user:
+    name: xraylab-1
+    displayName: "XRaylab-1 RGW User"
+  name: ocs-storagecluster-cephobjectstore
+  namespace: openshift-storage
+
+jobs:
+  s3_bucket_init:
+    image: quay.io/hybridcloudpatterns/utility-container:latest
+
+kafkaSource:
+  bootstrapserver: "xray-cluster-kafka-bootstrap.xraylab-1.svc:9092"
+  name: "xray-images"
+  consumerGroup: "risk-assessment"
+  serviceOdfUrl: "http://rook-ceph-rgw-ocs-storagecluster-cephobjectstore.openshift-storage.svc.cluster.local"
+  externalOdfUrl: "https://s3-rgw-openshift-storage"
+
+imageStream:
+  tags:
+    name: latest
+  from:
+    name: "quay.io/rh-data-services/xraylab-risk-assessment:latest"
