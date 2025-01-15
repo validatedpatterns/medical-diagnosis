@@ -1,0 +1,87 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    argocd.argoproj.io/compare-options: IgnoreExtraneous
+    argocd.argoproj.io/sync-wave: '5'
+  name: image-generator
+  namespace: {{ .Values.global.xraylab.namespace }}
+spec:
+  replicas: 0
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      app: image-generator
+  template:
+    metadata:
+      labels:
+        app: image-generator
+    spec:
+      containers:
+      - env:
+        - name: SECONDS_WAIT
+          value: '10'
+        - name: AWS_ACCESS_KEY_ID
+          valueFrom:
+            secretKeyRef:
+              key: AWS_ACCESS_KEY_ID
+              name: s3-secret-bck
+        - name: AWS_SECRET_ACCESS_KEY
+          valueFrom:
+            secretKeyRef:
+              key: AWS_SECRET_ACCESS_KEY
+              name: s3-secret-bck
+        - name: SERVICE_POINT
+          valueFrom:
+            configMapKeyRef:
+              key: url
+              name: service-point
+        - name: DATABASE_USER
+          valueFrom:
+            secretKeyRef:
+              key: database-user
+              name: db-secret
+        - name: DATABASE_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: database-password
+              name: db-secret
+        - name: DATABASE_HOST
+          valueFrom:
+            secretKeyRef:
+              key: database-host
+              name: db-secret
+        - name: DATABASE_DB
+          valueFrom:
+            secretKeyRef:
+              key: database-db
+              name: db-secret
+        - name: BUCKET_BASE_NAME
+          valueFrom:
+            configMapKeyRef:
+              key: bucket-base-name
+              name: buckets-config
+        - name: BUCKET_SOURCE
+          valueFrom:
+            configMapKeyRef:
+              key: bucket-source
+              name: buckets-config
+        image: image-generator:latest
+        imagePullPolicy: IfNotPresent
+        name: image-generator
+        resources:
+          limits:
+            cpu: '2'
+            memory: 1G
+          requests:
+            cpu: 400m
+            memory: 100M
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+

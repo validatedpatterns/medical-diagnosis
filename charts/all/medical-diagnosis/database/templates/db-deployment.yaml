@@ -17,8 +17,8 @@ spec:
   storageClassName: {{ .Values.global.datacenter.storageClassName }}
   volumeMode: Filesystem
 ---
-kind: DeploymentConfig
-apiVersion: apps.openshift.io/v1
+kind: Deployment
+apiVersion: apps/v1
 metadata:
   name: {{ .Values.database.name }}
   namespace: "{{ .Values.global.xraylab.namespace }}"
@@ -30,17 +30,11 @@ metadata:
 spec:
   strategy:
     type: Recreate
-    recreateParams:
-      timeoutSeconds: 600
-    resources: {}
-    activeDeadlineSeconds: 21600
-  triggers:
-    - type: ConfigChange
   replicas: 1
   revisionHistoryLimit: 3
-  test: false
   selector:
-    app: {{ .Values.database.name }}
+    matchLabels:
+      app: {{ .Values.database.name }}
   template:
     metadata:
       labels:

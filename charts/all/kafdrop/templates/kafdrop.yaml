@@ -1,11 +1,12 @@
-apiVersion: apps.openshift.io/v1
-kind: DeploymentConfig
+apiVersion: apps/v1
+kind: Deployment
 metadata:
   name: {{ .Values.kafka.app }}
   namespace: {{ .Values.global.xraylab.namespace }}
 spec:
   selector:
-    app: {{ .Values.kafka.app }}
+    matchLabels:
+      app: {{ .Values.kafka.app }}
   replicas: {{ .Values.kafka.deployment.replicas }}
   template:
     metadata:
