@@ -327,45 +327,115 @@ spec:
           "type": "table"
         },
         {
-          "datasource": null,
+          "id": 24,
+          "type": "dalvany-image-panel",
+          "title": "Last uploaded image",
+          "gridPos": {
+            "x": 20,
+            "y": 0,
+            "h": 7,
+            "w": 4
+          },
           "fieldConfig": {
-            "defaults": {
-              "custom": {}
-            },
+            "defaults": {},
             "overrides": []
           },
-          "gridPos": {
-            "h": 7,
-            "w": 4,
-            "x": 20,
-            "y": 0
+          "pluginVersion": "4.0.0",
+          "targets": [
+            {
+              "refId": "A",
+              "datasource": "MySQL",
+              "format": "table",
+              "rawSql": "SELECT name FROM xraylabdb.images_uploaded WHERE name != '' ORDER by time DESC LIMIT 1",
+              "editorMode": "code",
+              "sql": {
+                "columns": [
+                  {
+                    "type": "function",
+                    "parameters": []
+                  }
+                ],
+                "groupBy": [
+                  {
+                    "type": "groupBy",
+                    "property": {
+                      "type": "string"
+                    }
+                  }
+                ],
+                "limit": 50
+              },
+              "dataset": "xraylabdb",
+              "rawQuery": true
+            }
+          ],
+          "options": {
+            "icon_field": "",
+            "autofit": true,
+            "width": "75",
+            "height": "75",
+            "singleFill": true,
+            "alt_field": "",
+            "shared_cross_hair": {
+              "backgroundColor": "#FFFFFF10",
+              "borderColor": "#FFFFFF20"
+            },
+            "slideshow": {
+              "enable": false,
+              "duration": 5000,
+              "transition": "Slide",
+              "transition_duration": 1000,
+              "pauseOnHover": true,
+              "infinite": true
+            },
+            "tooltip": false,
+            "tooltip_include_field": true,
+            "tooltip_field": "",
+            "tooltip_include_date": false,
+            "tooltip_date_elapsed": false,
+            "open_url": {
+              "enable": true,
+              "open_in_tab": true,
+              "base_url": "https://s3-rgw-openshift-storage.{{ .Values.global.localClusterDomain }}/{{ .Values.global.xraylab.s3.bucketBaseName }}",
+              "metric_field": "name",
+              "suffix": ""
+            },
+            "overlay": {
+              "field": "",
+              "position": "Top right",
+              "width": {
+                "size": 5,
+                "unit": "%"
+              },
+              "height": {
+                "size": 5,
+                "unit": "%"
+              },
+              "bindings": {
+                "bindings": [],
+                "unbounded": "#66666620",
+                "has_text": true
+              }
+            },
+            "underline": {
+              "field": "",
+              "text_size": "14",
+              "text_align": "left",
+              "bindings_field": "",
+              "bindings": {
+                "bindings": [],
+                "unbounded": "#CCCCDCFF",
+                "has_text": true
+              }
+            },
+            "baseUrl": "https://s3-rgw-openshift-storage.{{ .Values.global.localClusterDomain }}/{{ .Values.global.xraylab.s3.bucketBaseName }}/"
           },
-          "header_js": "{}",
-          "id": 24,
           "links": [
             {
               "title": "Last Images",
               "url": "/d/lastimagesdashboard/last-images"
             }
-          ],
-          "method": "iframe",
-          "mode": "html",
-          "params_js": "{\n __now:Date.now(),\n}",
-          "request": "http",
-          "responseType": "text",
-          "showErrors": true,
-          "showTime": true,
-          "showTimeFormat": "LTS",
-          "showTimePrefix": null,
-          "showTimeValue": "request",
-          "skipSameURL": false,
-          "templateResponse": true,
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "Last uploaded image",
-          "type": "ryantxu-ajax-panel",
-          "url": "https://image-server-xraylab-1.{{ .Values.global.localClusterDomain }}/last_image_small/{{ .Values.global.xraylab.s3.bucketBaseName }}",
-          "withCredentials": false
+          ]
         },
         {
           "columns": [],
@@ -451,45 +521,115 @@ spec:
           "type": "table"
         },
         {
-          "datasource": null,
-          "fieldConfig": {
-            "defaults": {
-              "custom": {}
-            },
-            "overrides": []
-          },
+          "id": 25,
+          "type": "dalvany-image-panel",
+          "title": "Last processed image",
           "gridPos": {
             "h": 7,
             "w": 4,
             "x": 20,
             "y": 7
           },
-          "header_js": "{}",
-          "id": 25,
+          "fieldConfig": {
+            "defaults": {},
+            "overrides": []
+          },
+          "pluginVersion": "4.0.0",
+          "targets": [
+            {
+              "refId": "A",
+              "datasource": "MySQL",
+              "format": "table",
+              "rawSql": "SELECT name FROM xraylabdb.images_processed WHERE name != '' ORDER by time DESC LIMIT 1",
+              "editorMode": "code",
+              "sql": {
+                "columns": [
+                  {
+                    "type": "function",
+                    "parameters": []
+                  }
+                ],
+                "groupBy": [
+                  {
+                    "type": "groupBy",
+                    "property": {
+                      "type": "string"
+                    }
+                  }
+                ],
+                "limit": 50
+              },
+              "dataset": "xraylabdb",
+              "rawQuery": true
+            }
+          ],
+          "options": {
+            "icon_field": "",
+            "autofit": true,
+            "width": "75",
+            "height": "75",
+            "singleFill": true,
+            "alt_field": "",
+            "shared_cross_hair": {
+              "backgroundColor": "#FFFFFF10",
+              "borderColor": "#FFFFFF20"
+            },
+            "slideshow": {
+              "enable": false,
+              "duration": 5000,
+              "transition": "Slide",
+              "transition_duration": 1000,
+              "pauseOnHover": true,
+              "infinite": true
+            },
+            "tooltip": false,
+            "tooltip_include_field": true,
+            "tooltip_field": "",
+            "tooltip_include_date": false,
+            "tooltip_date_elapsed": false,
+            "open_url": {
+              "enable": true,
+              "open_in_tab": true,
+              "base_url": "https://s3-rgw-openshift-storage.{{ .Values.global.localClusterDomain }}/{{ .Values.global.xraylab.s3.bucketBaseName }}-processed/",
+              "metric_field": "name",
+              "suffix": ""
+            },
+            "overlay": {
+              "field": "",
+              "position": "Top right",
+              "width": {
+                "size": 5,
+                "unit": "%"
+              },
+              "height": {
+                "size": 5,
+                "unit": "%"
+              },
+              "bindings": {
+                "bindings": [],
+                "unbounded": "#66666620",
+                "has_text": true
+              }
+            },
+            "underline": {
+              "field": "",
+              "text_size": "14",
+              "text_align": "left",
+              "bindings_field": "",
+              "bindings": {
+                "bindings": [],
+                "unbounded": "#CCCCDCFF",
+                "has_text": true
+              }
+            },
+            "baseUrl": "https://s3-rgw-openshift-storage.{{ .Values.global.localClusterDomain }}/{{ .Values.global.xraylab.s3.bucketBaseName }}-processed/"
+          },
           "links": [
             {
               "title": "Last Images",
               "url": "/d/lastimagesdashboard/last-images"
             }
-          ],
-          "method": "iframe",
-          "mode": "html",
-          "params_js": "{\n __now:Date.now(),\n}",
-          "request": "http",
-          "responseType": "text",
-          "showErrors": true,
-          "showTime": true,
-          "showTimeFormat": "LTS",
-          "showTimePrefix": null,
-          "showTimeValue": "request",
-          "skipSameURL": false,
-          "templateResponse": true,
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "Last processed image",
-          "type": "ryantxu-ajax-panel",
-          "url": "https://image-server-xraylab-1.{{ .Values.global.localClusterDomain }}/last_image_small/{{ .Values.global.xraylab.s3.bucketBaseName }}-processed",
-          "withCredentials": false
+          ]
         },
         {
           "aliasColors": {},
@@ -897,45 +1037,115 @@ spec:
           "type": "table"
         },
         {
-          "datasource": null,
-          "fieldConfig": {
-            "defaults": {
-              "custom": {}
-            },
-            "overrides": []
-          },
+          "id": 26,
+          "type": "dalvany-image-panel",
+          "title": "Last anonymized image",
           "gridPos": {
             "h": 7,
             "w": 4,
             "x": 20,
             "y": 14
           },
-          "header_js": "{}",
-          "id": 26,
+          "fieldConfig": {
+            "defaults": {},
+            "overrides": []
+          },
+          "pluginVersion": "4.0.0",
+          "targets": [
+            {
+              "refId": "A",
+              "datasource": "MySQL",
+              "format": "table",
+              "rawSql": "SELECT name FROM xraylabdb.images_anonymized WHERE name != '' ORDER by time DESC LIMIT 1",
+              "editorMode": "code",
+              "sql": {
+                "columns": [
+                  {
+                    "type": "function",
+                    "parameters": []
+                  }
+                ],
+                "groupBy": [
+                  {
+                    "type": "groupBy",
+                    "property": {
+                      "type": "string"
+                    }
+                  }
+                ],
+                "limit": 50
+              },
+              "dataset": "xraylabdb",
+              "rawQuery": true
+            }
+          ],
+          "options": {
+            "icon_field": "",
+            "autofit": true,
+            "width": "75",
+            "height": "75",
+            "singleFill": true,
+            "alt_field": "",
+            "shared_cross_hair": {
+              "backgroundColor": "#FFFFFF10",
+              "borderColor": "#FFFFFF20"
+            },
+            "slideshow": {
+              "enable": false,
+              "duration": 5000,
+              "transition": "Slide",
+              "transition_duration": 1000,
+              "pauseOnHover": true,
+              "infinite": true
+            },
+            "tooltip": false,
+            "tooltip_include_field": true,
+            "tooltip_field": "",
+            "tooltip_include_date": false,
+            "tooltip_date_elapsed": false,
+            "open_url": {
+              "enable": true,
+              "open_in_tab": true,
+              "base_url": "https://s3-rgw-openshift-storage.{{ .Values.global.localClusterDomain }}/{{ .Values.global.xraylab.s3.bucketBaseName }}-anonymized/",
+              "metric_field": "name",
+              "suffix": ""
+            },
+            "overlay": {
+              "field": "",
+              "position": "Top right",
+              "width": {
+                "size": 5,
+                "unit": "%"
+              },
+              "height": {
+                "size": 5,
+                "unit": "%"
+              },
+              "bindings": {
+                "bindings": [],
+                "unbounded": "#66666620",
+                "has_text": true
+              }
+            },
+            "underline": {
+              "field": "",
+              "text_size": "14",
+              "text_align": "left",
+              "bindings_field": "",
+              "bindings": {
+                "bindings": [],
+                "unbounded": "#CCCCDCFF",
+                "has_text": true
+              }
+            },
+            "baseUrl": "https://s3-rgw-openshift-storage.{{ .Values.global.localClusterDomain }}/{{ .Values.global.xraylab.s3.bucketBaseName }}-anonymized/"
+          },
           "links": [
             {
               "title": "Last Images",
               "url": "/d/lastimagesdashboard/last-images"
             }
-          ],
-          "method": "iframe",
-          "mode": "html",
-          "params_js": "{\n __now:Date.now(),\n}",
-          "request": "http",
-          "responseType": "text",
-          "showErrors": true,
-          "showTime": true,
-          "showTimeFormat": "LTS",
-          "showTimePrefix": null,
-          "showTimeValue": "request",
-          "skipSameURL": false,
-          "templateResponse": true,
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "Last anonymized image",
-          "type": "ryantxu-ajax-panel",
-          "url": "https://image-server-xraylab-1.{{ .Values.global.localClusterDomain }}/last_image_small/{{ .Values.global.xraylab.s3.bucketBaseName }}-anonymized",
-          "withCredentials": false
+          ]
         },
         {
           "columns": [
@@ -1250,5 +1460,5 @@ spec:
   plugins:
   - name: larona-epict-panel
     version: 2.0.6
-  - name: ryantxu-ajax-panel
-    version: 0.1.0
+  - name: dalvany-image-panel
+    version: 4.0.0
