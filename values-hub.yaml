@@ -96,17 +96,6 @@ clusterGroup:
       project: medical-diagnosis
       path: charts/all/medical-diagnosis/grafana
 
-    xraylab-image-server:
-      name: xraylab-image-server
-      namespace: xraylab-1
-      project: medical-diagnosis
-      path: charts/all/medical-diagnosis/image-server
-      ignoreDifferences:
-      - group: apps
-        kind: Deployment
-        jqPathExpressions:
-        - .spec.template.spec.containers[].image
-
     xraylab-image-generator:
       name: xraylab-image-generator
       namespace: xraylab-1

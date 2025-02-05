@@ -6,7 +6,6 @@ The database chart is a primary component of the medical diagnosis pattern. Ther
 
 - grafana
 - image-generator
-- image-server
 - risk-assessment
 
 ## Additional Information
