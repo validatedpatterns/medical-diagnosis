@@ -16,7 +16,7 @@ global:
       # Values for S3 bucket access
       # bucketSource: "provide s3 bucket name where images are stored"
       bucketSource: validated-patterns-md-xray
-      # Bucket base name used for image-generator and image-server applications.
+      # Bucket base name used for image-generator
       bucketBaseName: "xray-source"
 
 main:

@@ -46,28 +46,99 @@ spec:
             "x": 0,
             "y": 0
           },
-          "header_js": "{}",
           "id": 2,
-          "links": [],
-          "method": "iframe",
-          "mode": "html",
-          "options": {},
-          "params_js": "{\n __now:Date.now(),\n}",
-          "request": "http",
-          "responseType": "text",
-          "showErrors": true,
-          "showTime": true,
-          "showTimeFormat": "LTS",
-          "showTimePrefix": null,
-          "showTimeValue": "request",
-          "skipSameURL": false,
-          "templateResponse": true,
-          "timeFrom": null,
-          "timeShift": null,
+          "options": {
+            "alt_field": "",
+            "autofit": false,
+            "height": "75",
+            "icon_field": "",
+            "baseUrl": "https://s3-rgw-openshift-storage.{{ .Values.global.localClusterDomain }}/{{ .Values.global.xraylab.s3.bucketBaseName }}/",
+            "open_url": {
+              "base_url": "https://s3-rgw-openshift-storage.{{ .Values.global.localClusterDomain }}/{{ .Values.global.xraylab.s3.bucketBaseName }}/",
+              "enable": true,
+              "metric_field": "name",
+              "open_in_tab": true,
+              "suffix": ""
+            },
+            "overlay": {
+              "bindings": {
+                "bindings": [],
+                "has_text": true,
+                "unbounded": "#66666620"
+              },
+              "field": "",
+              "height": {
+                "size": 5,
+                "unit": "%"
+              },
+              "position": "Top right",
+              "width": {
+                "size": 5,
+                "unit": "%"
+              }
+            },
+            "shared_cross_hair": {
+              "backgroundColor": "#FFFFFF10",
+              "borderColor": "#FFFFFF20"
+            },
+            "singleFill": true,
+            "slideshow": {
+              "duration": 5000,
+              "enable": false,
+              "infinite": true,
+              "pauseOnHover": true,
+              "transition": "Slide",
+              "transition_duration": 1000
+            },
+            "tooltip": false,
+            "tooltip_date_elapsed": false,
+            "tooltip_field": "",
+            "tooltip_include_date": false,
+            "tooltip_include_field": true,
+            "underline": {
+              "bindings": {
+                "bindings": [],
+                "has_text": true,
+                "unbounded": "#CCCCDCFF"
+              },
+              "bindings_field": "",
+              "field": "",
+              "text_align": "left",
+              "text_size": "14"
+            },
+            "width": "75"
+          },
+          "pluginVersion": "4.0.0",
+          "targets": [
+            {
+              "dataset": "xraylabdb",
+              "datasource": "MySQL",
+              "editorMode": "code",
+              "format": "table",
+              "rawQuery": true,
+              "rawSql": "SELECT name FROM xraylabdb.images_uploaded WHERE name != '' ORDER by time DESC LIMIT 1",
+              "refId": "A",
+              "sql": {
+                "columns": [
+                  {
+                    "parameters": [],
+                    "type": "function"
+                  }
+                ],
+                "groupBy": [
+                  {
+                    "property": {
+                      "type": "string"
+                    },
+                    "type": "groupBy"
+                  }
+                ],
+                "limit": 50
+              }
+            }
+          ],
           "title": "Last uploaded image",
-          "type": "ryantxu-ajax-panel",
-          "url": "https://image-server-xraylab-1.{{ .Values.global.localClusterDomain }}/last_image_big/{{ .Values.global.xraylab.s3.bucketBaseName }}",
-          "withCredentials": false
+          "type": "dalvany-image-panel"
         },
         {
           "gridPos": {
@@ -76,28 +147,99 @@ spec:
             "x": 8,
             "y": 0
           },
-          "header_js": "{}",
           "id": 3,
-          "links": [],
-          "method": "iframe",
-          "mode": "html",
-          "options": {},
-          "params_js": "{\n __now:Date.now(),\n}",
-          "request": "http",
-          "responseType": "text",
-          "showErrors": true,
-          "showTime": true,
-          "showTimeFormat": "LTS",
-          "showTimePrefix": null,
-          "showTimeValue": "request",
-          "skipSameURL": false,
-          "templateResponse": true,
-          "timeFrom": null,
-          "timeShift": null,
+          "options": {
+            "alt_field": "",
+            "autofit": false,
+            "height": "75",
+            "icon_field": "",
+            "baseUrl": "https://s3-rgw-openshift-storage.{{ .Values.global.localClusterDomain }}/{{ .Values.global.xraylab.s3.bucketBaseName }}-processed/",
+            "open_url": {
+              "base_url": "https://s3-rgw-openshift-storage.{{ .Values.global.localClusterDomain }}/{{ .Values.global.xraylab.s3.bucketBaseName }}-processed/",
+              "enable": true,
+              "metric_field": "name",
+              "open_in_tab": true,
+              "suffix": ""
+            },
+            "overlay": {
+              "bindings": {
+                "bindings": [],
+                "has_text": true,
+                "unbounded": "#66666620"
+              },
+              "field": "",
+              "height": {
+                "size": 5,
+                "unit": "%"
+              },
+              "position": "Top right",
+              "width": {
+                "size": 5,
+                "unit": "%"
+              }
+            },
+            "shared_cross_hair": {
+              "backgroundColor": "#FFFFFF10",
+              "borderColor": "#FFFFFF20"
+            },
+            "singleFill": true,
+            "slideshow": {
+              "duration": 5000,
+              "enable": false,
+              "infinite": true,
+              "pauseOnHover": true,
+              "transition": "Slide",
+              "transition_duration": 1000
+            },
+            "tooltip": false,
+            "tooltip_date_elapsed": false,
+            "tooltip_field": "",
+            "tooltip_include_date": false,
+            "tooltip_include_field": true,
+            "underline": {
+              "bindings": {
+                "bindings": [],
+                "has_text": true,
+                "unbounded": "#CCCCDCFF"
+              },
+              "bindings_field": "",
+              "field": "",
+              "text_align": "left",
+              "text_size": "14"
+            },
+            "width": "75"
+          },
+          "pluginVersion": "4.0.0",
+          "targets": [
+            {
+              "dataset": "xraylabdb",
+              "datasource": "MySQL",
+              "editorMode": "code",
+              "format": "table",
+              "rawQuery": true,
+              "rawSql": "SELECT name FROM xraylabdb.images_processed WHERE name != '' ORDER by time DESC LIMIT 1",
+              "refId": "A",
+              "sql": {
+                "columns": [
+                  {
+                    "parameters": [],
+                    "type": "function"
+                  }
+                ],
+                "groupBy": [
+                  {
+                    "property": {
+                      "type": "string"
+                    },
+                    "type": "groupBy"
+                  }
+                ],
+                "limit": 50
+              }
+            }
+          ],
           "title": "Last processed image",
-          "type": "ryantxu-ajax-panel",
-          "url": "https://image-server-xraylab-1.{{ .Values.global.localClusterDomain }}/last_image_big/{{ .Values.global.xraylab.s3.bucketBaseName }}-processed",
-          "withCredentials": false
+          "type": "dalvany-image-panel"
         },
         {
           "gridPos": {
@@ -106,28 +248,99 @@ spec:
             "x": 16,
             "y": 0
           },
-          "header_js": "{}",
           "id": 4,
-          "links": [],
-          "method": "iframe",
-          "mode": "html",
-          "options": {},
-          "params_js": "{\n __now:Date.now(),\n}",
-          "request": "http",
-          "responseType": "text",
-          "showErrors": true,
-          "showTime": true,
-          "showTimeFormat": "LTS",
-          "showTimePrefix": null,
-          "showTimeValue": "request",
-          "skipSameURL": false,
-          "templateResponse": true,
-          "timeFrom": null,
-          "timeShift": null,
+          "options": {
+            "alt_field": "",
+            "autofit": false,
+            "height": "75",
+            "icon_field": "",
+            "baseUrl": "https://s3-rgw-openshift-storage.{{ .Values.global.localClusterDomain }}/{{ .Values.global.xraylab.s3.bucketBaseName }}-anonymized/",
+            "open_url": {
+              "base_url": "https://s3-rgw-openshift-storage.{{ .Values.global.localClusterDomain }}/{{ .Values.global.xraylab.s3.bucketBaseName }}-anonymized/",
+              "enable": true,
+              "metric_field": "name",
+              "open_in_tab": true,
+              "suffix": ""
+            },
+            "overlay": {
+              "bindings": {
+                "bindings": [],
+                "has_text": true,
+                "unbounded": "#66666620"
+              },
+              "field": "",
+              "height": {
+                "size": 5,
+                "unit": "%"
+              },
+              "position": "Top right",
+              "width": {
+                "size": 5,
+                "unit": "%"
+              }
+            },
+            "shared_cross_hair": {
+              "backgroundColor": "#FFFFFF10",
+              "borderColor": "#FFFFFF20"
+            },
+            "singleFill": true,
+            "slideshow": {
+              "duration": 5000,
+              "enable": false,
+              "infinite": true,
+              "pauseOnHover": true,
+              "transition": "Slide",
+              "transition_duration": 1000
+            },
+            "tooltip": false,
+            "tooltip_date_elapsed": false,
+            "tooltip_field": "",
+            "tooltip_include_date": false,
+            "tooltip_include_field": true,
+            "underline": {
+              "bindings": {
+                "bindings": [],
+                "has_text": true,
+                "unbounded": "#CCCCDCFF"
+              },
+              "bindings_field": "",
+              "field": "",
+              "text_align": "left",
+              "text_size": "14"
+            },
+            "width": "75"
+          },
+          "pluginVersion": "4.0.0",
+          "targets": [
+            {
+              "dataset": "xraylabdb",
+              "datasource": "MySQL",
+              "editorMode": "code",
+              "format": "table",
+              "rawQuery": true,
+              "rawSql": "SELECT name FROM xraylabdb.images_anonymized WHERE name != '' ORDER by time DESC LIMIT 1",
+              "refId": "A",
+              "sql": {
+                "columns": [
+                  {
+                    "parameters": [],
+                    "type": "function"
+                  }
+                ],
+                "groupBy": [
+                  {
+                    "property": {
+                      "type": "string"
+                    },
+                    "type": "groupBy"
+                  }
+                ],
+                "limit": 50
+              }
+            }
+          ],
           "title": "Last anonymized image",
-          "type": "ryantxu-ajax-panel",
-          "url": "https://image-server-xraylab-1.{{ .Values.global.localClusterDomain }}/last_image_big/{{ .Values.global.xraylab.s3.bucketBaseName }}-anonymized",
-          "withCredentials": false
+          "type": "dalvany-image-panel"
         }
       ],
       "refresh": "5s",
@@ -172,5 +385,6 @@ spec:
       "version": 6
     }
   plugins:
-    - name: ryantxu-ajax-panel
-      version: 0.1.0
+    - name: dalvany-image-panel
+      version: 4.0.0
+
