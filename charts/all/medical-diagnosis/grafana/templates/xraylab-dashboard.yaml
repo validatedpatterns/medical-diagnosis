@@ -396,7 +396,7 @@ spec:
             "open_url": {
               "enable": true,
               "open_in_tab": true,
-              "base_url": "https://s3-rgw-openshift-storage.{{ .Values.global.localClusterDomain }}/{{ .Values.global.xraylab.s3.bucketBaseName }}",
+              "base_url": "https://s3-rgw-openshift-storage.{{ .Values.global.localClusterDomain }}/{{ .Values.global.xraylab.s3.bucketBaseName }}/",
               "metric_field": "name",
               "suffix": ""
             },
