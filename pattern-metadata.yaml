@@ -1,0 +1,47 @@
+# This goal of this metadata is mainly used as a source of truth for
+# documentation and qe
+metadata_version: "1.0"
+name: medical-diagnosis
+pattern_version: "1.0"
+display_name: Medical Diagnosis
+repo_url: https://github.com/validatedpatterns/medical-diagnosis
+docs_repo_url: https://github.com/validatedpatterns/docs
+issues_url: https://github.com/validatedpatterns/medical-diagnosis/issues
+docs_url: https://validatedpatterns.io/patterns/medical-diagnosis/
+ci_url: https://validatedpatterns.io/ci/?pattern=medicaldiag
+# can be sandbox, tested or maintained
+tier: maintained
+owners: day0hero
+requirements:
+  hub: # Main cluster
+    compute:
+      platform:
+        gcp:
+          replicas: 5
+          type: n1-standard-16
+        azure:
+          replicas: 5
+          type: Standard_D16s_v3
+        aws:
+          replicas: 5
+          type: m5.4xlarge
+    controlPlane:
+      platform:
+        gcp:
+          replicas: 3
+          type: n1-standard-4
+        azure:
+          replicas: 3
+          type: Standard_D4s_v3
+        aws:
+          replicas: 3
+          type: m5.xlarge
+
+# Loosely defined extra features like hypershift support, non-openshift
+# kubernetes support, spoke support
+extra_features:
+  hypershift_support: false
+  spoke_support: false
+
+external_requirements:
+# external quay, s3 bucket, agof tokens to access paywalled material, manifests, rag-llm hw (only selected regions)
