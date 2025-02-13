@@ -58,7 +58,7 @@ clusterGroup:
       namespace: openshift-storage
       project: medical-diagnosis
       chart: openshift-data-foundations
-      chartVersion: 0.1.*
+      chartVersion: 0.2.*
 
     openshift-serverless:
       name: serverless
