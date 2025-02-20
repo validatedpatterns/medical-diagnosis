@@ -25,14 +25,12 @@ spec:
         ]
       },
       "editable": true,
-      "gnetId": null,
+      "fiscalYearStartMonth": 0,
       "graphTooltip": 0,
       "id": 2,
-      "iteration": 1600370863081,
       "links": [],
       "panels": [
         {
-          "bgColor": null,
           "bgURL": "https://github.com/guimou/datapipelines/raw/main/demos/xray-pipeline-lab/grafana/xraylab-dashboard-panel.png",
           "boxes": [
             {
@@ -103,12 +101,6 @@ spec:
             }
           ],
           "datasource": "MySQL",
-          "fieldConfig": {
-            "defaults": {
-              "custom": {}
-            },
-            "overrides": []
-          },
           "gridPos": {
             "h": 12,
             "w": 12,
@@ -116,9 +108,124 @@ spec:
             "y": 0
           },
           "id": 14,
-          "links": [],
+          "options": {
+            "autoScale": false,
+            "bgURL": "https://github.com/guimou/datapipelines/raw/main/demos/xray-pipeline-lab/grafana/xraylab-dashboard-panel.png",
+            "boxes": [
+              {
+                "angle": "0",
+                "backgroundColor": "#5794F2",
+                "borderColor": "#fff",
+                "borderWidth": 1,
+                "color": "#1F60C4",
+                "colorHigh": "#f00",
+                "colorLow": "#0f0",
+                "colorMedium": "#fa1",
+                "colorSymbol": false,
+                "customSymbol": "",
+                "decimal": 1,
+                "fontSize": "30",
+                "hasBackground": false,
+                "hasBorder": false,
+                "hasOrb": false,
+                "hasSymbol": false,
+                "isUsingThresholds": false,
+                "orbHideText": false,
+                "orbLocation": "Left",
+                "orbSize": "10",
+                "prefixSize": 10,
+                "selected": false,
+                "serie": "images_uploaded",
+                "suffixSize": 10,
+                "symbol": "",
+                "symbolDefHeight": 32,
+                "symbolDefWidth": 32,
+                "symbolHeight": 32,
+                "symbolHideText": false,
+                "symbolWidth": 32,
+                "text": "N/A",
+                "thresholds": "20,60",
+                "xpos": "60",
+                "ypos": "75"
+              },
+              {
+                "angle": 0,
+                "backgroundColor": "#5794F2",
+                "borderColor": "#fff",
+                "borderWidth": 1,
+                "color": "#1F60C4",
+                "colorHigh": "#f00",
+                "colorLow": "#0f0",
+                "colorMedium": "#fa1",
+                "colorSymbol": false,
+                "customSymbol": "",
+                "decimal": 1,
+                "fontSize": "30",
+                "hasBackground": false,
+                "hasBorder": false,
+                "hasOrb": false,
+                "hasSymbol": false,
+                "isUsingThresholds": false,
+                "orbHideText": false,
+                "orbLocation": "Left",
+                "orbSize": "10",
+                "prefixSize": 10,
+                "selected": false,
+                "serie": "images_processed",
+                "suffixSize": 10,
+                "symbol": "",
+                "symbolDefHeight": 32,
+                "symbolDefWidth": 32,
+                "symbolHeight": 32,
+                "symbolHideText": false,
+                "symbolWidth": 32,
+                "text": "N/A",
+                "thresholds": "20,60",
+                "xpos": "250",
+                "ypos": "75"
+              },
+              {
+                "angle": 0,
+                "backgroundColor": "#5794F2",
+                "borderColor": "#fff",
+                "borderWidth": 1,
+                "color": "#1F60C4",
+                "colorHigh": "#f00",
+                "colorLow": "#0f0",
+                "colorMedium": "#fa1",
+                "colorSymbol": false,
+                "customSymbol": "",
+                "decimal": 1,
+                "fontSize": "30",
+                "hasBackground": false,
+                "hasBorder": false,
+                "hasOrb": false,
+                "hasSymbol": false,
+                "isUsingThresholds": false,
+                "orbHideText": false,
+                "orbLocation": "Left",
+                "orbSize": "10",
+                "prefixSize": 10,
+                "selected": false,
+                "serie": "images_anonymized",
+                "suffixSize": 10,
+                "symbol": "",
+                "symbolDefHeight": 32,
+                "symbolDefWidth": 32,
+                "symbolHeight": 32,
+                "symbolHideText": false,
+                "symbolWidth": 32,
+                "text": "N/A",
+                "thresholds": "20,60",
+                "xpos": "470",
+                "ypos": "298"
+              }
+            ]
+          },
+          "pluginVersion": "2.0.6",
           "targets": [
             {
+              "datasource": "MySQL",
               "format": "time_series",
               "group": [
                 {
@@ -161,6 +268,7 @@ spec:
               "where": []
             },
             {
+              "datasource": "MySQL",
               "format": "time_series",
               "group": [],
               "metricColumn": "none",
@@ -189,6 +297,7 @@ spec:
               ]
             },
             {
+              "datasource": "MySQL",
               "format": "time_series",
               "group": [],
               "metricColumn": "none",
@@ -217,8 +326,6 @@ spec:
               ]
             }
           ],
-          "timeFrom": null,
-          "timeShift": null,
           "title": "Pipeline progress",
           "type": "larona-epict-panel"
         },
@@ -227,7 +334,27 @@ spec:
           "datasource": "MySQL",
           "fieldConfig": {
             "defaults": {
-              "custom": {}
+              "custom": {
+                "align": "auto",
+                "cellOptions": {
+                  "type": "auto"
+                },
+                "inspect": false
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
             },
             "overrides": []
           },
@@ -239,8 +366,19 @@ spec:
             "y": 0
           },
           "id": 18,
-          "links": [],
-          "pageSize": null,
+          "options": {
+            "cellHeight": "sm",
+            "footer": {
+              "countRows": false,
+              "fields": "",
+              "reducer": [
+                "sum"
+              ],
+              "show": false
+            },
+            "showHeader": true
+          },
+          "pluginVersion": "10.4.3",
           "scroll": true,
           "showHeader": true,
           "sort": {
@@ -262,7 +400,6 @@ spec:
             {
               "alias": "",
               "align": "auto",
-              "colorMode": null,
               "colors": [
                 "rgba(245, 54, 54, 0.9)",
                 "rgba(237, 129, 40, 0.89)",
@@ -279,7 +416,6 @@ spec:
             {
               "alias": "",
               "align": "auto",
-              "colorMode": null,
               "colors": [
                 "rgba(245, 54, 54, 0.9)",
                 "rgba(237, 129, 40, 0.89)",
@@ -294,6 +430,7 @@ spec:
           ],
           "targets": [
             {
+              "datasource": "MySQL",
               "format": "table",
               "group": [],
               "metricColumn": "none",
@@ -320,129 +457,144 @@ spec:
               ]
             }
           ],
-          "timeFrom": null,
-          "timeShift": null,
           "title": "Last 10 uploaded images",
           "transform": "timeseries_to_rows",
           "type": "table"
         },
         {
-          "id": 24,
-          "type": "dalvany-image-panel",
-          "title": "Last uploaded image",
+          "datasource": "MySQL",
           "gridPos": {
-            "x": 20,
-            "y": 0,
             "h": 7,
-            "w": 4
+            "w": 4,
+            "x": 20,
+            "y": 0
           },
-          "fieldConfig": {
-            "defaults": {},
-            "overrides": []
-          },
-          "pluginVersion": "4.0.0",
-          "targets": [
-            {
-              "refId": "A",
-              "datasource": "MySQL",
-              "format": "table",
-              "rawSql": "SELECT name FROM xraylabdb.images_uploaded WHERE name != '' ORDER by time DESC LIMIT 1",
-              "editorMode": "code",
-              "sql": {
-                "columns": [
-                  {
-                    "type": "function",
-                    "parameters": []
-                  }
-                ],
-                "groupBy": [
-                  {
-                    "type": "groupBy",
-                    "property": {
-                      "type": "string"
-                    }
-                  }
-                ],
-                "limit": 50
-              },
-              "dataset": "xraylabdb",
-              "rawQuery": true
-            }
-          ],
-          "options": {
-            "icon_field": "",
-            "autofit": true,
-            "width": "75",
-            "height": "75",
-            "singleFill": true,
-            "alt_field": "",
-            "shared_cross_hair": {
-              "backgroundColor": "#FFFFFF10",
-              "borderColor": "#FFFFFF20"
-            },
-            "slideshow": {
-              "enable": false,
-              "duration": 5000,
-              "transition": "Slide",
-              "transition_duration": 1000,
-              "pauseOnHover": true,
-              "infinite": true
-            },
-            "tooltip": false,
-            "tooltip_include_field": true,
-            "tooltip_field": "",
-            "tooltip_include_date": false,
-            "tooltip_date_elapsed": false,
-            "open_url": {
-              "enable": true,
-              "open_in_tab": true,
-              "base_url": "https://s3-rgw-openshift-storage.{{ .Values.global.localClusterDomain }}/{{ .Values.global.xraylab.s3.bucketBaseName }}/",
-              "metric_field": "name",
-              "suffix": ""
-            },
-            "overlay": {
-              "field": "",
-              "position": "Top right",
-              "width": {
-                "size": 5,
-                "unit": "%"
-              },
-              "height": {
-                "size": 5,
-                "unit": "%"
-              },
-              "bindings": {
-                "bindings": [],
-                "unbounded": "#66666620",
-                "has_text": true
-              }
-            },
-            "underline": {
-              "field": "",
-              "text_size": "14",
-              "text_align": "left",
-              "bindings_field": "",
-              "bindings": {
-                "bindings": [],
-                "unbounded": "#CCCCDCFF",
-                "has_text": true
-              }
-            },
-            "baseUrl": "https://s3-rgw-openshift-storage.{{ .Values.global.localClusterDomain }}/{{ .Values.global.xraylab.s3.bucketBaseName }}/"
-          },
+          "id": 24,
           "links": [
             {
               "title": "Last Images",
               "url": "/d/lastimagesdashboard/last-images"
             }
-          ]
+          ],
+          "options": {
+            "alt_field": "",
+            "autofit": true,
+            "baseUrl": "https://s3-rgw-openshift-storage.{{ .Values.global.localClusterDomain }}/{{ .Values.global.xraylab.s3.bucketBaseName }}/",
+            "height": "75",
+            "icon_field": "",
+            "open_url": {
+              "base_url": "https://s3-rgw-openshift-storage.{{ .Values.global.localClusterDomain }}/{{ .Values.global.xraylab.s3.bucketBaseName }}/",
+              "enable": true,
+              "metric_field": "name",
+              "open_in_tab": true,
+              "suffix": ""
+            },
+            "overlay": {
+              "bindings": {
+                "bindings": [],
+                "has_text": true,
+                "unbounded": "#66666620"
+              },
+              "field": "",
+              "height": {
+                "size": 5,
+                "unit": "%"
+              },
+              "position": "Top right",
+              "width": {
+                "size": 5,
+                "unit": "%"
+              }
+            },
+            "shared_cross_hair": {
+              "backgroundColor": "#FFFFFF10",
+              "borderColor": "#FFFFFF20"
+            },
+            "singleFill": true,
+            "slideshow": {
+              "duration": 5000,
+              "enable": false,
+              "infinite": true,
+              "pauseOnHover": true,
+              "transition": "Slide",
+              "transition_duration": 1000
+            },
+            "tooltip": false,
+            "tooltip_date_elapsed": false,
+            "tooltip_field": "",
+            "tooltip_include_date": false,
+            "tooltip_include_field": true,
+            "underline": {
+              "bindings": {
+                "bindings": [],
+                "has_text": true,
+                "unbounded": "#CCCCDCFF"
+              },
+              "bindings_field": "",
+              "field": "",
+              "text_align": "left",
+              "text_size": "14"
+            },
+            "width": "75"
+          },
+          "pluginVersion": "4.0.0",
+          "targets": [
+            {
+              "dataset": "xraylabdb",
+              "datasource": "MySQL",
+              "editorMode": "code",
+              "format": "table",
+              "rawQuery": true,
+              "rawSql": "SELECT name FROM xraylabdb.images_uploaded WHERE name != '' ORDER by time DESC LIMIT 1",
+              "refId": "A",
+              "sql": {
+                "columns": [
+                  {
+                    "parameters": [],
+                    "type": "function"
+                  }
+                ],
+                "groupBy": [
+                  {
+                    "property": {
+                      "type": "string"
+                    },
+                    "type": "groupBy"
+                  }
+                ],
+                "limit": 50
+              }
+            }
+          ],
+          "title": "Last uploaded image",
+          "type": "dalvany-image-panel"
         },
         {
           "columns": [],
           "datasource": "MySQL",
           "fieldConfig": {
             "defaults": {
-              "custom": {}
+              "custom": {
+                "align": "auto",
+                "cellOptions": {
+                  "type": "auto"
+                },
+                "inspect": false
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
             },
             "overrides": []
           },
@@ -454,8 +606,19 @@ spec:
             "y": 7
           },
           "id": 19,
-          "links": [],
-          "pageSize": null,
+          "options": {
+            "cellHeight": "sm",
+            "footer": {
+              "countRows": false,
+              "fields": "",
+              "reducer": [
+                "sum"
+              ],
+              "show": false
+            },
+            "showHeader": true
+          },
+          "pluginVersion": "10.4.3",
           "scroll": true,
           "showHeader": true,
           "sort": {
@@ -473,7 +636,6 @@ spec:
             {
               "alias": "",
               "align": "auto",
-              "colorMode": null,
               "colors": [
                 "rgba(245, 54, 54, 0.9)",
                 "rgba(237, 129, 40, 0.89)",
@@ -488,6 +650,7 @@ spec:
           ],
           "targets": [
             {
+              "datasource": "MySQL",
               "format": "table",
               "group": [],
               "metricColumn": "none",
@@ -514,186 +677,227 @@ spec:
               ]
             }
           ],
-          "timeFrom": null,
-          "timeShift": null,
           "title": "Last 10 processed images",
           "transform": "timeseries_to_rows",
           "type": "table"
         },
         {
-          "id": 25,
-          "type": "dalvany-image-panel",
-          "title": "Last processed image",
+          "datasource": "MySQL",
           "gridPos": {
             "h": 7,
             "w": 4,
             "x": 20,
             "y": 7
           },
-          "fieldConfig": {
-            "defaults": {},
-            "overrides": []
-          },
-          "pluginVersion": "4.0.0",
-          "targets": [
-            {
-              "refId": "A",
-              "datasource": "MySQL",
-              "format": "table",
-              "rawSql": "SELECT name FROM xraylabdb.images_processed WHERE name != '' ORDER by time DESC LIMIT 1",
-              "editorMode": "code",
-              "sql": {
-                "columns": [
-                  {
-                    "type": "function",
-                    "parameters": []
-                  }
-                ],
-                "groupBy": [
-                  {
-                    "type": "groupBy",
-                    "property": {
-                      "type": "string"
-                    }
-                  }
-                ],
-                "limit": 50
-              },
-              "dataset": "xraylabdb",
-              "rawQuery": true
-            }
-          ],
-          "options": {
-            "icon_field": "",
-            "autofit": true,
-            "width": "75",
-            "height": "75",
-            "singleFill": true,
-            "alt_field": "",
-            "shared_cross_hair": {
-              "backgroundColor": "#FFFFFF10",
-              "borderColor": "#FFFFFF20"
-            },
-            "slideshow": {
-              "enable": false,
-              "duration": 5000,
-              "transition": "Slide",
-              "transition_duration": 1000,
-              "pauseOnHover": true,
-              "infinite": true
-            },
-            "tooltip": false,
-            "tooltip_include_field": true,
-            "tooltip_field": "",
-            "tooltip_include_date": false,
-            "tooltip_date_elapsed": false,
-            "open_url": {
-              "enable": true,
-              "open_in_tab": true,
-              "base_url": "https://s3-rgw-openshift-storage.{{ .Values.global.localClusterDomain }}/{{ .Values.global.xraylab.s3.bucketBaseName }}-processed/",
-              "metric_field": "name",
-              "suffix": ""
-            },
-            "overlay": {
-              "field": "",
-              "position": "Top right",
-              "width": {
-                "size": 5,
-                "unit": "%"
-              },
-              "height": {
-                "size": 5,
-                "unit": "%"
-              },
-              "bindings": {
-                "bindings": [],
-                "unbounded": "#66666620",
-                "has_text": true
-              }
-            },
-            "underline": {
-              "field": "",
-              "text_size": "14",
-              "text_align": "left",
-              "bindings_field": "",
-              "bindings": {
-                "bindings": [],
-                "unbounded": "#CCCCDCFF",
-                "has_text": true
-              }
-            },
-            "baseUrl": "https://s3-rgw-openshift-storage.{{ .Values.global.localClusterDomain }}/{{ .Values.global.xraylab.s3.bucketBaseName }}-processed/"
-          },
+          "id": 25,
           "links": [
             {
               "title": "Last Images",
               "url": "/d/lastimagesdashboard/last-images"
             }
-          ]
+          ],
+          "options": {
+            "alt_field": "",
+            "autofit": true,
+            "baseUrl": "https://s3-rgw-openshift-storage.{{ .Values.global.localClusterDomain }}/{{ .Values.global.xraylab.s3.bucketBaseName }}-processed/",
+            "height": "75",
+            "icon_field": "",
+            "open_url": {
+              "base_url": "https://s3-rgw-openshift-storage.{{ .Values.global.localClusterDomain }}/{{ .Values.global.xraylab.s3.bucketBaseName }}-processed/",
+              "enable": true,
+              "metric_field": "name",
+              "open_in_tab": true,
+              "suffix": ""
+            },
+            "overlay": {
+              "bindings": {
+                "bindings": [],
+                "has_text": true,
+                "unbounded": "#66666620"
+              },
+              "field": "",
+              "height": {
+                "size": 5,
+                "unit": "%"
+              },
+              "position": "Top right",
+              "width": {
+                "size": 5,
+                "unit": "%"
+              }
+            },
+            "shared_cross_hair": {
+              "backgroundColor": "#FFFFFF10",
+              "borderColor": "#FFFFFF20"
+            },
+            "singleFill": true,
+            "slideshow": {
+              "duration": 5000,
+              "enable": false,
+              "infinite": true,
+              "pauseOnHover": true,
+              "transition": "Slide",
+              "transition_duration": 1000
+            },
+            "tooltip": false,
+            "tooltip_date_elapsed": false,
+            "tooltip_field": "",
+            "tooltip_include_date": false,
+            "tooltip_include_field": true,
+            "underline": {
+              "bindings": {
+                "bindings": [],
+                "has_text": true,
+                "unbounded": "#CCCCDCFF"
+              },
+              "bindings_field": "",
+              "field": "",
+              "text_align": "left",
+              "text_size": "14"
+            },
+            "width": "75"
+          },
+          "pluginVersion": "4.0.0",
+          "targets": [
+            {
+              "dataset": "xraylabdb",
+              "datasource": "MySQL",
+              "editorMode": "code",
+              "format": "table",
+              "rawQuery": true,
+              "rawSql": "SELECT name FROM xraylabdb.images_processed WHERE name != '' ORDER by time DESC LIMIT 1",
+              "refId": "A",
+              "sql": {
+                "columns": [
+                  {
+                    "parameters": [],
+                    "type": "function"
+                  }
+                ],
+                "groupBy": [
+                  {
+                    "property": {
+                      "type": "string"
+                    },
+                    "type": "groupBy"
+                  }
+                ],
+                "limit": 50
+              }
+            }
+          ],
+          "title": "Last processed image",
+          "type": "dalvany-image-panel"
         },
         {
-          "aliasColors": {},
-          "bars": false,
-          "dashLength": 10,
-          "dashes": false,
           "datasource": "$datasource",
           "fieldConfig": {
             "defaults": {
-              "custom": {},
-              "links": []
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "CPU",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "never",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "links": [],
+              "mappings": [],
+              "min": 0,
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "short"
             },
-            "overrides": []
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "RAM"
+                },
+                "properties": [
+                  {
+                    "id": "unit",
+                    "value": "bytes"
+                  },
+                  {
+                    "id": "custom.axisLabel",
+                    "value": "RAM"
+                  }
+                ]
+              }
+            ]
           },
-          "fill": 0,
-          "fillGradient": 0,
           "gridPos": {
             "h": 5,
             "w": 4,
             "x": 0,
             "y": 12
           },
-          "hiddenSeries": false,
           "id": 10,
-          "legend": {
-            "avg": false,
-            "current": false,
-            "max": false,
-            "min": false,
-            "rightSide": true,
-            "show": true,
-            "total": false,
-            "values": false
-          },
-          "lines": true,
-          "linewidth": 1,
-          "links": [],
-          "nullPointMode": "null as zero",
-          "percentage": false,
-          "pluginVersion": "7.1.1",
-          "pointradius": 5,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [
-            {
-              "alias": "RAM",
-              "yaxis": 2
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "list",
+              "placement": "right",
+              "showLegend": true
+            },
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
             }
-          ],
-          "spaceLength": 10,
-          "stack": false,
-          "steppedLine": false,
+          },
+          "pluginVersion": "10.4.3",
           "targets": [
             {
+              "datasource": "$datasource",
               "expr": "sum(pod:container_cpu_usage:sum{namespace='$namespace'})",
               "format": "time_series",
               "instant": false,
               "intervalFactor": 1,
               "legendFormat": " CPU",
-              "legendLink": null,
               "refId": "A",
               "step": 10
             },
             {
+              "datasource": "$datasource",
               "expr": "sum(container_memory_working_set_bytes{namespace='$namespace'})",
               "format": "time_series",
               "intervalFactor": 1,
@@ -701,65 +905,26 @@ spec:
               "refId": "B"
             }
           ],
-          "thresholds": [],
-          "timeFrom": null,
-          "timeRegions": [],
-          "timeShift": null,
           "title": "CPU  and RAM Usage",
-          "tooltip": {
-            "shared": false,
-            "sort": 0,
-            "value_type": "individual"
-          },
-          "type": "graph",
-          "xaxis": {
-            "buckets": null,
-            "mode": "time",
-            "name": null,
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "format": "short",
-              "label": "CPU",
-              "logBase": 1,
-              "max": null,
-              "min": 0,
-              "show": true
-            },
-            {
-              "format": "bytes",
-              "label": "RAM",
-              "logBase": 1,
-              "max": null,
-              "min": "0",
-              "show": true
-            }
-          ],
-          "yaxis": {
-            "align": false,
-            "alignLevel": null
-          }
+          "type": "timeseries"
         },
         {
-          "cacheTimeout": null,
           "datasource": "prometheus",
           "fieldConfig": {
             "defaults": {
-              "custom": {},
               "mappings": [
                 {
-                  "id": 0,
-                  "op": "=",
-                  "text": "N/A",
-                  "type": 1,
-                  "value": "null"
+                  "options": {
+                    "match": "null",
+                    "result": {
+                      "text": "N/A"
+                    }
+                  },
+                  "type": "special"
                 }
               ],
               "max": 10,
               "min": 0,
-              "nullValueMode": "connected",
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
@@ -789,8 +954,9 @@ spec:
           },
           "id": 2,
           "interval": "",
-          "links": [],
           "options": {
+            "minVizHeight": 75,
+            "minVizWidth": 75,
             "orientation": "horizontal",
             "reduceOptions": {
               "calcs": [
@@ -800,11 +966,13 @@ spec:
               "values": false
             },
             "showThresholdLabels": true,
-            "showThresholdMarkers": true
+            "showThresholdMarkers": true,
+            "sizing": "auto"
           },
-          "pluginVersion": "7.1.1",
+          "pluginVersion": "10.4.3",
           "targets": [
             {
+              "datasource": "prometheus",
               "expr": "count(kube_pod_info{pod=~\"risk-assessment.*\",namespace=~'$namespace'})",
               "format": "time_series",
               "instant": true,
@@ -814,151 +982,147 @@ spec:
               "refId": "A"
             }
           ],
-          "timeFrom": null,
-          "timeShift": null,
           "title": "Risk assessment containers running",
           "type": "gauge"
         },
         {
-          "aliasColors": {},
-          "bars": false,
-          "dashLength": 10,
-          "dashes": false,
           "datasource": "MySQL",
           "fieldConfig": {
             "defaults": {
-              "custom": {},
-              "links": []
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 100,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "linear",
+                "lineWidth": 0,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "never",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "normal"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "decimals": 0,
+              "links": [],
+              "mappings": [],
+              "min": 0,
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "none"
             },
             "overrides": []
           },
-          "fill": 10,
-          "fillGradient": 0,
           "gridPos": {
             "h": 5,
             "w": 5,
             "x": 7,
             "y": 12
           },
-          "hiddenSeries": false,
           "id": 4,
           "interval": "10s",
-          "legend": {
-            "alignAsTable": false,
-            "avg": false,
-            "current": false,
-            "max": false,
-            "min": false,
-            "rightSide": true,
-            "show": true,
-            "total": false,
-            "values": false
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "list",
+              "placement": "right",
+              "showLegend": true
+            },
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
           },
-          "lines": true,
-          "linewidth": 0,
-          "links": [],
-          "nullPointMode": "null as zero",
-          "percentage": false,
-          "pluginVersion": "7.1.1",
-          "pointradius": 5,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [],
-          "spaceLength": 10,
-          "stack": true,
-          "steppedLine": false,
+          "pluginVersion": "10.4.3",
           "targets": [
             {
+              "dataset": "xraylabdb",
+              "datasource": "MySQL",
+              "editorMode": "code",
               "format": "time_series",
-              "group": [
-                {
-                  "params": [
-                    "$__interval",
-                    "none"
-                  ],
-                  "type": "time"
-                }
-              ],
-              "metricColumn": "label",
               "rawQuery": true,
               "rawSql": "SELECT\n  $__timeGroupAlias(time,$__interval),\n  label AS metric,\n  count(label)\nFROM images_processed\nWHERE\n  $__timeFilter(time)\n  and\n label != ''\nGROUP BY 1,2\nORDER BY $__timeGroup(time,$__interval)",
               "refId": "A",
-              "select": [
-                [
+              "sql": {
+                "columns": [
                   {
-                    "params": [
-                      "label"
-                    ],
-                    "type": "column"
-                  },
-                  {
-                    "params": [
-                      "count"
-                    ],
-                    "type": "aggregate"
+                    "parameters": [],
+                    "type": "function"
                   }
-                ]
-              ],
-              "table": "images_processed",
-              "timeColumn": "time",
-              "timeColumnType": "timestamp",
-              "where": [
-                {
-                  "name": "$__timeFilter",
-                  "params": [],
-                  "type": "macro"
-                }
-              ]
+                ],
+                "groupBy": [
+                  {
+                    "property": {
+                      "type": "string"
+                    },
+                    "type": "groupBy"
+                  }
+                ],
+                "limit": 50
+              }
             }
           ],
-          "thresholds": [],
-          "timeFrom": null,
-          "timeRegions": [],
-          "timeShift": null,
           "title": "Risk distribution",
-          "tooltip": {
-            "shared": false,
-            "sort": 0,
-            "value_type": "individual"
-          },
-          "type": "graph",
-          "xaxis": {
-            "buckets": null,
-            "mode": "time",
-            "name": null,
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "decimals": 0,
-              "format": "none",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": 0,
-              "show": true
-            },
-            {
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": false
-            }
-          ],
-          "yaxis": {
-            "align": false,
-            "alignLevel": null
-          }
+          "type": "timeseries"
         },
         {
           "columns": [],
           "datasource": "MySQL",
           "fieldConfig": {
             "defaults": {
-              "custom": {}
+              "custom": {
+                "align": "auto",
+                "cellOptions": {
+                  "type": "auto"
+                },
+                "inspect": false
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
             },
             "overrides": []
           },
@@ -970,8 +1134,19 @@ spec:
             "y": 14
           },
           "id": 20,
-          "links": [],
-          "pageSize": null,
+          "options": {
+            "cellHeight": "sm",
+            "footer": {
+              "countRows": false,
+              "fields": "",
+              "reducer": [
+                "sum"
+              ],
+              "show": false
+            },
+            "showHeader": true
+          },
+          "pluginVersion": "10.4.3",
           "scroll": true,
           "showHeader": true,
           "sort": {
@@ -989,7 +1164,6 @@ spec:
             {
               "alias": "",
               "align": "auto",
-              "colorMode": null,
               "colors": [
                 "rgba(245, 54, 54, 0.9)",
                 "rgba(237, 129, 40, 0.89)",
@@ -1004,6 +1178,7 @@ spec:
           ],
           "targets": [
             {
+              "datasource": "MySQL",
               "format": "table",
               "group": [],
               "metricColumn": "none",
@@ -1030,122 +1205,117 @@ spec:
               ]
             }
           ],
-          "timeFrom": null,
-          "timeShift": null,
           "title": "Last 10 anonymized images",
           "transform": "timeseries_to_rows",
           "type": "table"
         },
         {
-          "id": 26,
-          "type": "dalvany-image-panel",
-          "title": "Last anonymized image",
+          "datasource": "MySQL",
           "gridPos": {
             "h": 7,
             "w": 4,
             "x": 20,
             "y": 14
           },
-          "fieldConfig": {
-            "defaults": {},
-            "overrides": []
-          },
-          "pluginVersion": "4.0.0",
-          "targets": [
-            {
-              "refId": "A",
-              "datasource": "MySQL",
-              "format": "table",
-              "rawSql": "SELECT name FROM xraylabdb.images_anonymized WHERE name != '' ORDER by time DESC LIMIT 1",
-              "editorMode": "code",
-              "sql": {
-                "columns": [
-                  {
-                    "type": "function",
-                    "parameters": []
-                  }
-                ],
-                "groupBy": [
-                  {
-                    "type": "groupBy",
-                    "property": {
-                      "type": "string"
-                    }
-                  }
-                ],
-                "limit": 50
-              },
-              "dataset": "xraylabdb",
-              "rawQuery": true
-            }
-          ],
-          "options": {
-            "icon_field": "",
-            "autofit": true,
-            "width": "75",
-            "height": "75",
-            "singleFill": true,
-            "alt_field": "",
-            "shared_cross_hair": {
-              "backgroundColor": "#FFFFFF10",
-              "borderColor": "#FFFFFF20"
-            },
-            "slideshow": {
-              "enable": false,
-              "duration": 5000,
-              "transition": "Slide",
-              "transition_duration": 1000,
-              "pauseOnHover": true,
-              "infinite": true
-            },
-            "tooltip": false,
-            "tooltip_include_field": true,
-            "tooltip_field": "",
-            "tooltip_include_date": false,
-            "tooltip_date_elapsed": false,
-            "open_url": {
-              "enable": true,
-              "open_in_tab": true,
-              "base_url": "https://s3-rgw-openshift-storage.{{ .Values.global.localClusterDomain }}/{{ .Values.global.xraylab.s3.bucketBaseName }}-anonymized/",
-              "metric_field": "name",
-              "suffix": ""
-            },
-            "overlay": {
-              "field": "",
-              "position": "Top right",
-              "width": {
-                "size": 5,
-                "unit": "%"
-              },
-              "height": {
-                "size": 5,
-                "unit": "%"
-              },
-              "bindings": {
-                "bindings": [],
-                "unbounded": "#66666620",
-                "has_text": true
-              }
-            },
-            "underline": {
-              "field": "",
-              "text_size": "14",
-              "text_align": "left",
-              "bindings_field": "",
-              "bindings": {
-                "bindings": [],
-                "unbounded": "#CCCCDCFF",
-                "has_text": true
-              }
-            },
-            "baseUrl": "https://s3-rgw-openshift-storage.{{ .Values.global.localClusterDomain }}/{{ .Values.global.xraylab.s3.bucketBaseName }}-anonymized/"
-          },
+          "id": 26,
           "links": [
             {
               "title": "Last Images",
               "url": "/d/lastimagesdashboard/last-images"
             }
-          ]
+          ],
+          "options": {
+            "alt_field": "",
+            "autofit": true,
+            "baseUrl": "https://s3-rgw-openshift-storage.{{ .Values.global.localClusterDomain }}/{{ .Values.global.xraylab.s3.bucketBaseName }}-anonymized/",
+            "height": "75",
+            "icon_field": "",
+            "open_url": {
+              "base_url": "https://s3-rgw-openshift-storage.{{ .Values.global.localClusterDomain }}/{{ .Values.global.xraylab.s3.bucketBaseName }}-anonymized/",
+              "enable": true,
+              "metric_field": "name",
+              "open_in_tab": true,
+              "suffix": ""
+            },
+            "overlay": {
+              "bindings": {
+                "bindings": [],
+                "has_text": true,
+                "unbounded": "#66666620"
+              },
+              "field": "",
+              "height": {
+                "size": 5,
+                "unit": "%"
+              },
+              "position": "Top right",
+              "width": {
+                "size": 5,
+                "unit": "%"
+              }
+            },
+            "shared_cross_hair": {
+              "backgroundColor": "#FFFFFF10",
+              "borderColor": "#FFFFFF20"
+            },
+            "singleFill": true,
+            "slideshow": {
+              "duration": 5000,
+              "enable": false,
+              "infinite": true,
+              "pauseOnHover": true,
+              "transition": "Slide",
+              "transition_duration": 1000
+            },
+            "tooltip": false,
+            "tooltip_date_elapsed": false,
+            "tooltip_field": "",
+            "tooltip_include_date": false,
+            "tooltip_include_field": true,
+            "underline": {
+              "bindings": {
+                "bindings": [],
+                "has_text": true,
+                "unbounded": "#CCCCDCFF"
+              },
+              "bindings_field": "",
+              "field": "",
+              "text_align": "left",
+              "text_size": "14"
+            },
+            "width": "75"
+          },
+          "pluginVersion": "4.0.0",
+          "targets": [
+            {
+              "dataset": "xraylabdb",
+              "datasource": "MySQL",
+              "editorMode": "code",
+              "format": "table",
+              "rawQuery": true,
+              "rawSql": "SELECT name FROM xraylabdb.images_anonymized WHERE name != '' ORDER by time DESC LIMIT 1",
+              "refId": "A",
+              "sql": {
+                "columns": [
+                  {
+                    "parameters": [],
+                    "type": "function"
+                  }
+                ],
+                "groupBy": [
+                  {
+                    "property": {
+                      "type": "string"
+                    },
+                    "type": "groupBy"
+                  }
+                ],
+                "limit": 50
+              }
+            }
+          ],
+          "title": "Last anonymized image",
+          "type": "dalvany-image-panel"
         },
         {
           "columns": [
@@ -1157,7 +1327,27 @@ spec:
           "datasource": "prometheus",
           "fieldConfig": {
             "defaults": {
-              "custom": {}
+              "custom": {
+                "align": "auto",
+                "cellOptions": {
+                  "type": "auto"
+                },
+                "inspect": false
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
             },
             "overrides": []
           },
@@ -1169,8 +1359,19 @@ spec:
             "y": 17
           },
           "id": 6,
-          "links": [],
-          "pageSize": null,
+          "options": {
+            "cellHeight": "sm",
+            "footer": {
+              "countRows": false,
+              "fields": "",
+              "reducer": [
+                "sum"
+              ],
+              "show": false
+            },
+            "showHeader": true
+          },
+          "pluginVersion": "10.4.3",
           "scroll": true,
           "showHeader": true,
           "sort": {
@@ -1226,6 +1427,7 @@ spec:
           ],
           "targets": [
             {
+              "datasource": "prometheus",
               "expr": "kube_deployment_status_replicas{deployment=~\"risk-assessment.*\",namespace=~'$namespace'}",
               "format": "time_series",
               "instant": true,
@@ -1240,53 +1442,88 @@ spec:
           "type": "table"
         },
         {
-          "aliasColors": {},
-          "bars": false,
-          "dashLength": 10,
-          "dashes": false,
           "datasource": "MySQL",
           "fieldConfig": {
             "defaults": {
-              "custom": {}
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 10,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "never",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "decimals": 0,
+              "mappings": [],
+              "min": 0,
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "short"
             },
             "overrides": []
           },
-          "fill": 1,
-          "fillGradient": 0,
           "gridPos": {
             "h": 4,
             "w": 5,
             "x": 7,
             "y": 17
           },
-          "hiddenSeries": false,
           "id": 16,
           "interval": "10s",
-          "legend": {
-            "avg": false,
-            "current": false,
-            "max": false,
-            "min": false,
-            "rightSide": true,
-            "show": true,
-            "total": false,
-            "values": false
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "list",
+              "placement": "right",
+              "showLegend": true
+            },
+            "tooltip": {
+              "mode": "multi",
+              "sort": "none"
+            }
           },
-          "lines": true,
-          "linewidth": 1,
-          "links": [],
-          "nullPointMode": "null",
-          "percentage": false,
-          "pluginVersion": "7.1.1",
-          "pointradius": 2,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [],
-          "spaceLength": 10,
-          "stack": false,
-          "steppedLine": false,
+          "pluginVersion": "10.4.3",
           "targets": [
             {
+              "datasource": "MySQL",
               "format": "time_series",
               "group": [
                 {
@@ -1299,7 +1536,7 @@ spec:
               ],
               "metricColumn": "model",
               "rawQuery": true,
-              "rawSql": "SELECT\n  $__timeGroupAlias(time,$__interval),\n  model AS metric,\n  count(model) AS \"model\"\nFROM images_processed\nWHERE\n  $__timeFilter(time \n  and\n  model != ''\nGROUP BY 1,2\nORDER BY $__timeGroup(time,$__interval)",
+              "rawSql": "SELECT\n  $__timeGroupAlias(time,$__interval),\n  model AS metric,\n  count(model) AS \"model\"\nFROM images_processed\nWHERE\n  $__timeFilter(time) \n  and\n  model != ''\nGROUP BY 1,2\nORDER BY $__timeGroup(time,$__interval)",
               "refId": "A",
               "select": [
                 [
@@ -1335,52 +1572,12 @@ spec:
               ]
             }
           ],
-          "thresholds": [],
-          "timeFrom": null,
-          "timeRegions": [],
-          "timeShift": null,
           "title": "Images processed by model version",
-          "tooltip": {
-            "shared": true,
-            "sort": 0,
-            "value_type": "individual"
-          },
-          "type": "graph",
-          "xaxis": {
-            "buckets": null,
-            "mode": "time",
-            "name": null,
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "decimals": 0,
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": "0",
-              "show": true
-            },
-            {
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            }
-          ],
-          "yaxis": {
-            "align": false,
-            "alignLevel": null
-          }
+          "type": "timeseries"
         }
       ],
       "refresh": "5s",
-      "schemaVersion": 26,
-      "style": "dark",
+      "schemaVersion": 39,
       "tags": [],
       "templating": {
         "list": [
@@ -1403,20 +1600,9 @@ spec:
             "type": "datasource"
           },
           {
-            "current": {
-              "text": "{{ .Values.global.xraylab.namespace }}",
-              "value": "{{ .Values.global.xraylab.namespace }}"
-            },
             "hide": 2,
             "label": "Namespace",
             "name": "namespace",
-            "options": [
-              {
-                "selected": true,
-                "text": "{{ .Values.global.xraylab.namespace }}",
-                "value": "{{ .Values.global.xraylab.namespace }}"
-              }
-            ],
             "query": "{{ .Values.global.xraylab.namespace }}",
             "skipUrlSync": false,
             "type": "constant"
@@ -1455,7 +1641,8 @@ spec:
       "timezone": "utc",
       "title": "XRay Lab",
       "uid": "hakbeh9Wz",
-      "version": 4
+      "version": 2,
+      "weekStart": ""
     }
   plugins:
   - name: larona-epict-panel
