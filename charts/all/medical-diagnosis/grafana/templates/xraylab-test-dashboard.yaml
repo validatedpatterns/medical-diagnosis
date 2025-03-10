@@ -1,0 +1,400 @@
+{{- if .Values.grafana.includeTestDashboard }}
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDashboard
+metadata:
+  labels:
+    app: grafana
+    grafana: dashboard
+  name: xraylab-test-dashboard
+  namespace: {{ .Values.global.xraylab.namespace }}
+spec:
+  instanceSelector:
+    matchLabels:
+      dashboards: "grafana"
+  json: |
+    {
+      "annotations": {
+        "list": [
+          {
+            "builtIn": 1,
+            "datasource": "-- Grafana --",
+            "enable": true,
+            "hide": true,
+            "iconColor": "rgba(0, 211, 255, 1)",
+            "name": "Annotations & Alerts",
+            "type": "dashboard"
+          }
+        ]
+      },
+      "editable": true,
+      "fiscalYearStartMonth": 0,
+      "graphTooltip": 0,
+      "id": 4,
+      "links": [],
+      "panels": [
+        {
+          "datasource": "MySQL",
+          "fieldConfig": {
+            "defaults": {},
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 8,
+            "x": 0,
+            "y": 0
+          },
+          "id": 1,
+          "options": {
+            "alt_field": "",
+            "autofit": false,
+            "baseUrl": "https://s3-rgw-openshift-storage.{{ .Values.global.localClusterDomain }}/{{ .Values.global.xraylab.s3.bucketBaseName }}/",
+            "height": "75",
+            "icon_field": "",
+            "open_url": {
+              "base_url": "",
+              "enable": false,
+              "metric_field": "",
+              "open_in_tab": true,
+              "suffix": ""
+            },
+            "overlay": {
+              "bindings": {
+                "bindings": [],
+                "has_text": true,
+                "unbounded": "#66666620"
+              },
+              "field": "",
+              "height": {
+                "size": 5,
+                "unit": "%"
+              },
+              "position": "Top right",
+              "width": {
+                "size": 5,
+                "unit": "%"
+              }
+            },
+            "shared_cross_hair": {
+              "backgroundColor": "#FFFFFF10",
+              "borderColor": "#FFFFFF20"
+            },
+            "singleFill": true,
+            "slideshow": {
+              "duration": 5000,
+              "enable": false,
+              "infinite": true,
+              "pauseOnHover": true,
+              "transition": "Slide",
+              "transition_duration": 1000
+            },
+            "tooltip": false,
+            "tooltip_date_elapsed": false,
+            "tooltip_field": "",
+            "tooltip_include_date": false,
+            "tooltip_include_field": true,
+            "underline": {
+              "bindings": {
+                "bindings": [],
+                "has_text": true,
+                "unbounded": "#CCCCDCFF"
+              },
+              "bindings_field": "",
+              "field": "",
+              "text_align": "left",
+              "text_size": "14"
+            },
+            "width": "75"
+          },
+          "pluginVersion": "4.0.0",
+          "targets": [
+            {
+              "dataset": "xraylabdb",
+              "datasource": "MySQL",
+              "editorMode": "code",
+              "format": "table",
+              "rawQuery": true,
+              "rawSql": "SELECT name FROM xraylabdb.images_uploaded WHERE name = 'demo_Barbara Campbell_5798_1962-07-16_2016-11-07.jpeg' ORDER by time DESC LIMIT 1",
+              "refId": "A",
+              "sql": {
+                "columns": [
+                  {
+                    "parameters": [],
+                    "type": "function"
+                  }
+                ],
+                "groupBy": [
+                  {
+                    "property": {
+                      "type": "string"
+                    },
+                    "type": "groupBy"
+                  }
+                ],
+                "limit": 50
+              }
+            }
+          ],
+          "title": "Test uploaded image",
+          "type": "dalvany-image-panel"
+        },
+        {
+          "datasource": "MySQL",
+          "fieldConfig": {
+            "defaults": {},
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 8,
+            "x": 8,
+            "y": 0
+          },
+          "id": 2,
+          "options": {
+            "alt_field": "",
+            "autofit": false,
+            "baseUrl": "https://s3-rgw-openshift-storage.{{ .Values.global.localClusterDomain }}/{{ .Values.global.xraylab.s3.bucketBaseName }}-processed/",
+            "height": "75",
+            "icon_field": "",
+            "open_url": {
+              "base_url": "",
+              "enable": false,
+              "metric_field": "",
+              "open_in_tab": true,
+              "suffix": ""
+            },
+            "overlay": {
+              "bindings": {
+                "bindings": [],
+                "has_text": true,
+                "unbounded": "#66666620"
+              },
+              "field": "",
+              "height": {
+                "size": 5,
+                "unit": "%"
+              },
+              "position": "Top right",
+              "width": {
+                "size": 5,
+                "unit": "%"
+              }
+            },
+            "shared_cross_hair": {
+              "backgroundColor": "#FFFFFF10",
+              "borderColor": "#FFFFFF20"
+            },
+            "singleFill": true,
+            "slideshow": {
+              "duration": 5000,
+              "enable": false,
+              "infinite": true,
+              "pauseOnHover": true,
+              "transition": "Slide",
+              "transition_duration": 1000
+            },
+            "tooltip": false,
+            "tooltip_date_elapsed": false,
+            "tooltip_field": "",
+            "tooltip_include_date": false,
+            "tooltip_include_field": true,
+            "underline": {
+              "bindings": {
+                "bindings": [],
+                "has_text": true,
+                "unbounded": "#CCCCDCFF"
+              },
+              "bindings_field": "",
+              "field": "",
+              "text_align": "left",
+              "text_size": "14"
+            },
+            "width": "75"
+          },
+          "pluginVersion": "4.0.0",
+          "targets": [
+            {
+              "dataset": "xraylabdb",
+              "datasource": "MySQL",
+              "editorMode": "code",
+              "format": "table",
+              "rawQuery": true,
+              "rawSql": "SELECT name FROM xraylabdb.images_processed WHERE name = 'demo_Barbara Campbell_5798_1962-07-16_2016-11-07-processed.jpeg' ORDER by time DESC LIMIT 1",
+              "refId": "A",
+              "sql": {
+                "columns": [
+                  {
+                    "parameters": [],
+                    "type": "function"
+                  }
+                ],
+                "groupBy": [
+                  {
+                    "property": {
+                      "type": "string"
+                    },
+                    "type": "groupBy"
+                  }
+                ],
+                "limit": 50
+              }
+            }
+          ],
+          "title": "Test processed image",
+          "type": "dalvany-image-panel"
+        },
+        {
+          "datasource": "MySQL",
+          "fieldConfig": {
+            "defaults": {},
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 8,
+            "x": 16,
+            "y": 0
+          },
+          "id": 3,
+          "options": {
+            "alt_field": "",
+            "autofit": false,
+            "baseUrl": "https://s3-rgw-openshift-storage.{{ .Values.global.localClusterDomain }}/{{ .Values.global.xraylab.s3.bucketBaseName }}-anonymized/",
+            "height": "75",
+            "icon_field": "",
+            "open_url": {
+              "base_url": "",
+              "enable": false,
+              "metric_field": "",
+              "open_in_tab": true,
+              "suffix": ""
+            },
+            "overlay": {
+              "bindings": {
+                "bindings": [],
+                "has_text": true,
+                "unbounded": "#66666620"
+              },
+              "field": "",
+              "height": {
+                "size": 5,
+                "unit": "%"
+              },
+              "position": "Top right",
+              "width": {
+                "size": 5,
+                "unit": "%"
+              }
+            },
+            "shared_cross_hair": {
+              "backgroundColor": "#FFFFFF10",
+              "borderColor": "#FFFFFF20"
+            },
+            "singleFill": true,
+            "slideshow": {
+              "duration": 5000,
+              "enable": false,
+              "infinite": true,
+              "pauseOnHover": true,
+              "transition": "Slide",
+              "transition_duration": 1000
+            },
+            "tooltip": false,
+            "tooltip_date_elapsed": false,
+            "tooltip_field": "",
+            "tooltip_include_date": false,
+            "tooltip_include_field": true,
+            "underline": {
+              "bindings": {
+                "bindings": [],
+                "has_text": true,
+                "unbounded": "#CCCCDCFF"
+              },
+              "bindings_field": "",
+              "field": "",
+              "text_align": "left",
+              "text_size": "14"
+            },
+            "width": "75"
+          },
+          "pluginVersion": "4.0.0",
+          "targets": [
+            {
+              "dataset": "xraylabdb",
+              "datasource": "MySQL",
+              "editorMode": "code",
+              "format": "table",
+              "rawQuery": true,
+              "rawSql": "SELECT name FROM xraylabdb.images_anonymized WHERE name = 'demo_XXXXXXXX_e6bcdde4_XXXX-XX-XX_2016-11-07.jpeg' ORDER by time DESC LIMIT 1",
+              "refId": "A",
+              "sql": {
+                "columns": [
+                  {
+                    "parameters": [],
+                    "type": "function"
+                  }
+                ],
+                "groupBy": [
+                  {
+                    "property": {
+                      "type": "string"
+                    },
+                    "type": "groupBy"
+                  }
+                ],
+                "limit": 50
+              }
+            }
+          ],
+          "title": "Test anonymized image",
+          "type": "dalvany-image-panel"
+        }
+      ],
+      "refresh": "5s",
+      "preload": false,
+      "schemaVersion": 40,
+      "tags": [],
+      "templating": {
+        "list": []
+      },
+      "time": {
+        "from": "now-5m",
+        "to": "now"
+      },
+      "timepicker": {
+        "refresh_intervals": [
+          "5s",
+          "10s",
+          "30s",
+          "1m",
+          "5m",
+          "15m",
+          "30m",
+          "1h",
+          "2h",
+          "1d"
+        ],
+        "time_options": [
+          "5m",
+          "15m",
+          "1h",
+          "6h",
+          "12h",
+          "24h",
+          "2d",
+          "7d",
+          "30d"
+        ]
+      },
+      "timepicker": {},
+      "timezone": "utc",
+      "title": "Xray Test Dashboard",
+      "uid": "testimagesdashboard",
+      "version": 1,
+      "weekStart": ""
+    }
+  plugins:
+    - name: dalvany-image-panel
+      version: 4.0.0
+{{- end }}
