@@ -12,6 +12,7 @@ secretStore:
 
 grafana:
   key: secret/data/hub/grafana
+  includeTestDashboard: false
 
 rbac:
   createServiceAccount: true
