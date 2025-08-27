@@ -1,5 +1,4 @@
 storageSystem:
-  deploy: true
   inventory:
     useSpecificNodes: false
 
@@ -60,10 +59,6 @@ clusterGroup:
       project: medical-diagnosis
       chart: openshift-data-foundations
       chartVersion: 0.2.*
-      overrides:
-        - name: storageSystem.deploy
-          value: 'false'
-
 
     openshift-serverless:
       name: serverless
