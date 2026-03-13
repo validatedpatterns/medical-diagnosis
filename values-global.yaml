@@ -1,35 +1,22 @@
 global:
   pattern: xray
 
-  options:
-    useCSV: False
-    syncPolicy: Automatic
-    installPlanApproval: Automatic
-
   datacenter:
-    storageClassName: gp3-csi
+    storageClassName: ocs-storagecluster-cephfs
+    cloudProvider: onprem
+    region: local
+    clustername: <your-ocp-cluster-name>
+    domain: 698a7c2d3930333074587e84.am1.techzone.ibm.com
 
   xraylab:
     namespace: "xraylab-1"
-
     s3:
-      # Values for S3 bucket access
-      # bucketSource: "provide s3 bucket name where images are stored"
-      bucketSource: validated-patterns-md-xray
-      # Bucket base name used for image-generator
+      bucketSource: "xray-source"
       bucketBaseName: "xray-source"
+      endpoint: "http://rook-ceph-rgw-ocs-storagecluster-cephobjectstore.openshift-storage.svc.cluster.local"
 
 main:
   clusterGroupName: hub
   multiSourceConfig:
     enabled: true
-    clusterGroupChartVersion: 0.9.*
-
-# Example Configuration
-  #datacenter:
-  #  cloudProvider: aws
-  #  storageClassName: gp2
-  #  region: us-east-1
-  #  clustername: example-sample
-  #  domain: patterns.redhat.com
-
+  clusterGroupChartVersion: 0.9.*
