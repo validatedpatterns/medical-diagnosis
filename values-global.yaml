@@ -1,6 +1,8 @@
 global:
   pattern: xray
 
+  singleArgoCD: true
+
   options:
     useCSV: False
     syncPolicy: Automatic
