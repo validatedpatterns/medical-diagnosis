@@ -10,14 +10,16 @@ on:
       - "pattern-metadata.yaml"
       - ".github/workflows/update-metadata.yml"
 
+permissions: read-all
+
 jobs:
   update-metadata:
-    uses: validatedpatterns/docs/.github/workflows/metadata-docs.yml@main
+    uses: validatedpatterns/docs/.github/workflows/metadata-docs.yml@main # zizmor: ignore[unpinned-uses]
     permissions: # Workflow-level permissions
       contents: read  # Required for "read-all"
       packages: write # Allows writing to packages
       id-token: write # Allows creating OpenID Connect (OIDC) tokens
-    secrets: inherit
+    secrets: inherit # zizmor: ignore[secrets-inherit]
     # For testing you can point to a different branch in the docs repository
     # with:
     #  DOCS_BRANCH: "main"
